@@ -7,7 +7,8 @@ class HotelReservationSystem:
     def __init__(self):
         self.__hotel = []
         self.__user = []
-        self.__location = []
+        self.__country = []
+        self.__city = []
         self.__payment = []
     
     @property
@@ -27,12 +28,20 @@ class HotelReservationSystem:
         self.__user.append(user)
     
     @property
-    def location(self):
-        return self.__location
+    def country(self):
+        return self.__country
     
-    @location.setter
-    def location(self, location:object):
-        self.__location.append(location)
+    @country.setter
+    def country(self, country:object):
+        self.__country.append(country)
+    
+    @property
+    def city(self):
+        return self.__city
+    
+    @city.setter
+    def city(self, city:object):
+        self.__city.append(city)
     
     @property
     def payment(self):
@@ -42,7 +51,38 @@ class HotelReservationSystem:
     def payment(self, payment):
         self.__payment.append(payment)
     
-    def show_user(self):
+    # utility function
+
+    def str_to_datetime(self, date:str) -> object: # date form: dd-mm-yy
+        date = date.split('-')
+        return datetime.date(int(date[2]), int(date[1]), int(date[0]))
+
+    def search_user_by_id(self, id:int) -> object:
+        for user in self.__user:
+            if id == user.user_id:
+                return user
+        return None
+    
+    def search_hotel_by_id(self, id:int) -> object:
+        for hotel in self.__hotel:
+            if id == hotel.id:
+                return hotel
+        return None
+    
+    def search_hotel_by_name(self, name:str) -> object:
+        for hotel in self.__hotel:
+            if hotel.name == name:
+                return hotel
+    
+    def is_overlap(self, start1:object, end1:object, start2:object, end2:object) -> bool:
+        if (start1 < start2 and end1 < start2) or (start1 > end2):
+            return False
+        else:
+            return True
+
+    # api function
+
+    def show_user(self, id:int) -> dict:
         user = self.search_user_by_id(id)
         result = {}
         result["my account"] = {
@@ -54,20 +94,30 @@ class HotelReservationSystem:
         result["purchase list"] = user.receipt
         return result
     
-    def search_hotel(self, start_date:str, end_date:str, guest:int = 1, country:str = None, city:str = None, price:int = "0-40000", ratings:int = "1-2-3-4-5"):
+    def show_recommend(self):
+        result = {}
+        dict_country = {}
+        dict_city = {}
+        for country in self.__country:
+            dict_country[country] = self.search_hotel('1-1-2000', '2-1-2000', 1, country)
+        result["country"] = dict_country
+        for city in self.__city:
+            dict_city[city] = self.search_hotel('1-1-2000', '2-1-2000', 1, None, city)
+        result["city"] = dict_city
+        return result
+    
+    def search_hotel(self, start:str, end:str, guest:int = 1, country:str = None, city:str = None, price:int = "0-40000", ratings:int = "0-1-2-3-4-5") -> dict:
         hotel_list = []
-        start_date = start_date.split('-')
-        start_date = datetime.date(int(start_date[2]), int(start_date[1]), int(start_date[0]))
-        end_date = end_date.split('-')
-        end_date = datetime.date(int(end_date[2]), int(end_date[1]), int(end_date[0]))
-        price = price.split('-')
-        ratings = ratings.split('-')
+        start = self.str_to_datetime(start)
+        end = self.str_to_datetime(end)
+        price = [int(number) for number in price.split('-')]
+        ratings = [int(number) for number in ratings.split('-')]
         for hotel in self.__hotel:
             if country != hotel.location.country and country != None:
                 continue
             if city != hotel.location.city and city != None:
                 continue
-            if price[0] < hotel.room.cheapest_room() or price[1] > hotel.room.cheapest_room():
+            if hotel.cheapest_room().price < price[0] or hotel.cheapest_room().price > price[1]:
                 continue
             check_rate = False
             for rate in ratings:
@@ -85,7 +135,7 @@ class HotelReservationSystem:
                     break
                 available = False
                 for resevation in room.reservation:
-                    if (start_date < resevation.date_in and end_date < resevation.date_out) or (start_date > resevation.date_in and end_date > resevation.date_out):
+                    if self.is_overlap(start, end, resevation.date_in, resevation.date_out) == False:
                         available = True
                     else:
                         available = False
@@ -94,48 +144,79 @@ class HotelReservationSystem:
         result = {}
         for hotel in hotel_list:
             result[hotel.name] = {
-                "Location" : hotel.location.city + ", " + hotel.location.country,
-                "Price" : hotel.room[0].price
+                "Rating" : hotel.average_rating(),
+                "Location" : hotel.location.country + ", " + hotel.location.city,
+                "Price" : hotel.cheapest_room().price
             }
         return result
-    
-    def search_hotel_by_name(self, name):
-        for hotel in self.__hotel:
-            if hotel.name == name:
-                return hotel
     
     def get_hotel_details(self, name: str):
         selected_hotel = None
         for hotel in self.__hotel:
             if name == hotel.name:
                 selected_hotel = hotel
-                
-                return {
-            'name': selected_hotel.name,
-            'available room': [{'detail': room.detail, 'price': room.price, 'guests': room.guests} for room in selected_hotel.room if room.available],
-            'feedback': [{'user': feedback.user.name, 'comment': feedback.comment, 'rating': feedback.rating, 'time': feedback.time} for feedback in selected_hotel.feedback]
-        }
-        else:
-            raise HTTPException(status_code=404, detail="Hotel not found")
-    
-    def search_user_by_id(self, id:int):
-        for user in self.__user:
-            if id == user.user_id:
-                return user
-        return None
+                # https://www.google.com/maps/@[Latitude],[Longtitude]
+                link = f'https://www.google.com/maps/@{selected_hotel.location.coordinates[0]},{selected_hotel.location.coordinates[1]}'
 
-    def create_reservation(self, hotel_id, detail, user, start, end):
-        for hotels in self.__hotel:
-            for users in self.__user:
-                if users.user_id == user:
+                reccommend_hotel = []
+                for rec in self.__hotel:
+                    if hotel.location.city == rec.location.city and rec != selected_hotel:
+                        recommended_price = rec.cheapest_room()
+                        discounted_price = "No available discount"
+
+                        if any(room.discount for room in rec.room):
+                            discounted_price = min([room.final_price for room in rec.room if room.discount is not None])
+                            recommended_price = min(recommended_price, discounted_price)
+
+                        recdict = {
+                            "name": rec.name,
+                            "location": rec.location.city,
+                            "rating": rec.average_rating(),
+                            "price": recommended_price.price,
+                            "discounted price": discounted_price
+                        }
+
+                        reccommend_hotel.append(recdict)
+                for room in selected_hotel.room:
+                    if room.available:
+                        if room.final_price == room.price:
+                            final_price = "No available discount"
+                        else:
+                            final_price = room.final_price
+                        if reccommend_hotel:
+                            your_select = {
+                                'name': selected_hotel.name,
+                                'location': link,
+                                'available room': [{'detail': room.detail,
+                                                    'price': room.price,
+                                                    'discounted price': final_price,
+                                                    'guests': room.guests}],
+                                'feedback': [{'user': feedback.user.name,
+                                            'comment': feedback.comment,
+                                            'rating': feedback.rating,
+                                            'time': feedback.time} for feedback in selected_hotel.feedback]
+                            }
+
+                            final_result = {'Hotel': your_select, 'Recommend hotels': reccommend_hotel}
+                            return final_result
+
+        raise HTTPException(status_code=404, detail="Hotel not found")
+
+    def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
+        for users in self.__user:
+            if users.user_id == user:
+                for hotels in self.__hotel:
                     if hotel_id == hotels.id: 
                         for rooms in hotels.room:
-                            if detail == rooms.detail:
+                            if room_detail == rooms.detail:
+                                start = start.split('-')
+                                start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
+                                end = end.split('-')
+                                end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
                                 data = Reservation(users.name, start, end)
                                 data.hotel_id = hotels.id
-                                data.room_detail = detail
-                                rooms.reservation = data
-                                users.reservation = data
+                                data.room_detail = room_detail
+                                users.cart = data
                                 return {
                                     "ID" : data.id,
                                     "Hotel" : hotels.name,
@@ -144,26 +225,30 @@ class HotelReservationSystem:
                                     "End date" : data.date_out,
                                     "Price" : rooms.price,
                                     "Detail" : rooms.detail,
-                                    "Guests" : rooms.guests
+                                    "Guests" : rooms.guests,
+                                    "Hotel Rating" : hotels.average_rating(),
+                                    "Location":hotels.location,
+                                    "Discount" : rooms.final_price,
+                                    "Image": hotels.imgsrc
                                 }
-        return "404 User Not Found"
-        
+        return "User Error"
+
     
-    def get_reservation_details(self, user): #User ID Parameter
-        flag = 0
-        target = None
-        for users in self.__user:
-            if users.user_id == user:
-                target = users
-                flag = 1
-        if flag == 1:
-            reserve = {}
-            reserve["Reservation"] = target.reservation
-            if target.reservation == []:
-                return "No Reservation"
-            return reserve
+    # def get_reservation_details(self, user): #User ID Parameter
+    #     flag = 0
+    #     target = None
+    #     for users in self.__user:
+    #         if users.user_id == user:
+    #             target = users
+    #             flag = 1
+    #     if flag == 1:
+    #         reserve = {}
+    #         reserve["Reservation"] = target.reservation
+    #         if target.reservation == []:
+    #             return "No Reservation"
+    #         return reserve
       
-     def change_reservation(self, user_id, reservation_id, new_date_in, new_date_out):
+    def change_reservation(self, user_id : int, reservation_id : int, new_date_in : str, new_date_out : str) -> dict:
         for user in self.__user:
             if user.user_id == user_id:
                 for reservation in user.reservation:
@@ -179,7 +264,7 @@ class HotelReservationSystem:
                             if hotels.id == reservation.hotel_id:
                                 for rooms in hotels.room:
                                     if reservation.room_detail == rooms.detail:
-                                        if rooms.isavailable(rooms,new_date_in,new_date_out):                   
+                                        if rooms.isavailable(new_date_in,new_date_out):                   
                                             old_reservation_date_in = reservation.date_in
                                             old_reservation_date_out = reservation.date_out
                                             reservation.date_in = new_date_in
@@ -190,38 +275,65 @@ class HotelReservationSystem:
                                                 "Your New Check in Date:": reservation.date_in,
                                                 "Your New Check out Date": reservation.date_out
                         }
+                                    return "Room Busy"
                 return "No Reservation ID"
         return "User Not Found"
+    
+    def cancel_reservation(self, user_id : int , reservation_id : int) -> str:
+       for user in self.__user:
+            if user.user_id == user_id:
+                for reservation in user.reservation:
+                    if reservation.id == reservation_id:
+                        user.cancel_reservation(reservation)
+                        hotel = reservation.hotel_id
+                        for hotels in self.__hotel:
+                            if hotels.id == hotel:
+                                for rooms in hotels.room:
+                                    for reservations in rooms.reservation:
+                                        if reservations.id == reservation_id:
+                                            rooms.cancel_reservation(reservation)
+                                            return "Cancelled Reservation"
+            return "ERROR"
 
         
-    #Payment(name,price,hotel,room)
-    def add_payment(self, payment):
+    def add_payment(self, payment : object) -> dict:
         for users in self.__user:
-            if payment.name() == users.name(): #THIS SHIT IS WRONG
+            if payment.user_id == users.user_id: #THIS SHIT IS WRONG
                 for hotels in self.__hotel:
-                    if payment.hotel() == hotels.name():
-                        for rooms in hotels.room():
-                            if payment.room() == rooms.detail():
+                    if payment.hotel == hotels.name:
+                        for rooms in hotels.room:
+                            if payment.room == rooms.detail:
                                 self.__payment.append(payment)
+                                if users.cart == None:
+                                    return "Payment Error"
+                                rooms.reservation.append(users.cart)
+                                users.reservation.append(users.cart)
+                                users.cart = None
                                 return {
-                                    "Name" : payment.name(),
-                                    "Hotel" : payment.hotel(),
-                                    "Room" : payment.room()                                 
+                                    "Name" : users.name,
+                                    "Hotel" : payment.hotel,
+                                    "Room" : payment.room                                
                                 }
             return "ERROR"
-        
-        ## This Code IS FUCK UP
 
-    def add_receipt(self, receipt):
-        self.__receipt.append(receipt)
-        return {
-            "Name" : receipt.payment().name(),
-            "Hotel" : receipt.payment().hotel(),
-            "Room" : receipt.payment().room(),
-            "Check in Date" : receipt.checkin(),
-            "Check out Date" : receipt.checkout(),
-            "Price" : receipt.payment().amount()
-        }
+    
+    def add_feedback(self, user, comment: str, rating: int, time: str):
+        for reservation in user.reservation:
+            today = datetime.date.today()
+            if reservation.date_out < today:
+                for hotel in self.__hotel:
+                    if hotel.id == reservation.hotel_id:
+                        feedback = Feedback(user, comment, rating, time)
+                        hotel.feedback = feedback
+                        return {
+                            "User": user.name,
+                            "Hotel": hotel.name,
+                            "Comment": comment,
+                            "Rating": rating,
+                            "Time": time
+                        }
+                    
+        return "No completed reservations for feedback"
 
 class Hotel:
     __code = 0
@@ -232,6 +344,7 @@ class Hotel:
         self.__location = location
         self.__rooms = []
         self.__feedback = []
+        self.__imgsrc = None
     
     @property
     def id(self):
@@ -261,11 +374,27 @@ class Hotel:
     def feedback(self, feedback:object):
         self.__feedback.append(feedback)
 
+    @property
+    def imgsrc(self):
+        return self.__imgsrc
+    
+    @imgsrc.setter
+    def imgsrc(self,link):
+        self.__imgsrc = link
+
     def cheapest_room(self):
-        return min([room.price for room in self.__rooms])
+        min_price = 40000
+        result = None
+        for room in self.__rooms:
+            if room.price < min_price:
+                min_price = room.price
+                result = room
+        return result
     
     def average_rating(self):
-        return sum(feedback.rating for feedback in self.__feedback) / len(self.__feedback)
+        if len(self.__feedback) == 0:
+            return 0
+        return round((sum(feedback.rating for feedback in self.__feedback) / len(self.__feedback)),2)
     
     def search_room_by_name(self, name):
         for rooms in self.__rooms:
@@ -277,18 +406,6 @@ class Location:
         self.__country = country
         self.__city = city
         self.__coordinates = coordinates
-    #     if country not in Location.__all_country:
-    #         Location.__all_country.append(country)
-    #     if city not in Location.__all_city:
-    #         Location.__all_city.append(city)
-    
-    # @property
-    # def all_country(self):
-    #     return Location.__all_country
-    
-    # @property
-    # def all_city(self):
-    #     return Location.__all_city
 
     @property
     def country(self):
@@ -309,6 +426,7 @@ class Room:
         self.__guests = guests
         self.__reservation = []
         self.__isavailable = True
+        self.__discount = None
 
     @property
     def detail(self):
@@ -326,22 +444,17 @@ class Room:
     def reservation(self):
         return self.__reservation
     
-    @property
     def isavailable(self,start,end):
-        start = start.split('-')
-        end = end.split('-')
-        start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
-        end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
         for reservations in self.__reservation:
             reservestart = reservations.date_in
-            reservestart = reservestart.split("-")
-            reservestart = datetime.date(int(reservestart[2]), int(reservestart[1]), int(reservestart[0]))
             reserveend = reservations.date_out
-            reserveend = reserveend.split("-")
-            reserveend = datetime.date(int(reserveend[2]), int(reserveend[1]), int(reserveend[0]))
-            if(start < reserveend and end > reservestart):
+            if(start < reserveend and end > reservestart): ### Need Fixed ###
                 return False
             return True
+    
+    def cancel_reservation(self,reserve):
+         self.__reservation.remove(reserve)
+
     @property
     def available(self):
         return self.__isavailable
@@ -350,9 +463,23 @@ class Room:
     def toggle(self):
         self.__isavailable = not self.__isavailable
     
+    @property
+    def discount(self):
+        return self.__discount
+    
+    @property
+    def final_price(self):
+        if self.__discount != None:
+            self.__price = self.__price*self.__discount
+        return self.__price
+
     @reservation.setter
     def reservation(self, reservation:object):
         self.__reservation.append(reservation)
+
+    @discount.setter
+    def discount(self, discount):
+        self.__discount = discount
 
     
 
@@ -419,6 +546,7 @@ class User:
         self.__email = email
         self.__receipt = []
         self.__reservation = []
+        self.__cart = None
 
     @property
     def user_id(self):
@@ -471,7 +599,18 @@ class User:
     @reservation.setter
     def reservation(self,reservation):
         self.__reservation.append(reservation)
+    
+    @property
+    def cart(self):
+        return self.__cart
+    
+    @cart.setter
+    def cart(self,cart):
+        self.__cart = cart
 
+    def cancel_reservation(self,reserve):
+         self.__reservation.remove(reserve)
+         
 class Feedback:
     def __init__(self, user:object, comment:str, rating:int, time:int):
         self.__user = user
@@ -497,16 +636,16 @@ class Feedback:
 
 class Payment:
     __code = 0
-    def __init__(self,username,amount,hotelname,room):
+    def __init__(self,user_id,amount,hotelname,room):
         Payment.__code += 1
         self.id = Payment.__code
-        self.__user = username
+        self.__user = user_id
         self.__amount = amount
         self.__hotelname = hotelname
         self.__hotelroom = room
 
     @property
-    def name(self):
+    def user_id(self):
         return self.__user
     
     @property
@@ -538,6 +677,11 @@ class Discount:
     @property
     def expiration(self):
         return self.__expiration
+    
+    @amount.setter
+    def amount(self,amount):
+        if(amount.isnumeric() and amount <= 1):
+            self.__amount = amount
 
 class Receipt:
     def __init__(self,payment,checkin,checkout):
@@ -556,4 +700,5 @@ class Receipt:
     @property
     def checkout(self):
         return self.__checkout
-    
+
+
