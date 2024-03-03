@@ -733,9 +733,9 @@ class Receipt:
     def checkout(self):
         return self.__checkout
 
-class User_information(BaseModel):
-    name : str
-    email : str
-    telephone : str
+# class User_information(BaseModel):
+#     name : str
+#     email : str
+#     telephone : str
 
 
