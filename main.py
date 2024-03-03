@@ -156,9 +156,7 @@ class HotelReservationSystem:
         for hotel in self.__hotel:
             if name == hotel.name:
                 selected_hotel = hotel
-                # https://www.google.com/maps/@[Latitude],[Longtitude]
-                link = f'https://www.google.com/maps/@{selected_hotel.location.coordinates[0]},{selected_hotel.location.coordinates[1]}'
-
+                link = hotel.location.map
                 reccommend_hotel = []
                 for rec in self.__hotel:
                     if hotel.location.city == rec.location.city and rec != selected_hotel:
@@ -198,10 +196,11 @@ class HotelReservationSystem:
                                             'time': feedback.time} for feedback in selected_hotel.feedback]
                             }
 
-                            final_result = {'Hotel': your_select, 'Recommend hotels': reccommend_hotel}
+                            final_result = {'Hotel': your_select, 'Recommend nearby hotels': reccommend_hotel}
                             return final_result
 
         raise HTTPException(status_code=404, detail="Hotel not found")
+
 
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
         for users in self.__user:
@@ -322,24 +321,27 @@ class HotelReservationSystem:
                                 }
         return "ERROR"
 
-    
-    def add_feedback(self, user, comment: str, rating: int, time: str):
-        for reservation in user.reservation:
-            today = datetime.date.today()
-            if reservation.date_out < today:
-                for hotel in self.__hotel:
-                    if hotel.id == reservation.hotel_id:
-                        feedback = Feedback(user, comment, rating, time)
-                        hotel.feedback = feedback
-                        return {
-                            "User": user.name,
-                            "Hotel": hotel.name,
-                            "Comment": comment,
-                            "Rating": rating,
-                            "Time": time
-                        }
-                    
-        return "No completed reservations for feedback"
+    def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str, images: list):
+        for user in self.__user:
+            if user.name == user_name:
+                for reservation in user.reservation:
+                    today = datetime.date.today()
+                    if reservation.date_out < today:
+                        for hotel in self.__hotel:
+                            if hotel.name == hotel_name:
+                                feedback = Feedback(user, comment, rating, time)
+                                feedback.images.append(images)
+                                hotel.feedback.append(feedback)
+                                return {
+                                    "User": user.name,
+                                    "Hotel": hotel.name,
+                                    "Comment": comment,
+                                    "Images": images,
+                                    "Rating": rating,
+                                    "Time": time
+                                }
+        
+        raise HTTPException(status_code=400, detail="No completed reservations for feedback")
 
 class Hotel:
     __code = 0
@@ -350,7 +352,7 @@ class Hotel:
         self.__location = location
         self.__rooms = []
         self.__feedback = []
-        self.__imgsrc = None
+        self.__imgsrc = []
     
     @property
     def id(self):
@@ -380,13 +382,13 @@ class Hotel:
     def feedback(self, feedback:object):
         self.__feedback.append(feedback)
 
-    @property
+   @property
     def imgsrc(self):
         return self.__imgsrc
     
     @imgsrc.setter
-    def imgsrc(self,link):
-        self.__imgsrc = link
+    def imgsrc(self, link):
+        self.__imgsrc.append(link)
 
     def cheapest_room(self):
         min_price = 40000
@@ -408,10 +410,10 @@ class Hotel:
                 return rooms
     
 class Location:
-    def __init__(self, country:str, city:str, coordinates:int):
+    def __init__(self, country:str, city:str, map):
         self.__country = country
         self.__city = city
-        self.__coordinates = coordinates
+        self.__map = map
 
     @property
     def country(self):
@@ -422,8 +424,8 @@ class Location:
         return self.__city
     
     @property
-    def coordinates(self):
-        return self.__coordinates
+    def map(self):
+        return self.__map
 
 class Room:
     def __init__(self, detail:str, price:int, guests:int):
@@ -623,6 +625,7 @@ class Feedback:
         self.__comment = comment
         self.__rating = rating
         self.__time = time
+        self.__images = []
     
     @property
     def user(self):
@@ -639,6 +642,14 @@ class Feedback:
     @property
     def time(self):
         return self.__time
+
+    @property
+    def images(self):
+        return self.__images
+
+    @images.setter
+    def images(self, images):
+        self.__images = images
 
 class Payment:
     __code = 0
