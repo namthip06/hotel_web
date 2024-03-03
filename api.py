@@ -68,8 +68,8 @@ async def create_reservation(hotel_id:int, detail:str, user:int, start:str, end:
 # ---------------------PAYMENT----------------------------
 # http://127.0.0.1:8000/payment/?name=Anna&hotel=hotel%20one&room=Breakfast%20not%20included&checkin=11-09-2023&checkout=02-10-2023
 @app.get("/payment/")
-async def pay(name:int,hotel:str,room:str,price:int):
-    payment = hotel_list.myHotel.add_payment(main.Payment(name,price,hotel,room)) 
+async def pay(user_id: int, reservation_id: int):
+    payment = hotel_list.myHotel.add_payment(user_id, reservation_id)
     return payment
 # --------------------------------------------------------
 
