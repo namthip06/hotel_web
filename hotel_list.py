@@ -303,12 +303,12 @@ myHotel.hotel[49].imgsrc = ["https://dynamic-media-cdn.tripadvisor.com/media/pho
                            "https://cf.bstatic.com/xdata/images/hotel/max1024x768/227872404.jpg?k=64b5c6ceff84c3dbd05f9af530fbdffc116755fe5015ee02a75bf0d8a817e58b&o=&hp=1",
                            "https://cf.bstatic.com/xdata/images/hotel/max1024x768/81814915.jpg?k=203261f08aaf8eaab1a4d74698927b33cd0ed8655c7ee8c9b91ae121ae094996&o=&hp=1"] 
 
-for hotel in range(1, 51):
-    for room in range(1, 11):
-        myHotel.hotel[hotel].room.append(main.Room("Single Bed", 1000, 1))
-        myHotel.hotel[hotel].room.append(main.Room("Double Bed", 1500, 2))
-        myHotel.hotel[hotel].room.append(main.Room("Queen Size Bed", 2500, 3))
-        myHotel.hotel[hotel].room.append(main.Room("King Size Bed", 4000, 4))
+for hotel in myHotel.hotel:
+    for _ in range(2):
+        hotel.room.append(main.Room("Single Bed", 1000, 1))
+        hotel.room.append(main.Room("Double Bed", 1500, 2))
+        hotel.room.append(main.Room("Queen Size Bed", 2500, 3))
+        hotel.room.append(main.Room("King Size Bed", 4000, 4))
 
 # myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
 # myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
@@ -318,9 +318,9 @@ for hotel in range(1, 51):
 # myHotel.hotel[5].room = main.Room("Private pool", 4000, 6)
 # myHotel.hotel[6].room = main.Room("There is wifi", 5000, 2)
 
-# myHotel.hotel[0].room[0].reservation = main.Reservation("namthip", datetime.date(2023, 1, 1), datetime.date(2023, 1, 5))
-# myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
-# myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
+myHotel.hotel[0].room[0].reservation = main.Reservation("namthip", datetime.date(2023, 1, 1), datetime.date(2023, 1, 5))
+myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
+myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
  
  
 myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com")
@@ -331,7 +331,7 @@ feedback1 = main.Feedback(myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
 feedback2 = main.Feedback(myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")
 feedback3 = main.Feedback(myHotel.user[2], "Nice service!", 5, "2024-07-02")
 
-myHotel.create_reservation(1, "Breakfast not included", 1, "1-10-2023", "5-10-2023")
-myHotel.add_payment(main.Payment(1,500,"Dusit Thani Pattaya","Breakfast not included"))
-myHotel.create_reservation(2, "Breakfast included", 1, "1-12-2023", "9-12-2023")
-myHotel.add_payment(main.Payment(1,1000,"APA Hotel Ueno Ekimae","Breakfast included"))
+myHotel.create_reservation(1, "Single Bed", 1, "1-10-2023", "5-10-2023")
+myHotel.add_payment(main.Payment(1,500,"Dusit Thani Pattaya","Single Bed"))
+myHotel.create_reservation(2, "Double Bed", 1, "1-12-2023", "9-12-2023")
+myHotel.add_payment(main.Payment(1,1000,"APA Hotel Ueno Ekimae","Double Bed"))
