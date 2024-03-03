@@ -68,11 +68,8 @@ async def user_input_info(information:main.User_information):
 # ---------------------PAYMENT----------------------------
 # http://127.0.0.1:8000/payment/?name=Anna&hotel=hotel%20one&room=Breakfast%20not%20included&checkin=11-09-2023&checkout=02-10-2023
 @app.get("/payment/")
-async def pay(name:int,hotel:str,room:str,checkin:str,checkout:str):
-    hotel = hotel_list.myHotel.search_hotel_by_name(hotel)
-    room = hotel.search_room_by_name(room)
-    price = room.final_price
-    payment = hotel_list.myHotel.add_payment(main.Payment(name,price,hotel.name,room.detail)) 
+async def pay(name:int,hotel:str,room:str,price:int):
+    payment = hotel_list.myHotel.add_payment(main.Payment(name,price,hotel,room)) 
     return payment
 # --------------------------------------------------------
 
@@ -99,8 +96,8 @@ async def get_hotel_details(name: str):
     return get_available_room
 
 @app.get('/change/')
-async def change_reservation(user:int,reservation_id:int,date_in:str,date_out:str,hotel_id:int):
-    change_reservation = hotel_list.myHotel.change_reservation(user,reservation_id,date_in,date_out,hotel_id)
+async def change_reservation(user:int,reservation_id:int,date_in:str,date_out:str):
+    change_reservation = hotel_list.myHotel.change_reservation(user,reservation_id,date_in,date_out)
     return change_reservation
 
 @app.get('/feedback/')
