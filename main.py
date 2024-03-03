@@ -321,22 +321,21 @@ class HotelReservationSystem:
                                 }
         return "ERROR"
 
-    def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str, images: list):
+    def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str):
+        time = time.split('-')
+        time = datetime.date(int(time[2]), int(time[1]), int(time[0]))
         for user in self.__user:
             if user.name == user_name:
                 for reservation in user.reservation:
-                    today = datetime.date.today()
-                    if reservation.date_out < today:
+                    if reservation.date_out < time:
                         for hotel in self.__hotel:
                             if hotel.name == hotel_name:
                                 feedback = Feedback(user, comment, rating, time)
-                                feedback.images.append(images)
                                 hotel.feedback.append(feedback)
                                 return {
                                     "User": user.name,
                                     "Hotel": hotel.name,
                                     "Comment": comment,
-                                    "Images": images,
                                     "Rating": rating,
                                     "Time": time
                                 }
