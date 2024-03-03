@@ -158,6 +158,7 @@ class HotelReservationSystem:
                 selected_hotel = hotel
                 link = hotel.location.map
                 reccommend_hotel = []
+
                 for rec in self.__hotel:
                     if hotel.location.city == rec.location.city and rec != selected_hotel:
                         recommended_price = rec.cheapest_room()
@@ -176,31 +177,38 @@ class HotelReservationSystem:
                         }
 
                         reccommend_hotel.append(recdict)
+
+                available_rooms = []
                 for room in selected_hotel.room:
                     if room.available:
                         if room.final_price == room.price:
                             final_price = "No available discount"
                         else:
                             final_price = room.final_price
-                        if reccommend_hotel:
-                            your_select = {
-                                'name': selected_hotel.name,
-                                'location': link,
-                                'available room': [{'detail': room.detail,
-                                                    'price': room.price,
-                                                    'discounted price': final_price,
-                                                    'guests': room.guests}],
-                                'feedback': [{'user': feedback.user.name,
-                                            'comment': feedback.comment,
-                                            'rating': feedback.rating,
-                                            'time': feedback.time} for feedback in selected_hotel.feedback]
-                            }
 
-                            final_result = {'Hotel': your_select, 'Recommend nearby hotels': reccommend_hotel}
-                            return final_result
+                        room_info = {
+                            'detail': room.detail,
+                            'price': room.price,
+                            'discounted price': final_price,
+                            'guests': room.guests
+                        }
+                        available_rooms.append(room_info)
+
+                if reccommend_hotel:
+                    your_select = {
+                        'name': selected_hotel.name,
+                        'location': link,
+                        'available room': available_rooms,
+                        'feedback': [{'user': feedback.user.name,
+                                    'comment': feedback.comment,
+                                    'rating': feedback.rating,
+                                    'time': feedback.time} for feedback in selected_hotel.feedback]
+                    }
+
+                    final_result = {'Hotel': your_select, 'Recommend nearby hotels': reccommend_hotel}
+                    return final_result
 
         raise HTTPException(status_code=404, detail="Hotel not found")
-
 
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
         if start == end or start > end:
