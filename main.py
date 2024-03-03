@@ -1,5 +1,6 @@
 import datetime 
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -700,5 +701,10 @@ class Receipt:
     @property
     def checkout(self):
         return self.__checkout
+
+class User_information(BaseModel):
+    name : str
+    email : str
+    telephone : str
 
 
