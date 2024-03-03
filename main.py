@@ -315,7 +315,7 @@ class HotelReservationSystem:
                                     "Hotel" : payment.hotel,
                                     "Room" : payment.room                                
                                 }
-            return "ERROR"
+        return "ERROR"
 
     
     def add_feedback(self, user, comment: str, rating: int, time: str):
@@ -449,9 +449,9 @@ class Room:
         for reservations in self.__reservation:
             reservestart = reservations.date_in
             reserveend = reservations.date_out
-            if(start < reserveend and end > reservestart): ### Need Fixed ###
+            if not(HotelReservationSystem.not_overlap(HotelReservationSystem,start, end, reservestart,reserveend)):
                 return False
-            return True
+        return True
     
     def cancel_reservation(self,reserve):
          self.__reservation.remove(reserve)
