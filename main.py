@@ -290,22 +290,51 @@ class HotelReservationSystem:
     
         # Validate - Checked
     
-    def cancel_reservation(self, user_id : int , reservation_id : int) -> str:
-        for user in self.__user:
-            if user.user_id == user_id:
-                for reservation in user.reservation:
-                    if reservation.id == reservation_id:
-                        user.cancel_reservation(reservation)
-                        hotel = reservation.hotel_id
-                        for hotels in self.__hotel:
-                            if hotels.id == hotel:
-                                for rooms in hotels.room:
-                                    for reservations in rooms.reservation:
-                                        if reservations.id == reservation_id:
-                                            rooms.cancel_reservation(reservation)
-                                            return "Cancelled Reservation"
-                return "Invalid Reservation Id"  
-        return  "User Not Found"
+    def add_payment(self,user_id : int, reservation_id : int) -> dict:
+        for users in self.__user:
+            if users.user_id == user_id:
+                if users.cart == None:
+                    return "Cart empty"
+                if users.cart.id == reservation_id:
+                    hotel = self.search_hotel_by_id(users.cart.hotel_id)
+                    if hotel != None:
+                        room = hotel.search_room_by_name(users.cart.room_detail)
+                        price = room.final_price
+                        self.__payment.append(Payment(users.user_id, price, hotel.name, room.detail))
+                        room.reservation = users.cart
+                        users.reservation = users.cart
+                        reserveid = room.reservation[-1].id
+                        paydate = datetime.date.today()
+                        users.cart = None
+                        return {
+                            "Name" : users.name,
+                            "Reservation ID" : reserveid,
+                            "Hotel" : hotel.name,
+                            "Room" : room.detail,
+                            "Check in Date" : room.reservation[-1].date_in,
+                            "Check out Date" : room.reservation[-1].date_out,
+                            "Payment Date" : paydate,
+                            "Total Price" : price
+                        }
+        return "Reservation ID error"
+
+    def add_feedback(self, user, comment: str, rating: int, time: str):
+        for reservation in user.reservation:
+            today = datetime.date.today()
+            if reservation.date_out < today:
+                for hotel in self.__hotel:
+                    if hotel.id == reservation.hotel_id:
+                        feedback = Feedback(user, comment, rating, time)
+                        hotel.feedback = feedback
+                        return {
+                            "User": user.name,
+                            "Hotel": hotel.name,
+                            "Comment": comment,
+                            "Rating": rating,
+                            "Time": time
+                        }
+                    
+        return "No completed reservations for feedback"
 
         # Validate - Checked 
 
