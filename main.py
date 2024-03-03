@@ -194,20 +194,19 @@ class HotelReservationSystem:
                         }
                         available_rooms.append(room_info)
 
-                if reccommend_hotel:
-                    your_select = {
-                        'name': selected_hotel.name,
-                        'location': selected_hotel.location.city,
-                        'map': link,
-                        'available room': available_rooms,
-                        'feedback': [{'user': feedback.user.name,
-                                    'comment': feedback.comment,
-                                    'rating': feedback.rating,
-                                    'time': feedback.time} for feedback in selected_hotel.feedback]
-                    }
+                your_select = {
+                    'name': selected_hotel.name,
+                    'location': selected_hotel.location.city,
+                    'map': link,
+                    'available room': available_rooms,
+                    'feedback': [{'user': feedback.user.name,
+                                'comment': feedback.comment,
+                                'rating': feedback.rating,
+                                'time': feedback.time} for feedback in selected_hotel.feedback]
+                }
 
-                    final_result = {'Hotel': your_select, 'Recommend nearby hotels': reccommend_hotel}
-                    return final_result
+                final_result = {'Hotel': your_select, 'Recommend nearby hotels': reccommend_hotel}
+                return final_result
 
         raise HTTPException(status_code=404, detail="Hotel not found")
 
