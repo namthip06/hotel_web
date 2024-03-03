@@ -151,7 +151,7 @@ class HotelReservationSystem:
             }
         return result
     
-    def get_hotel_details(self, name: str):
+   def get_hotel_details(self, name: str):
         selected_hotel = None
         for hotel in self.__hotel:
             if name == hotel.name:
@@ -197,7 +197,8 @@ class HotelReservationSystem:
                 if reccommend_hotel:
                     your_select = {
                         'name': selected_hotel.name,
-                        'location': link,
+                        'location': selected_hotel.location.city,
+                        'map': link,
                         'available room': available_rooms,
                         'feedback': [{'user': feedback.user.name,
                                     'comment': feedback.comment,
