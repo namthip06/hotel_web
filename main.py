@@ -303,17 +303,22 @@ class HotelReservationSystem:
                 for hotels in self.__hotel:
                     if payment.hotel == hotels.name:
                         for rooms in hotels.room:
-                            if payment.room == rooms.detail:
-                                self.__payment.append(payment)
+                            if payment.room == rooms.detail:      
                                 if users.cart == None:
                                     return "Payment Error"
-                                rooms.reservation.append(users.cart)
-                                users.reservation.append(users.cart)
+                                self.__payment.append(payment)
+                                rooms.reservation = users.cart
+                                users.reservation = users.cart
+                                reserveid = rooms.reservation[-1].id
+                                paydate = datetime.date.today()
                                 users.cart = None
                                 return {
                                     "Name" : users.name,
+                                    "Reservation ID" : reserveid,
                                     "Hotel" : payment.hotel,
-                                    "Room" : payment.room                                
+                                    "Room" : payment.room,
+                                    "Date" :  paydate,
+                                    "Total Price" : payment.amount
                                 }
         return "ERROR"
 
