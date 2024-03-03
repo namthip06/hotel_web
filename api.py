@@ -60,9 +60,9 @@ async def user(id:int):
 async def create_reservation(hotel_id:int, detail:str, user:int, start:str, end:str):
     user_reservation = hotel_list.myHotel.create_reservation(hotel_id, detail, user, start, end)
     return user_reservation
-@app.post('/reservation/')
-async def user_input_info(information:main.User_information):
-    return information
+# @app.post('/reservation/')
+# async def user_input_info(information:main.User_information):
+#     return information
 # --------------------------------------------------------
 
 # ---------------------PAYMENT----------------------------
