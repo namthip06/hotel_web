@@ -81,12 +81,12 @@ async def pay(user_id: int, reservation_id: int):
 #     return get_reservation
 # --------------------------------------------------------
 
-# -----------------------Select Hotel----------------------
-# http://127.0.0.1:8000/hotels
-@app.get('/hotels')
-def get_hotels():
-    search_hotel_by_name = hotel_list.myHotel.search_hotel_by_name
-    return search_hotel_by_name
+# # -----------------------Select Hotel----------------------
+# # http://127.0.0.1:8000/hotels
+# @app.get('/hotels')
+# def get_hotels():
+#     search_hotel_by_name = hotel_list.myHotel.search_hotel_by_name
+#     return search_hotel_by_name
 
 # --------Search Available Room by Hotel's Name----------------
 # http://127.0.0.1:8000/hotel?name=hotel%20one
