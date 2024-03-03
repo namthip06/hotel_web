@@ -203,35 +203,43 @@ class HotelReservationSystem:
 
 
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
+        if start == end or start > end:
+            return "Invalid Date"
         for users in self.__user:
             if users.user_id == user:
                 for hotels in self.__hotel:
                     if hotel_id == hotels.id: 
                         for rooms in hotels.room:
-                            if room_detail == rooms.detail:
+                            if room_detail == rooms.detail:      
                                 start = start.split('-')
                                 start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
                                 end = end.split('-')
                                 end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
-                                data = Reservation(users.name, start, end)
-                                data.hotel_id = hotels.id
-                                data.room_detail = room_detail
-                                users.cart = data
-                                return {
-                                    "ID" : data.id,
-                                    "Hotel" : hotels.name,
-                                    "User" : user,
-                                    "Start date" : data.date_in,
-                                    "End date" : data.date_out,
-                                    "Price" : rooms.price,
-                                    "Detail" : rooms.detail,
-                                    "Guests" : rooms.guests,
-                                    "Hotel Rating" : hotels.average_rating(),
-                                    "Location":hotels.location,
-                                    "Discount" : rooms.final_price,
-                                    "Image": hotels.imgsrc
-                                }
+                                if rooms.isavailable(start,end):
+                                    data = Reservation(users.name, start, end)
+                                    data.hotel_id = hotels.id
+                                    data.room_detail = room_detail
+                                    users.cart = data
+                                    return {
+                                        "ID" : data.id,
+                                        "Hotel" : hotels.name,
+                                        "User" : user,
+                                        "Start date" : data.date_in,
+                                        "End date" : data.date_out,
+                                        "Price" : rooms.price,
+                                        "Detail" : rooms.detail,
+                                        "Guests" : rooms.guests,
+                                        "Hotel Rating" : hotels.average_rating(),
+                                        "Location":hotels.location,
+                                        "Discount" : rooms.final_price,
+                                        "Image": hotels.imgsrc
+                                    }
+                                return "Room Not Available"
+                        return "Room Not Found"
+                return "Hotel ID Not Found"
         return "User Error"
+    
+        # Validate - Checked
 
     
     # def get_reservation_details(self, user): #User ID Parameter
@@ -257,8 +265,8 @@ class HotelReservationSystem:
                         new_date_in = datetime.date(int(new_date_in[2]), int(new_date_in[1]), int(new_date_in[0]))
                         new_date_out = new_date_out.split('-')
                         new_date_out = datetime.date(int(new_date_out[2]), int(new_date_out[1]), int(new_date_out[0]))
-                        if(new_date_out < new_date_in ):
-                            return "Error"
+                        if(new_date_out <= new_date_in ):
+                            return "Invalid Date"
                         
                         for hotels in self.__hotel:    
                             if hotels.id == reservation.hotel_id:
@@ -275,12 +283,15 @@ class HotelReservationSystem:
                                                 "Your New Check in Date:": reservation.date_in,
                                                 "Your New Check out Date": reservation.date_out
                         }
-                                    return "Room Busy"
+                                    return "Room Not Available"
+                        return "Invalid Hotel"
                 return "No Reservation ID"
         return "User Not Found"
     
+        # Validate - Checked
+    
     def cancel_reservation(self, user_id : int , reservation_id : int) -> str:
-       for user in self.__user:
+        for user in self.__user:
             if user.user_id == user_id:
                 for reservation in user.reservation:
                     if reservation.id == reservation_id:
@@ -293,7 +304,10 @@ class HotelReservationSystem:
                                         if reservations.id == reservation_id:
                                             rooms.cancel_reservation(reservation)
                                             return "Cancelled Reservation"
-            return "ERROR"
+                return "Invalid Reservation Id"  
+        return  "User Not Found"
+
+        # Validate - Checked 
 
         
     def add_payment(self, payment : object) -> dict:
