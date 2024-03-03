@@ -17,7 +17,7 @@ hotel_list.myHotel.hotel[5].room = main.Room("Private pool", 4000, 6)
 hotel_list.myHotel.hotel[6].room = main.Room("There is wifi", 5000, 2)
 
 hotel_list.myHotel.hotel[0].room[0].reservation = main.Reservation("namthip", datetime.date(2023, 1, 1), datetime.date(2023, 1, 5))
-hotel_list.yHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
+hotel_list.myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
 hotel_list.myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
  
  
