@@ -312,7 +312,7 @@ class HotelReservationSystem:
         
     def add_payment(self, payment : object) -> dict:
         for users in self.__user:
-            if payment.user_id == users.user_id: #THIS SHIT IS WRONG
+            if payment.user_id == users.user_id: 
                 for hotels in self.__hotel:
                     if payment.hotel == hotels.name:
                         for rooms in hotels.room:
@@ -333,7 +333,9 @@ class HotelReservationSystem:
                                     "Date" :  paydate,
                                     "Total Price" : payment.amount
                                 }
-        return "ERROR"
+                        return "Invalid Room"
+                return "Invalid Hotel"
+        return "User Not Found"
 
     def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str):
         time = time.split('-')
