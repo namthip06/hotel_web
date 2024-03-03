@@ -209,112 +209,118 @@ myHotel.hotel[30].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x7
                            "https://cf.bstatic.com/xdata/images/hotel/max1280x900/344652917.jpg?k=b4c0c34d06d22737b597e65633a4cb59ddeae2b9b2dfe1c79401547e3c90bd12&o=&hp=1"] 
 #Victoria Xiengthong Palace
 myHotel.hotel[31].imgsrc = ["https://waybird.imgix.net/lodge_images/images/000/084/659/original/288-big.jpg?w=1400&h=960",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/475506259.jpg?k=2c444327e7e44ba392f0b32e6304dfabf36cc76b1b061805b5ee733de04f2541&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/476264720.jpg?k=7810ef883bbcb57e3a6960d22d7ed3769a09310c42fd6e2faa803a61e8e52e39&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/476265168.jpg?k=8bdaa88e75dfbcfa2fabaccce47e8677e797a71666d84327337e9ce81a477fed&o=&hp=1"] 
 #Pullman Luang Prabang
 myHotel.hotel[32].imgsrc = ["https://www.ahstatic.com/photos/9112_ho_03_p_1024x768.jpg",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/251953314.jpg?k=df52af69f5f0dfdad18555b40986261b63024e6586a0cf727e62a12442d946e4&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/251953318.jpg?k=a6273e300b4de6c4a081af95533f7585802385197613a3d3325d6479c9c6db4f&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/251953337.jpg?k=e2a8a7aadbf135ca014c37333ba6c9a79bc1a8dbb259f24198cca0554039d060&o=&hp=1"] 
 #Amantaka
 myHotel.hotel[33].imgsrc = ["https://amantaka-hotel-luang-prabang.hotelmix.co.th/data/Photos/OriginalPhoto/11128/1112803/1112803884/Amantaka-Resort-Luang-Prabang-Exterior.JPEG",
-                           "",
-                           "",
-                           ""] 
+                           "https://amantaka-hotel-luang-prabang.hotelmix.co.th/data/Photos/OriginalPhoto/772/77212/77212469/Amantaka-Resort-Luang-Prabang-Exterior.JPEG",
+                           "https://www.aman.com/sites/default/files/styles/full_size_extra_large/public/2021-03/Amantaka_Dining-Hero-1.jpg",
+                           "https://amantaka-hotel-luang-prabang.hotelmix.co.th/data/Photos/OriginalPhoto/772/77212/77212478/Amantaka-Resort-Luang-Prabang-Exterior.JPEG"] 
 #Kiridara Luang Prabang
 myHotel.hotel[34].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/55548003.jpg?k=c081c488394520e2b07413f18929ee45a005e0b407c0213c99634da2cfc504c2&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/140170580.jpg?k=592c17d505f21974d78a9f220e991d5bdb59a55766d93e1c5a9c5904a70cf3de&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/140172035.jpg?k=7edd60ea0bb3c20edf063a71135eb2160bb03adde113fcf806bb106fdc29823d&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/140179107.jpg?k=aff1b41fef4fbee4c961c210d458d242153a5764a0628a9df8b2414d93d613da&o=&hp=1"] 
 #TIME Moonstone Hotel Apartments
 myHotel.hotel[35].imgsrc = ["https://dnagw5kmh987u.cloudfront.net/www.timehotels.com-1785599525/cms/cache/v2/62396e761b420.jpg/1200x630/fit/80/8c92825b98628317df5a6d9003b78227.jpg",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/363364446.jpg?k=c7471827eca1e34677ad63735963691a308aefd999d7ac0d60074254fc26a8eb&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/363365684.jpg?k=ddfa8897fdee94db5a64287b08a7277bfd2a590be04a3011aa0af2cc62983a70&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/363368286.jpg?k=7af6fb18f0ac237e6c8a8d7308e9be94ea53c6abae8bf761bda6e577b49d8749&o=&hp=1"] 
 #Arthotel Munich
 myHotel.hotel[36].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/125638208.jpg?k=fa8f9c473c4ca82a70ae27e7226ff96b96180d2725dee118395128b65a868563&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/64375688.jpg?k=db51598fc77acf5b79613e42cdda6d673a1403787b95aa387874c43b1ff5c2c1&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/84231966.jpg?k=a9456cb41f79c0e6b87fcf2ef9bbd8793fd90cb3f6662631425a2f744f0bb156&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/126068056.jpg?k=199cf7fadbb7beb241fabd5a29db728abb89c69dd14896f71e36c8651285ec54&o=&hp=1"] 
 #Boutique Hotel Atrium Munchen
 myHotel.hotel[37].imgsrc = ["https://media-cdn.holidaycheck.com/w_768,h_432,c_fill,q_auto,f_auto/ugc/images/410c7c98-18cb-4af1-9134-3cb401df03d3",
-                           "",
-                           "",
-                           ""] 
+                           "https://www.atrium-hotel.de/wp-content/uploads/2020/07/Twin_Boutique-Hotel-Atrium-Muenchen-575x380.jpg",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/527007335.jpg?k=2f6749d89a6643c4f17378088691328c1aa12380d05525bdb9c73a254128b926&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/247618466.jpg?k=fae4f9c14feb56c7d4e2636f296ab511633ca4b863681fccf41ef74c26895162&o=&hp=1"] 
 #Copthorne Hotel
 myHotel.hotel[38].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/15434570.jpg?k=7edccefa4a2081ec34c62dcc538fbc058f322a17c7ee559048168d1022525527&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/2e/7e/7a/superior-twin.jpg?w=1200&h=-1&s=1",
+                           "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/f0/06/69/copthorne-hotel-and-resort.jpg?w=1200&h=-1&s=1",
+                           "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/19/5c/80/scenary-from-our-room.jpg?w=1200&h=-1&s=1"] 
 #Heartland Hotel
 myHotel.hotel[39].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/10589621.jpg?k=5a918606f2768c93319d98e53a20054d163d8c8b852e7f7dea8892da3a7f9994&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/10589622.jpg?k=5ef66e3449f461c0289a38f68ccc79a4ceaf2819b5aaa631ccce0e73d673cb45&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/238306157.jpg?k=09c331401d9785d10b0db5519dfbadf070390b4b2847ca8d894879cc503c46df&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1280x900/10589619.jpg?k=0bcbbd23cab7da9f88be3f85e93c81249da83ed35e6e78fad636521ddcb202e2&o=&hp=1"] 
 #mi-pad
 myHotel.hotel[40].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/296975843.jpg?k=17e967a673d2ae164aa7b4f37a4c3635ec107d7d9b0298ab6c808e5846329ff6&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/322995762.jpg?k=3bda06eb85e5a36fc75965394ef7291e40d02d109c9aaf2af6a296ed3032daad&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/146498738.jpg?k=4f48ebe1c96e96c19d0a90a2edf54a5d6e062feb0a710e791b296939e86754d1&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/146498753.jpg?k=909d2bc058c069f1ab46e61cb34e3e676bf4064c49ea30610f81089b100dc22e&o=&hp=1"] 
 #Hotel Guillen Jr
 myHotel.hotel[41].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/124546360.jpg?k=c249e9790ffe2aefb0a2ae71e3780c2bcd55d23dfb734a792d6a8151255f0898&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/124458996.jpg?k=376cc593869ff6d27b82db7a9093dc54ecbc7e63f3710793b54eb28dc48661a7&o=&hp=1",
+                           "https://guillen-jr.gettijuanahotels.com/data/Pictures/OriginalPhoto/5375/537547/537547227/picture-tijuana-hotel-guillen-jr-30.JPEG",
+                           "https://images.trvl-media.com/lodging/26000000/25110000/25108400/25108324/f4dfd759.jpg?impolicy=resizecrop&rw=1200&ra=fit"] 
 #Baja Inn Hoteles La Mesa
 myHotel.hotel[42].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/457312932.jpg?k=80869fc1eb2133d60dd6387ad30b9a922945edc85d7682d01f85ae76c23cd7cc&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/378026288.jpg?k=f4fb14a5b56a203ad5f3b76203acbae48456116b7ed7823672e6fc7d32257c12&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/457312932.jpg?k=80869fc1eb2133d60dd6387ad30b9a922945edc85d7682d01f85ae76c23cd7cc&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/161046478.jpg?k=d8bb9328cd66db2a5518b00ac1a20839b08fab1dd2b7dadca7609dcdfcec83f4&o=&hp=1"] 
 #Kabayan Hotel Pasay
 myHotel.hotel[43].imgsrc = ["https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/420522486.jpg?k=16bbc9aa1726e669731a54f3f5ffbac03ce65c32a0064638e2f496b1012f90f8&o=",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/438552553.jpg?k=eb20bb948dd92559d12c07258389b7d502c068e9fa723b2854cd9fae1e6232cc&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/408959025.jpg?k=2d691677f18d07ab3d8c8c464f709b2c577358d37e7622bf6a2418e93377fc77&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/409145322.jpg?k=7d7850bf4334a929c7363fea49b6b660c5395713f0fa8ad58d94c538d2639a5d&o=&hp=1"] 
 #Radisson Blu Royal Viking Hotel
 myHotel.hotel[44].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max500/277542505.jpg?k=18f7aeed0bc22fe83e1bb08c6ac67ed7774df6915e1bb458e354426d60dea862&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/481441225.jpg?k=54983c83bd9cf931e7dcb5d05928d0750f0ba3cbf57dafc07828a50c79bc49f1&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1280x900/460334529.jpg?k=2ebbffe0b94b0de9775b0e9e036c33181472972bc16019184673a5e374bf3c6e&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/481441375.jpg?k=b70f62367c0df1364a3332333d80a97544a614c22e948d7c5d7abda561c712b1&o=&hp=1"] 
 #Thon Partner Hotel Kungsbron
 myHotel.hotel[45].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/51103894.jpg?k=c532ee256332c9e5c8e6eaf022bc56da4407147428f60ba6c028ab588753722a&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/354691754.jpg?k=16af94ad809313970eb6dceabc88e5471eabba31afe7f0c35594dd26b4df746d&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/354691747.jpg?k=84c1515cdaa85baad0ed5d5c905899ce1d1fee6ff585f1b548fa5446e4f99c8e&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/landmark/max1024/187348.webp?k=76f3735cc5ce4e024e947da91ab142a858bb422ddec60c2123b1be0426af00a3&o="] 
 #Clarion Hotel Amaranten
 myHotel.hotel[46].imgsrc = ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/26545057.jpg?k=945e3578bfe29a1bb0eeb2524cf40dd535aeb87cde6dd06db1eb5f6a2c1d79af&o=&hp=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/468250227.jpg?k=8bfbeab98e5b13686053c4da4545b90241a7cb37b53bd37c50882fd62ed93f8f&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/240920448.jpg?k=4dafde40a8dfe908a53f8a9048ed6182ba0168d23a7ed04f11f38663f5df3a6b&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/199889644.jpg?k=468bb3951f52643b0a8edaeb3a1fb71a7fc82221ffd6bd2f6949c7690b6e33a7&o=&hp=1"] 
 #Clarion Hotel Sign
 myHotel.hotel[47].imgsrc = ["https://www.delegia.com/app/Data/ProjectImages/14020/Cropped/clarionSign-1024x570.jpg",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/144326372.jpg?k=52f78910973af0c6d040411af3117d55ce06a8c2279c45d89c289ffa78dd7b02&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/144326272.jpg?k=354470ee4839e7cf0820700c48547249fb9167ddd5e983da0d0be5c5993f91b6&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/144326330.jpg?k=c5476e4defa294185eceb8610001771355b4d01448fe680bb9213f72607315da&o=&hp=1"] 
 #Riu Plaza España
 myHotel.hotel[48].imgsrc = ["https://cdn0.bodas.net/tour3d/3768/3_2/960/jpg/3768_134731.jpeg",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/207314225.jpg?k=0f1478b0b65a2339ba5e868dc9b5f1771e0b977a284e6a5cef0e4cb6be6d8493&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/217566747.jpg?k=246d9766dcdcee6ad1cf4ed5687daa4f5ca7673f93fb674fc6fc30a0b3518f6a&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/332290075.jpg?k=334e1cd68afb5382ccfc8e3fab0d59961e74d3bc80dbceb7d7869cdfb095ecf1&o=&hp=1"] 
 #Ilunion Alcalá Norte
 myHotel.hotel[49].imgsrc = ["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/75/68/f9/fachada.jpg?w=700&h=-1&s=1",
-                           "",
-                           "",
-                           ""] 
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/68816013.jpg?k=1e6e478a5f03ba23a40b2d6dadae963c09da17c2365706ede91dbd2308837115&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/227872404.jpg?k=64b5c6ceff84c3dbd05f9af530fbdffc116755fe5015ee02a75bf0d8a817e58b&o=&hp=1",
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/81814915.jpg?k=203261f08aaf8eaab1a4d74698927b33cd0ed8655c7ee8c9b91ae121ae094996&o=&hp=1"] 
 
+for hotel in range(1, 51):
+    for room in range(1, 11):
+        myHotel.hotel[hotel].room.append(main.Room("Single Bed", 1000, 1))
+        myHotel.hotel[hotel].room.append(main.Room("Double Bed", 1500, 2))
+        myHotel.hotel[hotel].room.append(main.Room("Queen Size Bed", 2500, 3))
+        myHotel.hotel[hotel].room.append(main.Room("King Size Bed", 4000, 4))
 
-myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
-myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
-myHotel.hotel[2].room = main.Room("Don't smoke", 1200, 3)
-myHotel.hotel[3].room = main.Room("Beautiful view", 1500, 2)
-myHotel.hotel[4].room = main.Room("Poolside bar", 2500, 4)
-myHotel.hotel[5].room = main.Room("Private pool", 4000, 6)
-myHotel.hotel[6].room = main.Room("There is wifi", 5000, 2)
+# myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
+# myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
+# myHotel.hotel[2].room = main.Room("Don't smoke", 1200, 3)
+# myHotel.hotel[3].room = main.Room("Beautiful view", 1500, 2)
+# myHotel.hotel[4].room = main.Room("Poolside bar", 2500, 4)
+# myHotel.hotel[5].room = main.Room("Private pool", 4000, 6)
+# myHotel.hotel[6].room = main.Room("There is wifi", 5000, 2)
 
-myHotel.hotel[0].room[0].reservation = main.Reservation("namthip", datetime.date(2023, 1, 1), datetime.date(2023, 1, 5))
-myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
-myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
+# myHotel.hotel[0].room[0].reservation = main.Reservation("namthip", datetime.date(2023, 1, 1), datetime.date(2023, 1, 5))
+# myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
+# myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
  
  
 myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com")
