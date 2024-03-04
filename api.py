@@ -50,6 +50,26 @@ async def index():
 async def search(start:str, end:str, guest:int = 1, country:str = None, city:str = None, price = "0-40000", rating = "1-2-3-4-5"):
     return hotel_list.myHotel.search_hotel(start, end, guest, country, city, price, rating)
 
+@app.get("/single-bed-rooms/")
+async def get_single_bed_rooms(hotel_name: str):
+    single_bed_rooms = hotel_list.myHotel.get_single_bed_rooms(hotel_name)
+    return {"single_bed_rooms": single_bed_rooms}
+
+@app.get("/double-bed-rooms/")
+async def get_double_bed_rooms(hotel_name: str):
+    double_bed_rooms = hotel_list.myHotel.get_double_bed_rooms(hotel_name)
+    return {"double_bed_rooms": double_bed_rooms}
+
+@app.get("/queen-size-bed-rooms/")
+async def get_queen_size_bed_rooms(hotel_name: str):
+    queen_size_bed_rooms = hotel_list.myHotel.get_queen_size_bed_rooms(hotel_name)
+    return {"queen_size_bed_rooms": queen_size_bed_rooms}
+
+@app.get("/king-size-bed-rooms/")
+async def get_king_size_bed_rooms(hotel_name: str):
+    king_size_bed_rooms = hotel_list.myHotel.get_king_size_bed_rooms(hotel_name)
+    return {"king_size_bed_rooms": king_size_bed_rooms}
+
 @app.get("/user/")
 async def user(id:int):
     return hotel_list.myHotel.show_user(id)
