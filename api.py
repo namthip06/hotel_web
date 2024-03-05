@@ -6,8 +6,8 @@ app = FastAPI()
 # ----------------------------
 import main
 import hotel_list
+import schema
 # ----------------------------
-
 # ---------------------------------------------
 # http://127.0.0.1:8000/search/?start=1-1-2023&end=10-1-2023
 # uvicorn api:app --reload
@@ -67,7 +67,7 @@ async def create_reservation(hotel_id:int, detail:str, user:int, start:str, end:
 #     payment = hotel_list.myHotel.add_payment(user_id, reservation_id)
 #     return payment
 @app.post("/payment/")
-async def pay(payment_data: schema.Pay):
+async def pay(payment_data: schema.Payment):
     hotel = hotel_list.myHotel.search_hotel_by_name(payment_data.hotel)
     room = hotel.search_room_by_name(payment_data.room)
     price = room.final_price
@@ -97,7 +97,7 @@ async def get_hotel_details(name: str):
     get_available_room = hotel_list.myHotel.get_hotel_details(name)
     return get_available_room
 
-@app.put('/change/')
+@app.get('/change/')
 async def change_reservation(user:int,reservation_id:int,date_in:str,date_out:str):
     change_reservation = hotel_list.myHotel.change_reservation(user,reservation_id,date_in,date_out)
     return change_reservation
@@ -108,7 +108,7 @@ async def add_feedback(review: schema.Review):
     return add_feedback
 
 @app.post('/sign up')
-async def sign_up(sign.up: schema.Sign_up):
+async def sign_up(sign_up: schema.Sign_up):
     sign_up = hotel_list.myHotel.sign_up(sign_up.user_name, sign_up.user_password, sign_up.phone_number, sign_up.email)
     return sign_up
  
