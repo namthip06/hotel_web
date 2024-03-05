@@ -124,6 +124,11 @@ async def change_reservation(user:int,reservation_id:int,date_in:str,date_out:st
 async def add_feedback(user_name, hotel_name, comment: str, rating: int, time: str, images: list):
     add_feedback = hotel_list.myHotel.add_feedback(user_name, hotel_name, comment, rating, time, images)
     return add_feedback
+
+@app.post('/sign up')
+async def sign_up(user_name : str, user_password : str, phone_number : str, email : str):
+    sign_up = hotel_list.myHotel.sign_up(user_name, user_password, phone_number, email)
+    return sign_up
         
 @app.get('/cancel')
 async def cancel_reservation(user:int,reservation_id:int):
