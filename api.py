@@ -8,32 +8,6 @@ import main
 import hotel_list
 # ----------------------------
 
-hotel_list.myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
-hotel_list.myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
-hotel_list.myHotel.hotel[2].room = main.Room("Don't smoke", 1200, 3)
-hotel_list.myHotel.hotel[3].room = main.Room("Beautiful view", 1500, 2)
-hotel_list.myHotel.hotel[4].room = main.Room("Poolside bar", 2500, 4)
-hotel_list.myHotel.hotel[5].room = main.Room("Private pool", 4000, 6)
-hotel_list.myHotel.hotel[6].room = main.Room("There is wifi", 5000, 2)
-
-hotel_list.myHotel.hotel[0].room[0].reservation = main.Reservation("namthip", datetime.date(2023, 1, 1), datetime.date(2023, 1, 5))
-hotel_list.myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
-hotel_list.myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
- 
- 
-hotel_list.myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com")
-hotel_list.myHotel.user = main.User("user2", "2222", "0816228411", "two@gmail.com")
-hotel_list.myHotel.user = main.User("user3", "3333", "0816228411", "tree@gmail.com")
-
-feedback1 = main.Feedback(hotel_list.myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
-feedback2 = main.Feedback(hotel_list.myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")
-feedback3 = main.Feedback(hotel_list.myHotel.user[2], "Nice service!", 5, "2024-07-02")
-
-hotel_list.myHotel.create_reservation(1, "Breakfast not included", 1, "1-10-2023", "5-10-2023")
-hotel_list.myHotel.add_payment(main.Payment(1,500,"Dusit Thani Pattaya","Breakfast not included"))
-hotel_list.myHotel.create_reservation(2, "Breakfast included", 1, "1-12-2023", "9-12-2023")
-hotel_list.myHotel.add_payment(main.Payment(1,1000,"APA Hotel Ueno Ekimae","Breakfast included"))
-
 # ---------------------------------------------
 # http://127.0.0.1:8000/search/?start=1-1-2023&end=10-1-2023
 # uvicorn api:app --reload
