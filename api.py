@@ -148,3 +148,8 @@ async def remove_hotel(user_id: int, hotel_name: str):
 async def remove_room(user_id: int, hotel_name: str, room_detail: str):
     remove_room = hotel_list.myHotel.remove_room(user_id, hotel_name, room_detail)
     return remove_room  
+
+@app.put('/user/change-info/')
+def change_user_info(email:str, change_user_info: schema.UserInfoEditor):
+    change_user_info = hotel_list.myHotel.change_user_info(email, change_user_info.new_name, change_user_info.new_password, change_user_info.new_telephone)
+    return change_user_info
