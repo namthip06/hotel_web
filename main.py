@@ -286,7 +286,19 @@ class HotelReservationSystem:
                 hotel = Hotel(hotel_name,Location(location_country,location_city,location_map))
                 self.hotel = hotel
                 return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
-
+                
+    def add_room(self,user_id,hotel_id: int, detail: str, price: int, guests: int):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+                for hotel in self.__hotel:
+                    if hotel.id == hotel_id:
+                        room = Room(detail,price,guests)
+                        hotel.room = room
+                        return "Success",{"Your Hotel":hotel}
+        return "Error Occure"
+         
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
         if start == end or start > end:
             return "Invalid Date"
@@ -453,6 +465,9 @@ class HotelReservationSystem:
                 return "Invalid Hotel"
         return "User Not Found"
 
+
+
+    
     def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str):
         time = time.split('-')
         time = datetime.date(int(time[2]), int(time[1]), int(time[0]))
