@@ -107,7 +107,7 @@ async def add_feedback(review: schema.Review):
 
 @app.post('/sign up')
 async def sign_up(sign_up: schema.Sign_up):
-    sign_up = hotel_list.myHotel.sign_up(sign_up.user_name, sign_up.user_password, sign_up.phone_number, sign_up.email)
+    sign_up = hotel_list.myHotel.sign_up(sign_up.user_name, sign_up.user_password, sign_up.tel_num, sign_up.email)
     return sign_up
  
 @app.get('/login')
@@ -121,8 +121,8 @@ async def cancel_reservation(user:int,reservation_id:int):
     return cancel_reservation
 
 @app.put("/admin/edit-room/")
-def edit_room(hotel_name: str, room_detail: str, new_price: int, new_guests: int):
-    edit_room = hotel_list.myHotel.edit_room(hotel_name, room_detail, new_price, new_guests)
+def edit_room(user:int, hotel_name: str, room_detail: str, new_price: int, new_guests: int):
+    edit_room = hotel_list.myHotel.edit_room(user,hotel_name, room_detail, new_price, new_guests)
     return edit_room
 
 @app.post('/add_hotel')
