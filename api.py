@@ -68,10 +68,8 @@ async def create_reservation(hotel_id:int, detail:str, user:int, start:str, end:
 #     return payment
 @app.post("/payment/")
 async def pay(payment_data: schema.Payment):
-    hotel = hotel_list.myHotel.search_hotel_by_name(payment_data.hotel)
-    room = hotel.search_room_by_name(payment_data.room)
-    price = room.final_price
-    payment = hotel_list.myHotel.add_payment(main.Payment(payment_data.name,price,hotel.name,room.detail)) 
+
+    payment = hotel_list.myHotel.add_payment(payment_data.user_id , payment_data.reservation_id)
     return payment
 # --------------------------------------------------------
 
@@ -97,7 +95,7 @@ async def get_hotel_details(name: str):
     get_available_room = hotel_list.myHotel.get_hotel_details(name)
     return get_available_room
 
-@app.put('/change/')
+@app.get('/change/')
 async def change_reservation(user:int,reservation_id:int,date_in:str,date_out:str):
     change_reservation = hotel_list.myHotel.change_reservation(user,reservation_id,date_in,date_out)
     return change_reservation
@@ -121,6 +119,11 @@ async def login(email: str, user_password: str):
 async def cancel_reservation(user:int,reservation_id:int):
     cancel_reservation = hotel_list.myHotel.cancel_reservation(user,reservation_id)
     return cancel_reservation
+
+@app.put("/admin/edit-room/")
+def edit_room(hotel_name: str, room_detail: str, new_price: int, new_guests: int):
+    edit_room = hotel_list.myHotel.edit_room(hotel_name, room_detail, new_price, new_guests)
+    return edit_room
 
 @app.post('/add_hotel')
 async def add_hotel(user:int,add_hotel :schema.Hotel):
