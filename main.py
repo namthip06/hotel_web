@@ -400,25 +400,6 @@ class HotelReservationSystem:
                             "Total Price" : price
                         }
         return "Reservation ID error"
-
-    def add_feedback(self, user, comment: str, rating: int, time: str):
-        for reservation in user.reservation:
-            today = datetime.date.today()
-            if reservation.date_out < today:
-                for hotel in self.__hotel:
-                    if hotel.id == reservation.hotel_id:
-                        feedback = Feedback(user, comment, rating, time)
-                        hotel.feedback = feedback
-                        return {
-                            "User": user.name,
-                            "Hotel": hotel.name,
-                            "Comment": comment,
-                            "Rating": rating,
-                            "Time": time
-                        }
-                    
-        return "No completed reservations for feedback"
-
         # Validate - Checked 
 
         
@@ -459,7 +440,7 @@ class HotelReservationSystem:
                         for hotel in self.__hotel:
                             if hotel.name == hotel_name:
                                 feedback = Feedback(user, comment, rating, time)
-                                hotel.feedback.append(feedback)
+                                hotel.feedback = feedback
                                 return {
                                     "User": user.name,
                                     "Hotel": hotel.name,
