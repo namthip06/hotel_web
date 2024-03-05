@@ -337,7 +337,27 @@ class HotelReservationSystem:
                     elif user.password != user_password:
                         raise HTTPException(status_code=400, detail="Incorrect Password!")
             raise HTTPException(status_code=400, detail="This Email didn't sign up yet!")
-        
+
+    def log_out(self):
+         pass
+    
+    def change_user_info(self, email, new_name:str, new_password:str, new_telephone:str):
+        for user in self.__user:
+            if user.email == email:
+                if len(new_password) < 8:
+                    raise HTTPException(status_code=400, detail="Password must have at least 8 characters")
+                if len(new_telephone) != 10:
+                    raise HTTPException(status_code=400, detail="Invalid telephone number form")
+                user.name = new_name
+                user.password = new_password
+                user.telephone = new_telephone
+                return {
+                    "Name": user.name,
+                    "Password": user.password,
+                    "Telephone": user.telephone
+                }
+        raise HTTPException(status_code=404, detail="User not found")
+    
     # def get_reservation_details(self, user): #User ID Parameter
     #     flag = 0
     #     target = None
