@@ -317,7 +317,14 @@ class HotelReservationSystem:
     
         # Validate - Checked
 
-    
+    def sign_up(self,user_name,user_password,phone_number,email):
+        for user in self.__user:
+            if user.email == email:
+                return "This Email has already been used"
+        Data = User(user_name,user_password,phone_number,email)
+        self.user = Data
+        return {"User Name": user_name,"Tel.":phone_number,"Status":"Sign up successfully"}
+        
     # def get_reservation_details(self, user): #User ID Parameter
     #     flag = 0
     #     target = None
