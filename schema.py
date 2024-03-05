@@ -38,3 +38,10 @@ class Room(BaseModel):
     detail : str
     price : int
     guest : int 
+
+class EditHotel(BaseModel):
+    name : str
+    country : str
+    city : str
+    maps : str
+    imgsrc : str
