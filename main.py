@@ -827,28 +827,32 @@ class User:
     def type(self,type):
         self.__type = type
 
-class Admin(User):
-    def __init__(self, name: str, password: str, telephone: str, email: str):
-        super().__init__(name, password, telephone, email)
-        self.__type = "Admin"
+class Admin(User):  #ถูกป่าววะ
+    def __init__(self, name: str, password: str, telephone: str):
+        super().__init__(name, password, telephone)
+        self.__type = "admin"
+        self.__password = password
+        self.__telephone = telephone
+        self.__email = "admin01@gmail.com"
 
     @property
     def type(self):
         return self.__type
     
-    # def add_hotel(self, hotel:object):
+    @property
+    def password(self):
+        return self.__password
     
+    @property
+    def telephone(self):
+        return self.__telephone
+    
+    @property
+    def email(self):
+        return self.__email
     # def remove_hotel(self, hotel:object):
 
-    # def add_room(self, hotel:object, room:object):
-
     # def remove_room(self, hotel:object, room:object):
-
-    # # def edit_room(self, hotel:object, room:object):
-
-    # def edit_hotel(self, hotel:object):
-
-    # def force_cancel_reservation(self, user:object, reservation:object):
 
 class Feedback:
     def __init__(self, user:object, comment:str, rating:int, time:int):
