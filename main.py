@@ -325,7 +325,7 @@ class HotelReservationSystem:
                 return "Password must have atleast 8 Character"
             if len(phone_number)<10:
                 return "Invalid telephone number form"
-            Data = User(user_name,user_password,phone_number,email)
+            Data = User(user_name,user_password,phone_number,email,"customer")
             self.user = Data
             return {"User Name": user_name,"Tel.":phone_number,"Status":"Sign up successfully"}
 
