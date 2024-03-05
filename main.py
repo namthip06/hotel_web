@@ -540,6 +540,10 @@ class Hotel:
     def name(self):
         return self.__name
     
+    @name.setter
+    def name(self, name):
+        self.__name = name
+    
     @property
     def location(self):
         return self.__location
@@ -597,13 +601,25 @@ class Location:
     def country(self):
         return self.__country
     
+    @country.setter
+    def country(self, country):
+        self.__country = country
+    
     @property
     def city(self):
         return self.__city
     
+    @city.setter
+    def city(self, city):
+        self.__city = city
+    
     @property
     def map(self):
         return self.__map
+    
+    @map.setter
+    def map(self, map):
+        self.__map = map
 
 class Room:
     def __init__(self, detail:str, price:int, guests:int):
