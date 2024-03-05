@@ -7,7 +7,7 @@ class Payment(BaseModel):
 class Sign_up(BaseModel):
     user_name : str
     user_password : str
-    tel_num : str
+    phone_number : str
     email : str
 
 class Review(BaseModel):
@@ -16,17 +16,6 @@ class Review(BaseModel):
     comment : str
     rating : int
     time : str
-
-# class EditRoomRequest(BaseModel):
-#     hotel_name: str
-#     room_detail: str
-#     new_price: float
-#     new_guests: int
-
-# class RoomDetails(BaseModel):
-#     room_type: str
-#     price: float
-#     max_guests: int
 
 class Hotel(BaseModel):
     name : str
@@ -39,9 +28,21 @@ class Room(BaseModel):
     price : int
     guest : int 
 
-class EditHotel(BaseModel):
-    name : str
+class HotelEditor(BaseModel):
+    hotel_name : str
     country : str
     city : str
     maps : str
     imgsrc : str
+
+class RoomEditor(BaseModel):
+    hotel_name : str
+    room_detail : str
+    new_price : int
+    new_guests : int
+
+class ChangeReservation(BaseModel):
+    user : int
+    reservation_id : int
+    date_in : str
+    date_out : str
