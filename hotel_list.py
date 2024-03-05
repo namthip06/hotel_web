@@ -307,11 +307,11 @@ for hotel in myHotel.hotel:
     for room in range(3):
         hotel.room = main.Room("Single Bed", 1000, 1)
     for room in range(3):
-        hotel.room = main.Room("Double Bed", 1500, 2)
+        hotel.room.append(main.Room("Double Bed", 1500, 2))
     for room in range(2):
-        hotel.room = main.Room("Queen Size Bed", 2500, 3)
+        hotel.room.append(main.Room("Queen Size Bed", 2500, 3))
     for room in range(2):
-        hotel.room = (main.Room("King Size Bed", 4000, 4))
+        hotel.room.append(main.Room("King Size Bed", 4000, 4))
 
 # myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
 # myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
@@ -329,12 +329,13 @@ myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(20
 myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com","customer")
 myHotel.user = main.User("user2", "2222", "0816228411", "two@gmail.com","customer")
 myHotel.user = main.User("user3", "3333", "0816228411", "tree@gmail.com","customer")
+myHotel.user = main.User("Admin1","1234admin","000000000","admin@gmail.com","admin")
 
 feedback1 = main.Feedback(myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
 feedback2 = main.Feedback(myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")
 feedback3 = main.Feedback(myHotel.user[2], "Nice service!", 5, "2024-07-02")
 
 myHotel.create_reservation(1, "Single Bed", 1, "1-10-2023", "5-10-2023")
-myHotel.add_payment(main.Payment(1,500,"Dusit Thani Pattaya","Single Bed"))
+myHotel.add_payment(1,4)
 myHotel.create_reservation(2, "Double Bed", 1, "1-12-2023", "9-12-2023")
-myHotel.add_payment(main.Payment(1,1000,"APA Hotel Ueno Ekimae","Double Bed"))
+myHotel.add_payment(1,5)

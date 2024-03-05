@@ -1,6 +1,5 @@
 import datetime 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -278,27 +277,6 @@ class HotelReservationSystem:
 
         raise HTTPException(status_code=404, detail="Hotel not found")
 
-    def add_hotel(self,user_id, hotel_name: str  ,location_country: str, location_city : str, location_map):
-        for user in self.__user:
-            if user.user_id == user_id:
-                if user.type != "admin":
-                    return "No Permission"
-                hotel = Hotel(hotel_name,Location(location_country,location_city,location_map))
-                self.hotel = hotel
-                return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
-                
-    def add_room(self,user_id,hotel_id: int, detail: str, price: int, guests: int):
-        for user in self.__user:
-            if user.user_id == user_id:
-                if user.type != "admin":
-                    return "No Permission"
-                for hotel in self.__hotel:
-                    if hotel.id == hotel_id:
-                        room = Room(detail,price,guests)
-                        hotel.room = room
-                        return "Success",{"Your Hotel":hotel}
-        return "Error Occure"
-         
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
         if start == end or start > end:
             return "Invalid Date"
@@ -312,7 +290,7 @@ class HotelReservationSystem:
                                 start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
                                 end = end.split('-')
                                 end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
-                                if rooms.isavailable(start,end):
+                                if not(rooms.isavailable(start,end)):
                                     data = Reservation(users.name, start, end)
                                     data.hotel_id = hotels.id
                                     data.room_detail = room_detail
@@ -436,38 +414,34 @@ class HotelReservationSystem:
                         }
         return "Reservation ID error"
         # Validate - Checked 
-
         
-    def add_payment(self, payment : object) -> dict:
-        for users in self.__user:
-            if payment.user_id == users.user_id: 
-                for hotels in self.__hotel:
-                    if payment.hotel == hotels.name:
-                        for rooms in hotels.room:
-                            if payment.room == rooms.detail:      
-                                if users.cart == None:
-                                    return "Payment Error"
-                                self.__payment.append(payment)
-                                rooms.reservation = users.cart
-                                users.reservation = users.cart
-                                reserveid = rooms.reservation[-1].id
-                                paydate = datetime.date.today()
-                                users.cart = None
-                                return {
-                                    "Name" : users.name,
-                                    "Reservation ID" : reserveid,
-                                    "Hotel" : payment.hotel,
-                                    "Room" : payment.room,
-                                    "Date" :  paydate,
-                                    "Total Price" : payment.amount
-                                }
-                        return "Invalid Room"
-                return "Invalid Hotel"
-        return "User Not Found"
+    # def add_payment(self, payment : object) -> dict:
+    #     for users in self.__user:
+    #         if payment.user_id == users.user_id: 
+    #             for hotels in self.__hotel:
+    #                 if payment.hotel == hotels.name:
+    #                     for rooms in hotels.room:
+    #                         if payment.room == rooms.detail:      
+    #                             if users.cart == None:
+    #                                 return "Payment Error"
+    #                             self.__payment.append(payment)
+    #                             rooms.reservation = users.cart
+    #                             users.reservation = users.cart
+    #                             reserveid = rooms.reservation[-1].id
+    #                             paydate = datetime.date.today()
+    #                             users.cart = None
+    #                             return {
+    #                                 "Name" : users.name,
+    #                                 "Reservation ID" : reserveid,
+    #                                 "Hotel" : payment.hotel,
+    #                                 "Room" : payment.room,
+    #                                 "Date" :  paydate,
+    #                                 "Total Price" : payment.amount
+    #                             }
+    #                     return "Invalid Room"
+    #             return "Invalid Hotel"
+    #     return "User Not Found"
 
-
-
-    
     def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str):
         time = time.split('-')
         time = datetime.date(int(time[2]), int(time[1]), int(time[0]))
@@ -488,6 +462,47 @@ class HotelReservationSystem:
                                 }
         
         raise HTTPException(status_code=400, detail="No completed reservations for feedback")   
+
+    def add_hotel(self,user_id:int, hotel_name: str  ,location_country: str, location_city : str, location_map: str):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+                hotel = Hotel(hotel_name,Location(location_country,location_city,location_map))
+                self.hotel = hotel
+                return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
+                
+    def add_room(self,user_id:int,hotel_id: int, detail: str, price: int, guests: int):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+                for hotel in self.__hotel:
+                    if hotel.id == hotel_id:
+                        room = Room(detail,price,guests)
+                        hotel.room = room
+                        return "Success",{"Your Hotel":hotel}
+        return "Error Occure"
+
+    def edit_room(self,user_id: int,hotel_name: str, room_detail: str, new_price: int, new_guests: int):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+        
+                hotel = self.search_hotel_by_name(hotel_name)
+                if hotel is not None:
+                    room = hotel.search_room_by_name(room_detail)
+                    
+                    if room is not None:
+                        room.price = new_price
+                        room.guests = new_guests
+                        return room
+                    else:
+                        raise HTTPException(status_code=404, detail="Room not found")
+                else:
+                    raise HTTPException(status_code=404, detail="Hotel not found")
+        raise HTTPException(status_code=404, detail="User not found") 
 
 class Hotel:
     __code = 0
@@ -590,9 +605,17 @@ class Room:
     def price(self):
         return self.__price
     
+    @price.setter
+    def price(self, price):
+        self.__price = price
+    
     @property
     def guests(self):
         return self.__guests
+    
+    @guests.setter
+    def guests(self, guests):
+        self.__guests = guests
     
     @property
     def reservation(self):
@@ -700,7 +723,6 @@ class User:
         self.__reservation = []
         self.__cart = None
         
-
     @property
     def user_id(self):
         return self.__user_id
@@ -773,8 +795,13 @@ class User:
         self.__type = type
 
 class Admin(User):
-    def __init__(self, name:str, password:str, telephone:str, email:str, type :str):
-        super().__init__(name, password, telephone, email, "Admin")
+    def __init__(self, name: str, password: str, telephone: str, email: str):
+        super().__init__(name, password, telephone, email)
+        self.__type = "Admin"
+
+    @property
+    def type(self):
+        return self.__type
     
     # def add_hotel(self, hotel:object):
     
@@ -784,12 +811,12 @@ class Admin(User):
 
     # def remove_room(self, hotel:object, room:object):
 
-    # def edit_room(self, hotel:object, room:object):
+    # # def edit_room(self, hotel:object, room:object):
 
     # def edit_hotel(self, hotel:object):
 
     # def force_cancel_reservation(self, user:object, reservation:object):
-         
+
 class Feedback:
     def __init__(self, user:object, comment:str, rating:int, time:int):
         self.__user = user
@@ -824,13 +851,13 @@ class Feedback:
 
 class Payment:
     __code = 0
-    def __init__(self,user_id,amount,hotelname,room):
+    def __init__(self, user_id, amount, hotel_name, room):
         Payment.__code += 1
         self.id = Payment.__code
         self.__user = user_id
         self.__amount = amount
-        self.__hotelname = hotelname
-        self.__hotelroom = room
+        self.__hotel_name = hotel_name
+        self.__hotel_room = room
 
     @property
     def user_id(self):
@@ -842,11 +869,11 @@ class Payment:
     
     @property
     def hotel(self):
-        return self.__hotelname
+        return self.__hotel_name
     
     @property
     def room(self):
-        return self.__hotelroom
+        return self.__hotel_room
 
 class Discount: 
     def __init__(self, code, amount, expiration):
@@ -888,8 +915,3 @@ class Receipt:
     @property
     def checkout(self):
         return self.__checkout
-
-# class User_information(BaseModel):
-#     name : str
-#     email : str
-#     telephone : str
