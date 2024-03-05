@@ -664,16 +664,18 @@ class Reservation:
 
 class User:
     __code = 0
-    def __init__(self, name:str, password:str, telephone:str, email:str):
+    def __init__(self, name:str, password:str, telephone:str, email:str, type :str):
         User.__code += 1
         self.__user_id = User.__code
         self.__name = name
         self.__password = password
         self.__telephone = telephone
         self.__email = email
+        self.__type = type
         self.__receipt = []
         self.__reservation = []
         self.__cart = None
+        
 
     @property
     def user_id(self):
@@ -737,6 +739,14 @@ class User:
 
     def cancel_reservation(self,reserve):
          self.__reservation.remove(reserve)
+
+    @property
+    def type(self):
+        return self.__type
+    
+    @type.setter
+    def type(self,type):
+        self.__type = type
 
 class Admin(User):
     def __init__(self, user_name, user_password, phone_number, email):
