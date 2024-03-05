@@ -134,3 +134,8 @@ async def add_hotel(user:int,add_hotel :schema.Hotel):
 async def add_room(user:int,hotel_id:int,add_room:schema.Room):
     add_room = hotel_list.myHotel.add_room(user,hotel_id,add_room.detail,add_room.price,add_room.guest)
     return add_room
+
+@app.put('/admin/edit-hotel/')
+def edit_hotel(user_id: int, hotel_name: str, country: str, city: str, map: str, image: str):
+    edit_hotel = hotel_list.myHotel.edit_hotel(user_id, hotel_name, country, city, map, image)
+    return edit_hotel
