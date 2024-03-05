@@ -328,6 +328,16 @@ class HotelReservationSystem:
             Data = User(user_name,user_password,phone_number,email)
             self.user = Data
             return {"User Name": user_name,"Tel.":phone_number,"Status":"Sign up successfully"}
+
+    def log_in(self,email,user_password):
+            for user in self.__user:
+                if user.email == email:
+                    if user.password == user_password:
+                        return "Log in Success"
+                    elif user.password != user_password:
+                        return "Inccorrect Password!"
+            return "This Email didn't sign up yet!"
+
         
     # def get_reservation_details(self, user): #User ID Parameter
     #     flag = 0
