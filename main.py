@@ -504,6 +504,23 @@ class HotelReservationSystem:
                     raise HTTPException(status_code=404, detail="Hotel not found")
         raise HTTPException(status_code=404, detail="User not found") 
 
+    def edit_hotel(self,user_id: int, hotel_name: str, country: str, city: str, map: str , image: str):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+                hotel = self.search_hotel_by_name(hotel_name)
+                if hotel is not None:
+                    hotel.name = hotel_name
+                    hotel.location.country = country
+                    hotel.location.city = city
+                    hotel.location.map = map
+                    hotel.imgsrc = image
+                    return hotel
+                else:
+                    raise HTTPException(status_code=404, detail="Hotel not found")
+        raise HTTPException(status_code=404, detail="User not found")
+
 class Hotel:
     __code = 0
     def __init__(self, name, location:object):
