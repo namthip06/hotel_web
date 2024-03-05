@@ -87,9 +87,16 @@ async def create_reservation(hotel_id:int, detail:str, user:int, start:str, end:
 
 # ---------------------PAYMENT----------------------------
 # http://127.0.0.1:8000/payment/?name=Anna&hotel=hotel%20one&room=Breakfast%20not%20included&checkin=11-09-2023&checkout=02-10-2023
-@app.get("/payment/")
-async def pay(user_id: int, reservation_id: int):
-    payment = hotel_list.myHotel.add_payment(user_id, reservation_id)
+# @app.get("/payment/")
+# async def pay(user_id: int, reservation_id: int):
+#     payment = hotel_list.myHotel.add_payment(user_id, reservation_id)
+#     return payment
+@app.post("/payment/")
+async def pay(payment_data: schema.Pay):
+    hotel = hotel_list.myHotel.search_hotel_by_name(payment_data.hotel)
+    room = hotel.search_room_by_name(payment_data.room)
+    price = room.final_price
+    payment = hotel_list.myHotel.add_payment(main.Payment(payment_data.name,price,hotel.name,room.detail)) 
     return payment
 # --------------------------------------------------------
 
