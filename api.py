@@ -108,8 +108,8 @@ async def add_feedback(user_name, hotel_name, comment: str, rating: int, time: s
     return add_feedback
 
 @app.post('/sign up')
-async def sign_up(schema.Sign_up):
-    sign_up = hotel_list.myHotel.sign_up(user_name, user_password, phone_number, email)
+async def sign_up(sign.up: schema.Sign_up):
+    sign_up = hotel_list.myHotel.sign_up(sign_up.user_name, sign_up.user_password, sign_up.phone_number, sign_up.email)
     return sign_up
  
 @app.get('/login')
