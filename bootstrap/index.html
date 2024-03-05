@@ -3,11 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>Lokavinas : Find the best Hotel</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <!--Bootstrap-->
+    <!--Font-->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet"> -->
+    <!--Font-->
 </head>
+
+<style>
+    body {
+        /* font-family: 'Kode Mono', monospace; */
+        font-family: 'Messina Sans Book';
+    }
+</style>
 <body>
-    <script src="/js/bootstrap.bundle.js"></script>
-    
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: rgba(4,9,30,1);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/pog-logo.png" alt="Logo" width="75">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
+                aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarID">
+                <div class="navbar-nav">
+                    <style>
+                        .navbar-nav a::after{
+                            content: '';
+                            width: 0%;
+                            height: 2px;    
+                            background: #d0ff00;
+                            display: block;
+                            margin: auto;
+                            transition: 0.25s; /*popup wind up time when hovering*/
+                        }
+                        .navbar-nav a:hover::after{ /*wtf happens after you hover on the button*/
+                            width: 100%
+                        }
+                    </style>
+                    <a class="nav-link active mx-4" aria-current="page" href="#">Hotel</a>
+                    <a class="nav-link active mx-4" aria-current="page" href="#">Reservation</a>
+                    <a class="nav-link active mx-4" aria-current="page" href="user.html">Account</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+<section class="header" style="min-height: 100vh; display: flex; background-image: linear-gradient(rgba(21, 26, 41, 0.5), rgba(21, 26, 41, 1)),
+url(images/epiccatbg.png); background-position: center; background-size: cover; align-items: center;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-12 text-center text-white">
+                <style>
+                    .header h1{
+                        font-size: 6rem; /* Adjust the font size as needed */
+                        font-weight: bold; /* Make the text bold */
+                        transition: 0.5s;
+                    }
+                    @media (max-width: 768px) {
+                        /* Adjust font size for smaller screens */
+                        .header h1 {
+                            font-size: 4rem;
+                        }
+                    }
+                </style>
+                <h1>Lokavinas</h1>
+                <h2>Find yourself<br>the best Hotel</h2>
+                <div class="input-group mb-3 mt-4 mx-auto" style="max-width: 600px;">
+                    <input type="text" class="form-control" placeholder="Search Hotel Name / Places">
+                    <button class="btn btn-primary" type="button">Explore!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="menu text-white py-5" style="background-color: rgba(21, 26, 41, 1)">
+    <div class="container">
+        <h1 class="text-center mb-4">What we cookin'</h1>
+        <h4 class="text-center mb-5">Venti white mocha, quad shot, 2 shots on bottom,<br>
+            2 on top. Almond milk, extra hot,<br>
+            caramel drizzle inside the cup, and extra whip cream</p>
+        </h4>
+        <style>
+            .card-body{
+                transition: 0.25s;
+            }
+            .card-body:hover{ /*highlist with shadow when hovered*/
+                box-shadow: 0 0 20px 0 #d0ff0070;
+            }
+        </style>
+        <div class="row text-dark">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Mocha</h3>
+                        <p class="card-text">Tuna salad sandwich on a toasted until burnt blueberry bagel with honey mustard.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Capuccino</h3>
+                        <p class="card-text">All lettuce burrito. No salsa, no guac, nothing but the warm tortilla and shredded lettuce.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Americano</h3>
+                        <p class="card-text">10 piece nugget sandwich, topped with cheese, mayo, big Mac sauce and pickles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer py-5 text-white" style="background-color: black;">
+    <div class="container-fluid px-5">
+        <h1 class="display-3 mb-4 fw-bold">Lokavinas</h1>
+        <h2 class="mb-4">made by</h2>
+        <p class="lead">yours truly</p>
+    </div>
+</footer>
 </body>
 </html>

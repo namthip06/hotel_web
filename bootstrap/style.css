@@ -1,0 +1,31 @@
+/* 'Ivy Mode' */
+/* 'Messina Sans Book' */
+/* #FFFFFF */
+/* #E3E3E8 */
+
+@import url("/bootstrap/fonts/ivy-mode/stylesheet.css");
+@import url("/bootstrap/fonts/messina-sans/stylesheet.css");
+
+* {
+    font-family: 'Messina Sans Book';
+    /* font-weight: normal; */
+}
+
+h1 {
+    font-family: 'Ivy Mode';
+}
+
+h2 {
+    font-family: 'Ivy Mode';
+    letter-spacing: 4px;
+}
+
+h3 {
+    font-family: 'Ivy Mode';
+}
+
+.hotel_name {
+    font-family: 'Ivy Mode';
+    font-weight: 300;
+    letter-spacing: 3px;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lokavinas : User</title>
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <!--Bootstrap-->
+  <!--Font-->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet"> -->
+  <!--Font-->
+</head>
+<style>
+    body {
+        font-family: 'Messina Sans Book';
+    }
+</style>
+<body style="background-color: rgba(21, 26, 41, 1)"> 
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: rgba(4,9,30,1);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/pog-logo.png" alt="Logo" width="75">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
+                aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarID">
+                <div class="navbar-nav">
+                    <style>
+                        .navbar-nav a::after{
+                            content: '';
+                            width: 0%;
+                            height: 2px;    
+                            background: #d0ff00;
+                            display: block;
+                            margin: auto;
+                            transition: 0.25s; /*popup wind up time when hovering*/
+                        }
+                        .navbar-nav a:hover::after{ /*wtf happens after you hover on the button*/
+                            width: 100%
+                        }
+                    </style>
+                    <a class="nav-link active mx-4" aria-current="page" href="#">Hotel</a>
+                    <a class="nav-link active mx-4" aria-current="page" href="#">Reservation</a>
+                    <a class="nav-link active mx-4" aria-current="page" href="user.html">Account</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<section>
+    <div class="card mb-3 mx-auto" style="max-width: 540px; margin-top: 150px; margin-left: 50px; margin-right: 50px;">
+        <div class="row g-0">
+          <div class="col-4">
+            <img src="https://pbs.twimg.com/media/D7ShRPYXoAA-XXB.jpg" 
+            class="img-fluid rounded-start" alt="..." style="height: 100%;">
+          </div>
+          <div class="col-md-8" style="align-items: center;">
+            <div class="card-body">
+              <h5 class="card-title">Name Lastname</h5>
+              <p><!--DONT DELETE THIS PARAGRAPH--></p>
+              <p class="card-text">User ID : </p>
+              <p class="card-text">Email : </p>
+              <p class="card-text">Phone Number : </p>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <button class="btn btn-success me-md-2" type="button">Your Reservation</button>
+        <button class="btn btn-danger" type="button">Cancel Reservation</button>
+    </div>
+</section>
+</body>
+</html>
