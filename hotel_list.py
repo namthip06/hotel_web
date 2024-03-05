@@ -329,6 +329,7 @@ myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(20
 myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com","customer")
 myHotel.user = main.User("user2", "2222", "0816228411", "two@gmail.com","customer")
 myHotel.user = main.User("user3", "3333", "0816228411", "tree@gmail.com","customer")
+myHotel.user = main.User("Admin1","1234admin","000000000","admin@gmail.com","admin")
 
 feedback1 = main.Feedback(myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
 feedback2 = main.Feedback(myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")
