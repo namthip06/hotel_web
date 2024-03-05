@@ -324,7 +324,7 @@ class HotelReservationSystem:
                 return "Password must have atleast 8 Character"
             if len(phone_number)<10:
                 return "Invalid telephone number form"
-            Data = User(user_name,user_password,phone_number,email)
+            Data = User(user_name,user_password,phone_number,email,"customer")
             self.user = Data
             return {"User Name": user_name,"Tel.":phone_number,"Status":"Sign up successfully"}
 
@@ -463,7 +463,7 @@ class HotelReservationSystem:
         
         raise HTTPException(status_code=400, detail="No completed reservations for feedback")   
 
-    def add_hotel(self,user_id, hotel_name: str  ,location_country: str, location_city : str, location_map):
+    def add_hotel(self,user_id:int, hotel_name: str  ,location_country: str, location_city : str, location_map: str):
         for user in self.__user:
             if user.user_id == user_id:
                 if user.type != "admin":
@@ -472,7 +472,7 @@ class HotelReservationSystem:
                 self.hotel = hotel
                 return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
                 
-    def add_room(self,user_id,hotel_id: int, detail: str, price: int, guests: int):
+    def add_room(self,user_id:int,hotel_id: int, detail: str, price: int, guests: int):
         for user in self.__user:
             if user.user_id == user_id:
                 if user.type != "admin":
@@ -484,20 +484,25 @@ class HotelReservationSystem:
                         return "Success",{"Your Hotel":hotel}
         return "Error Occure"
 
-    def edit_room(self, hotel_name: str, room_detail: str, new_price: int, new_guests: int):
-        hotel = self.search_hotel_by_name(hotel_name)
+    def edit_room(self,user_id: int,hotel_name: str, room_detail: str, new_price: int, new_guests: int):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
         
-        if hotel is not None:
-            room = hotel.search_room_by_name(room_detail)
-            
-            if room is not None:
-                room.price = new_price
-                room.guests = new_guests
-                return room
-            else:
-                raise HTTPException(status_code=404, detail="Room not found")
-        else:
-            raise HTTPException(status_code=404, detail="Hotel not found")
+                hotel = self.search_hotel_by_name(hotel_name)
+                if hotel is not None:
+                    room = hotel.search_room_by_name(room_detail)
+                    
+                    if room is not None:
+                        room.price = new_price
+                        room.guests = new_guests
+                        return room
+                    else:
+                        raise HTTPException(status_code=404, detail="Room not found")
+                else:
+                    raise HTTPException(status_code=404, detail="Hotel not found")
+        raise HTTPException(status_code=404, detail="User not found") 
 
 class Hotel:
     __code = 0
