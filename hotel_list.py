@@ -304,14 +304,14 @@ myHotel.hotel[49].imgsrc = ["https://dynamic-media-cdn.tripadvisor.com/media/pho
                            "https://cf.bstatic.com/xdata/images/hotel/max1024x768/81814915.jpg?k=203261f08aaf8eaab1a4d74698927b33cd0ed8655c7ee8c9b91ae121ae094996&o=&hp=1"] 
 
 for hotel in myHotel.hotel:
-    for _ in range(3):
-        hotel.room.append(main.Room("Single Bed", 1000, 1))
-    for _ in range(3):
-        hotel.room.append(main.Room("Double Bed", 1500, 2))
-    for _ in range(2):
-        hotel.room.append(main.Room("Queen Size Bed", 2500, 3))
-    for _ in range(2):
-        hotel.room.append(main.Room("King Size Bed", 4000, 4))
+    for room in range(3):
+        hotel.room = main.Room("Single Bed", 1000, 1)
+    for room in range(3):
+        hotel.room = main.Room("Double Bed", 1500, 2)
+    for room in range(2):
+        hotel.room = main.Room("Queen Size Bed", 2500, 3)
+    for room in range(2):
+        hotel.room = (main.Room("King Size Bed", 4000, 4))
 
 # myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
 # myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
@@ -326,9 +326,9 @@ myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(20
 myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
  
  
-myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com")
-myHotel.user = main.User("user2", "2222", "0816228411", "two@gmail.com")
-myHotel.user = main.User("user3", "3333", "0816228411", "tree@gmail.com")
+myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com","customer")
+myHotel.user = main.User("user2", "2222", "0816228411", "two@gmail.com","customer")
+myHotel.user = main.User("user3", "3333", "0816228411", "tree@gmail.com","customer")
 
 feedback1 = main.Feedback(myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
 feedback2 = main.Feedback(myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")

@@ -219,7 +219,7 @@ class HotelReservationSystem:
 
         return king_size_bed_rooms
 
-   def get_hotel_details(self, name: str):
+    def get_hotel_details(self, name: str):
         selected_hotel = None
         for hotel in self.__hotel:
             if name == hotel.name:
@@ -278,6 +278,27 @@ class HotelReservationSystem:
 
         raise HTTPException(status_code=404, detail="Hotel not found")
 
+    def add_hotel(self,user_id, hotel_name: str  ,location_country: str, location_city : str, location_map):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+                hotel = Hotel(hotel_name,Location(location_country,location_city,location_map))
+                self.hotel = hotel
+                return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
+                
+    def add_room(self,user_id,hotel_id: int, detail: str, price: int, guests: int):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+                for hotel in self.__hotel:
+                    if hotel.id == hotel_id:
+                        room = Room(detail,price,guests)
+                        hotel.room = room
+                        return "Success",{"Your Hotel":hotel}
+        return "Error Occure"
+         
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
         if start == end or start > end:
             return "Invalid Date"
@@ -317,7 +338,28 @@ class HotelReservationSystem:
     
         # Validate - Checked
 
-    
+    def sign_up(self,user_name,user_password,phone_number,email):
+            for user in self.__user:
+                if user.email == email:
+                    return "This Email has already been used"
+            if len(user_password)<=7:
+                return "Password must have atleast 8 Character"
+            if len(phone_number)<10:
+                return "Invalid telephone number form"
+            Data = User(user_name,user_password,phone_number,email,"customer")
+            self.user = Data
+            return {"User Name": user_name,"Tel.":phone_number,"Status":"Sign up successfully"}
+
+    def log_in(self,email,user_password):
+            for user in self.__user:
+                if user.email == email:
+                    if user.password == user_password:
+                        return "Log in Success"
+                    elif user.password != user_password:
+                        return "Inccorrect Password!"
+            return "This Email didn't sign up yet!"
+
+        
     # def get_reservation_details(self, user): #User ID Parameter
     #     flag = 0
     #     target = None
@@ -393,25 +435,6 @@ class HotelReservationSystem:
                             "Total Price" : price
                         }
         return "Reservation ID error"
-
-    def add_feedback(self, user, comment: str, rating: int, time: str):
-        for reservation in user.reservation:
-            today = datetime.date.today()
-            if reservation.date_out < today:
-                for hotel in self.__hotel:
-                    if hotel.id == reservation.hotel_id:
-                        feedback = Feedback(user, comment, rating, time)
-                        hotel.feedback = feedback
-                        return {
-                            "User": user.name,
-                            "Hotel": hotel.name,
-                            "Comment": comment,
-                            "Rating": rating,
-                            "Time": time
-                        }
-                    
-        return "No completed reservations for feedback"
-
         # Validate - Checked 
 
         
@@ -442,6 +465,9 @@ class HotelReservationSystem:
                 return "Invalid Hotel"
         return "User Not Found"
 
+
+
+    
     def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str):
         time = time.split('-')
         time = datetime.date(int(time[2]), int(time[1]), int(time[0]))
@@ -452,7 +478,7 @@ class HotelReservationSystem:
                         for hotel in self.__hotel:
                             if hotel.name == hotel_name:
                                 feedback = Feedback(user, comment, rating, time)
-                                hotel.feedback.append(feedback)
+                                hotel.feedback = feedback
                                 return {
                                     "User": user.name,
                                     "Hotel": hotel.name,
@@ -461,7 +487,7 @@ class HotelReservationSystem:
                                     "Time": time
                                 }
         
-        raise HTTPException(status_code=400, detail="No completed reservations for feedback")
+        raise HTTPException(status_code=400, detail="No completed reservations for feedback")   
 
 class Hotel:
     __code = 0
@@ -502,7 +528,7 @@ class Hotel:
     def feedback(self, feedback:object):
         self.__feedback.append(feedback)
 
-   @property
+    @property
     def imgsrc(self):
         return self.__imgsrc
     
@@ -576,7 +602,7 @@ class Room:
         for reservations in self.__reservation:
             reservestart = reservations.date_in
             reserveend = reservations.date_out
-            if not(HotelReservationSystem.not_overlap(HotelReservationSystem,start, end, reservestart,reserveend)):
+            if not(HotelReservationSystem.is_overlap(HotelReservationSystem,start, end, reservestart,reserveend)):
                 return False
         return True
     
@@ -608,8 +634,6 @@ class Room:
     @discount.setter
     def discount(self, discount):
         self.__discount = discount
-
-    
 
 class Reservation:
     __code = 0
@@ -662,19 +686,20 @@ class Reservation:
     def room_detail(self,room_detail):
         self.__room_detail = room_detail
 
-
 class User:
     __code = 0
-    def __init__(self, name:str, password:str, telephone:str, email:str):
+    def __init__(self, name:str, password:str, telephone:str, email:str, type :str):
         User.__code += 1
         self.__user_id = User.__code
         self.__name = name
         self.__password = password
         self.__telephone = telephone
         self.__email = email
+        self.__type = type
         self.__receipt = []
         self.__reservation = []
         self.__cart = None
+        
 
     @property
     def user_id(self):
@@ -738,6 +763,32 @@ class User:
 
     def cancel_reservation(self,reserve):
          self.__reservation.remove(reserve)
+
+    @property
+    def type(self):
+        return self.__type
+    
+    @type.setter
+    def type(self,type):
+        self.__type = type
+
+class Admin(User):
+    def __init__(self, name:str, password:str, telephone:str, email:str, type :str):
+        super().__init__(name, password, telephone, email, "Admin")
+    
+    # def add_hotel(self, hotel:object):
+    
+    # def remove_hotel(self, hotel:object):
+
+    # def add_room(self, hotel:object, room:object):
+
+    # def remove_room(self, hotel:object, room:object):
+
+    # def edit_room(self, hotel:object, room:object):
+
+    # def edit_hotel(self, hotel:object):
+
+    # def force_cancel_reservation(self, user:object, reservation:object):
          
 class Feedback:
     def __init__(self, user:object, comment:str, rating:int, time:int):
@@ -842,5 +893,3 @@ class Receipt:
 #     name : str
 #     email : str
 #     telephone : str
-
-
