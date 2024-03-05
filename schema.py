@@ -26,3 +26,8 @@ class Hotel(BaseModel):
     country : str
     city : str
     maps : str
+
+class Room(BaseModel):
+    detail : str
+    price : int
+    guest : int 
