@@ -103,8 +103,8 @@ async def change_reservation(user:int,reservation_id:int,date_in:str,date_out:st
     return change_reservation
 
 @app.get('/feedback/')
-async def add_feedback(user_name, hotel_name, comment: str, rating: int, time: str, images: list):
-    add_feedback = hotel_list.myHotel.add_feedback(user_name, hotel_name, comment, rating, time, images)
+async def add_feedback(review: schema.Review):
+    add_feedback = hotel_list.myHotel.add_feedback(review.user_name, review.hotel_name, review.comment, review.rating, review.time, review.images)
     return add_feedback
 
 @app.post('/sign up')
