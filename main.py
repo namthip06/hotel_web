@@ -749,39 +749,22 @@ class User:
         self.__type = type
 
 class Admin(User):
-    def __init__(self, user_name, user_password, phone_number, email):
-        super().__init__(user_name, user_password, phone_number, email)
+    def __init__(self, name:str, password:str, telephone:str, email:str, type :str):
+        super().__init__(name, password, telephone, email, "Admin")
+    
+    # def add_hotel(self, hotel:object):
+    
+    # def remove_hotel(self, hotel:object):
 
-    def add_room_to_hotel(self, hotel, room_detail, price, amount):
-        if hotel in HotelReservationSystem.hotel:
-            new_room = Room(room_detail, price, amount)
-            hotel.room = new_room
-            return f"Room '{room_detail}' added to hotel '{hotel.name}' successfully."
-        else:
-            return "Hotel not found."
-        
-    def remove_room(self, room_detail):
-        room_to_remove = None
-        for room in self.__rooms:
-            if room.detail == room_detail:
-                room_to_remove = room
-                break
+    # def add_room(self, hotel:object, room:object):
 
-        if room_to_remove:
-            self.__rooms.remove(room_to_remove)
-            return f"Room '{room_detail}' removed from hotel '{self.name}' successfully."
-        else:
-            return f"Room '{room_detail}' not found in hotel '{self.name}'."
+    # def remove_room(self, hotel:object, room:object):
 
-    def delete_room_from_hotel(self, hotel, room_detail):
-        if hotel in HotelReservationSystem.hotel:
-            for room in hotel.room:
-                if room.detail == room_detail:
-                    hotel.room.remove(room)
-                    return f"Room '{room_detail}' deleted from hotel '{hotel.name}' successfully."
-            return "Room not found in the hotel."
-        else:
-            return "Hotel not found."
+    # def edit_room(self, hotel:object, room:object):
+
+    # def edit_hotel(self, hotel:object):
+
+    # def force_cancel_reservation(self, user:object, reservation:object):
          
 class Feedback:
     def __init__(self, user:object, comment:str, rating:int, time:int):
