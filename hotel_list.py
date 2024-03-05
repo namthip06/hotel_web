@@ -305,13 +305,13 @@ myHotel.hotel[49].imgsrc = ["https://dynamic-media-cdn.tripadvisor.com/media/pho
 
 for hotel in myHotel.hotel:
     for room in range(3):
-        hotel.room.append(main.Room("Single Bed", 1000, 1))
+        hotel.room = main.Room("Single Bed", 1000, 1)
     for room in range(3):
-        hotel.room.append(main.Room("Double Bed", 1500, 2))
+        hotel.room = main.Room("Double Bed", 1500, 2)
     for room in range(2):
-        hotel.room.append(main.Room("Queen Size Bed", 2500, 3))
+        hotel.room = main.Room("Queen Size Bed", 2500, 3)
     for room in range(2):
-        hotel.room.append(main.Room("King Size Bed", 4000, 4))
+        hotel.room = (main.Room("King Size Bed", 4000, 4))
 
 # myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
 # myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
