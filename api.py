@@ -95,7 +95,7 @@ async def get_hotel_details(name: str):
     get_available_room = hotel_list.myHotel.get_hotel_details(name)
     return get_available_room
 
-@app.get('/change/')
+@app.put('/change/')
 async def change_reservation(user:int,reservation_id:int,date_in:str,date_out:str):
     change_reservation = hotel_list.myHotel.change_reservation(user,reservation_id,date_in,date_out)
     return change_reservation
