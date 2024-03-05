@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+    <script src="/js/bootstrap.bundle.js"></script>
+    <!-- nav -->
+    <div class="container my-5">
+        <h2>Your Accommodation Booking</h2>
+        <p>Make sure all the details on this page are correct before proceeding to payment.</p>
+        <div class="row gx-5 my-5">
+            <div class="col-lg-7">
+                <div class="row row-cols-1 gy-5">
+                    <div class="col p-4 shadow-sm rounded-4">
+                        <h4>Contact Details (for E-voucher)</h4>
+                        <p>Please fill in all fields correctly to ensure you receive the booking confirmation voucher in your email.</p>
+                        <!-- input name -->
+                        <label for="inputName" class="form-label">Contact's name</label>
+                        <input type="text" id="inputName" class="form-control" aria-describedby="nameHelpBlock">
+                        <div id="nameHelpBlock" class="form-text mb-4">
+                            As in Passport/Official ID Card (without title/special characters)
+                        </div>
+                        <!-- input email -->
+                        <label for="inputEmail" class="form-label">Contact's email address</label>
+                        <input type="email" id="inputEmail" class="form-control" aria-describedby="emailHelpBlock">
+                        <div id="emailHelpBlock" class="form-text mb-4">
+                            We will send the e-voucher to this email.
+                        </div>
+                        <!-- input number -->
+                        <label for="inputNumber" class="form-label">Mobile Number</label>
+                        <input type="tel" id="inputNumber" class="form-control" aria-describedby="numberHelpBlock">
+                        <div id="numberHelpBlock" class="form-text mb-4">
+                            e.g. +62812345678, for Country Code (+62) and Mobile No. 0812345678.
+                        </div>
+                    </div>
+                    <div class="col p-4 shadow-sm rounded-4">
+                        <h4>Price details</h4>
+                        <p class="mb-4"><small>Use coupon at the payment page for cheaper price</small></p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p>Room Price</p>
+                            <p>US$ 64.46</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p>Taxes and fees</p>
+                            <p>US$ 0.01</p>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center justify-content-between border-bottom border-secondary-subtle">
+                            <p>Other Taxes and Fees</p>
+                            <p>US$ 11.41</p>
+                        </div>
+                        <div class="d-flex mb-4 align-items-center justify-content-between">
+                            <h4>Total price</h4>
+                            <h4>US$ 75.88</h4>
+                        </div>
+                        <p class="text-center mb-4">Secure your booking with this price before it gets higher!</p>
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-dark btn-lg">Continue to Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 my-lg-0 my-5 px-lg-4 px-2">
+                <div class="col p-4 shadow-sm rounded-4">
+                    <h4>Centre Point Prime Hotel Pattaya</h4>
+                    <p>(1x) Deluxe Premier King Room</p>
+                    <ul>
+                        <li>2 Guests</li>
+                        <li>1 king bed</li>
+                        <li>Free Breakfast</li>
+                    </ul>
+                    <div class="d-flex justify-content-between text-center">
+                        <div class="border p-3 rounded-4 border-secondary-subtle">
+                            <p class="m-0">Mon, 4 Mar 2024</p>
+                            <p class="m-0">Check-in</p>
+                        </div>
+                        <!-- icon -->
+                        <div class="border p-3 rounded-4 border-secondary-subtle">
+                            <p class="m-0">Tue, 5 Mar 2024</p>
+                            <p class="m-0">Check-out</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+</body>
+</html>
