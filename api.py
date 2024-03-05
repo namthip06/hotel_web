@@ -143,7 +143,7 @@ async def login(email: str, user_password: str):
     login = hotel_list.myHotel.log_in(email,user_password)
     return login
 
-@app.get('/cancel')
+@app.delete('/cancel')
 async def cancel_reservation(user:int,reservation_id:int):
     cancel_reservation = hotel_list.myHotel.cancel_reservation(user,reservation_id)
     return cancel_reservation
