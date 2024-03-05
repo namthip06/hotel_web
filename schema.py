@@ -20,3 +20,9 @@ class Review(BaseModel):
     rating : int
     time : str
     images : list
+
+class Hotel(BaseModel):
+    name : str
+    country : str
+    city : str
+    maps : str
