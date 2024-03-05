@@ -219,7 +219,7 @@ class HotelReservationSystem:
 
         return king_size_bed_rooms
 
-   def get_hotel_details(self, name: str):
+    def get_hotel_details(self, name: str):
         selected_hotel = None
         for hotel in self.__hotel:
             if name == hotel.name:
@@ -463,7 +463,7 @@ class HotelReservationSystem:
                                     "Time": time
                                 }
         
-        raise HTTPException(status_code=400, detail="No completed reservations for feedback")
+        raise HTTPException(status_code=400, detail="No completed reservations for feedback")   
 
 class Hotel:
     __code = 0
@@ -504,7 +504,7 @@ class Hotel:
     def feedback(self, feedback:object):
         self.__feedback.append(feedback)
 
-   @property
+    @property
     def imgsrc(self):
         return self.__imgsrc
     
@@ -578,7 +578,7 @@ class Room:
         for reservations in self.__reservation:
             reservestart = reservations.date_in
             reserveend = reservations.date_out
-            if not(HotelReservationSystem.not_overlap(HotelReservationSystem,start, end, reservestart,reserveend)):
+            if not(HotelReservationSystem.is_overlap(HotelReservationSystem,start, end, reservestart,reserveend)):
                 return False
         return True
     
@@ -610,8 +610,6 @@ class Room:
     @discount.setter
     def discount(self, discount):
         self.__discount = discount
-
-    
 
 class Reservation:
     __code = 0
@@ -663,7 +661,6 @@ class Reservation:
     @room_detail.setter
     def room_detail(self,room_detail):
         self.__room_detail = room_detail
-
 
 class User:
     __code = 0
@@ -740,6 +737,41 @@ class User:
 
     def cancel_reservation(self,reserve):
          self.__reservation.remove(reserve)
+
+class Admin(User):
+    def __init__(self, user_name, user_password, phone_number, email):
+        super().__init__(user_name, user_password, phone_number, email)
+
+    def add_room_to_hotel(self, hotel, room_detail, price, amount):
+        if hotel in HotelReservationSystem.hotel:
+            new_room = Room(room_detail, price, amount)
+            hotel.room = new_room
+            return f"Room '{room_detail}' added to hotel '{hotel.name}' successfully."
+        else:
+            return "Hotel not found."
+        
+    def remove_room(self, room_detail):
+        room_to_remove = None
+        for room in self.__rooms:
+            if room.detail == room_detail:
+                room_to_remove = room
+                break
+
+        if room_to_remove:
+            self.__rooms.remove(room_to_remove)
+            return f"Room '{room_detail}' removed from hotel '{self.name}' successfully."
+        else:
+            return f"Room '{room_detail}' not found in hotel '{self.name}'."
+
+    def delete_room_from_hotel(self, hotel, room_detail):
+        if hotel in HotelReservationSystem.hotel:
+            for room in hotel.room:
+                if room.detail == room_detail:
+                    hotel.room.remove(room)
+                    return f"Room '{room_detail}' deleted from hotel '{hotel.name}' successfully."
+            return "Room not found in the hotel."
+        else:
+            return "Hotel not found."
          
 class Feedback:
     def __init__(self, user:object, comment:str, rating:int, time:int):
@@ -844,5 +876,3 @@ class Receipt:
 #     name : str
 #     email : str
 #     telephone : str
-
-
