@@ -278,6 +278,15 @@ class HotelReservationSystem:
 
         raise HTTPException(status_code=404, detail="Hotel not found")
 
+    def add_hotel(self,user_id, hotel_name: str  ,location_country: str, location_city : str, location_map):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    return "No Permission"
+                hotel = Hotel(hotel_name,Location(location_country,location_city,location_map))
+                self.hotel = hotel
+                return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
+
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
         if start == end or start > end:
             return "Invalid Date"
