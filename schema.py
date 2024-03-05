@@ -46,3 +46,8 @@ class ChangeReservation(BaseModel):
     reservation_id : int
     date_in : str
     date_out : str
+
+class UserInfoEditor(BaseModel):
+    new_name : str
+    new_password : str
+    new_telephone : str
