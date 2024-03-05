@@ -73,6 +73,7 @@ class HotelReservationSystem:
         for hotel in self.__hotel:
             if hotel.name == name:
                 return hotel
+        return None
     
     def is_overlap(self, start1:object, end1:object, start2:object, end2:object) -> bool:
         if (start1 < start2 and end1 < start2) or (start1 > end2):
@@ -279,7 +280,7 @@ class HotelReservationSystem:
 
     def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
         if start == end or start > end:
-            return "Invalid Date"
+            raise HTTPException(status_code=400, detail="Invalid Date")
         for users in self.__user:
             if users.user_id == user:
                 for hotels in self.__hotel:
@@ -316,17 +317,17 @@ class HotelReservationSystem:
     
         # Validate - Checked
 
-    def sign_up(self,user_name,user_password,phone_number,email):
+    def sign_up(self, user_name, user_password, phone_number, email):
             for user in self.__user:
                 if user.email == email:
-                    return "This Email has already been used"
-            if len(user_password)<=7:
-                return "Password must have atleast 8 Character"
-            if len(phone_number)<10:
-                return "Invalid telephone number form"
-            Data = User(user_name,user_password,phone_number,email,"customer")
-            self.user = Data
-            return {"User Name": user_name,"Tel.":phone_number,"Status":"Sign up successfully"}
+                    raise HTTPException(status_code=400, detail="This Email has already been used")
+            if len(user_password) < 8:
+                raise HTTPException(status_code=400, detail="Password must have at least 8 characters")
+            if len(phone_number) != 10:
+                raise HTTPException(status_code=400, detail="Invalid telephone number form")
+            data = User(user_name, user_password, phone_number, email)
+            self.user = data
+            return {"User Name": user_name,"Tel.": phone_number,"Status": "Sign up successfully"}
 
     def log_in(self,email,user_password):
             for user in self.__user:
@@ -334,9 +335,8 @@ class HotelReservationSystem:
                     if user.password == user_password:
                         return "Log in Success"
                     elif user.password != user_password:
-                        return "Inccorrect Password!"
-            return "This Email didn't sign up yet!"
-
+                        raise HTTPException(status_code=400, detail="Incorrect Password!")
+            raise HTTPException(status_code=400, detail="This Email didn't sign up yet!")
         
     # def get_reservation_details(self, user): #User ID Parameter
     #     flag = 0
@@ -362,7 +362,7 @@ class HotelReservationSystem:
                         new_date_out = new_date_out.split('-')
                         new_date_out = datetime.date(int(new_date_out[2]), int(new_date_out[1]), int(new_date_out[0]))
                         if(new_date_out <= new_date_in ):
-                            return "Invalid Date"
+                            raise HTTPException(status_code=400, detail="Invalid Date")
                         
                         for hotels in self.__hotel:    
                             if hotels.id == reservation.hotel_id:
@@ -379,10 +379,10 @@ class HotelReservationSystem:
                                                 "Your New Check in Date:": reservation.date_in,
                                                 "Your New Check out Date": reservation.date_out
                         }
-                                    return "Room Not Available"
-                        return "Invalid Hotel"
-                return "No Reservation ID"
-        return "User Not Found"
+                                        raise HTTPException(status_code=400, detail="Room Not Available")
+                                raise HTTPException(status_code=400, detail="Invalid Hotel")
+                raise HTTPException(status_code=404, detail="No Reservation ID")
+        raise HTTPException(status_code=404, detail="User Not Found")
     
         # Validate - Checked
     
@@ -412,7 +412,9 @@ class HotelReservationSystem:
                             "Payment Date" : paydate,
                             "Total Price" : price
                         }
-        return "Reservation ID error"
+                    raise HTTPException(status_code=404, detail="Hotel not found")
+                raise HTTPException(status_code=400, detail="Invalid Reservation ID")
+        raise HTTPException(status_code=404, detail="User not found")
         # Validate - Checked 
         
     # def add_payment(self, payment : object) -> dict:
@@ -463,37 +465,37 @@ class HotelReservationSystem:
         
         raise HTTPException(status_code=400, detail="No completed reservations for feedback")   
 
-    def add_hotel(self,user_id:int, hotel_name: str  ,location_country: str, location_city : str, location_map: str):
+    def add_hotel(self, user_id, hotel_name: str  , location_country: str, location_city : str, location_map):
         for user in self.__user:
             if user.user_id == user_id:
                 if user.type != "admin":
-                    return "No Permission"
+                    raise HTTPException(status_code=403, detail="No Permission")
                 hotel = Hotel(hotel_name,Location(location_country,location_city,location_map))
                 self.hotel = hotel
                 return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
+        raise HTTPException(status_code=404, detail="User not found")
                 
-    def add_room(self,user_id:int,hotel_id: int, detail: str, price: int, guests: int):
+    def add_room(self, user_id, hotel_id: int, detail: str, price: int, guests: int):
         for user in self.__user:
             if user.user_id == user_id:
                 if user.type != "admin":
-                    return "No Permission"
+                    raise HTTPException(status_code=403, detail="No Permission")
                 for hotel in self.__hotel:
                     if hotel.id == hotel_id:
                         room = Room(detail,price,guests)
                         hotel.room = room
                         return "Success",{"Your Hotel":hotel}
-        return "Error Occure"
+                raise HTTPException(status_code=404, detail="Hotel not found")
+        raise HTTPException(status_code=404, detail="User not found")
 
-    def edit_room(self,user_id: int,hotel_name: str, room_detail: str, new_price: int, new_guests: int):
+    def edit_room(self, user_id: str, hotel_name: str, room_detail: str, new_price: int, new_guests: int):
         for user in self.__user:
             if user.user_id == user_id:
                 if user.type != "admin":
-                    return "No Permission"
-        
-                hotel = self.search_hotel_by_name(hotel_name)
+                    raise HTTPException(status_code=403, detail="No Permission")
+                hotel = self.search_hotel_by_name(hotel_name) 
                 if hotel is not None:
-                    room = hotel.search_room_by_name(room_detail)
-                    
+                    room = hotel.search_room_by_name(room_detail)   
                     if room is not None:
                         room.price = new_price
                         room.guests = new_guests
@@ -502,21 +504,49 @@ class HotelReservationSystem:
                         raise HTTPException(status_code=404, detail="Room not found")
                 else:
                     raise HTTPException(status_code=404, detail="Hotel not found")
-        raise HTTPException(status_code=404, detail="User not found") 
-
-    def edit_hotel(self,user_id: int, hotel_name: str, country: str, city: str, map: str , image: str):
+        
+    def edit_hotel(self, user_id: int, hotel_name: str, country: str, city: str, maps: str , imgsrc: str):
         for user in self.__user:
             if user.user_id == user_id:
                 if user.type != "admin":
-                    return "No Permission"
+                    raise HTTPException(status_code=403, detail="No Permission")
                 hotel = self.search_hotel_by_name(hotel_name)
                 if hotel is not None:
                     hotel.name = hotel_name
                     hotel.location.country = country
                     hotel.location.city = city
-                    hotel.location.map = map
-                    hotel.imgsrc = image
+                    hotel.location.map = maps
+                    hotel.imgsrc = imgsrc
                     return hotel
+                else:
+                    raise HTTPException(status_code=404, detail="Hotel not found")
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    def remove_hotel(self, user_id: int, hotel_name: str):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    raise HTTPException(status_code=403, detail="No Permission")
+                hotel = self.search_hotel_by_name(hotel_name)
+                if hotel is not None:
+                    self.__hotel.remove(hotel)
+                    return "Hotel removed"
+                else:
+                    raise HTTPException(status_code=404, detail="Hotel not found")
+
+    def remove_room(self, user_id: int, hotel_name: str, room_detail: str):
+        for user in self.__user:
+            if user.user_id == user_id:
+                if user.type != "admin":
+                    raise HTTPException(status_code=403, detail="No Permission")
+                hotel = self.search_hotel_by_name(hotel_name)
+                if hotel is not None:
+                    room = hotel.search_room_by_name(room_detail)
+                    if room is not None:
+                        hotel.room.remove(room)
+                        return "Room removed"
+                    else:
+                        raise HTTPException(status_code=404, detail="Room not found")
                 else:
                     raise HTTPException(status_code=404, detail="Hotel not found")
         raise HTTPException(status_code=404, detail="User not found")
@@ -827,7 +857,7 @@ class User:
     def type(self,type):
         self.__type = type
 
-class Admin(User):  #ถูกป่าววะ
+class Admin(User):
     def __init__(self, name: str, password: str, telephone: str):
         super().__init__(name, password, telephone)
         self.__type = "admin"
@@ -850,9 +880,6 @@ class Admin(User):  #ถูกป่าววะ
     @property
     def email(self):
         return self.__email
-    # def remove_hotel(self, hotel:object):
-
-    # def remove_room(self, hotel:object, room:object):
 
 class Feedback:
     def __init__(self, user:object, comment:str, rating:int, time:int):
