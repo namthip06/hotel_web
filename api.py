@@ -126,3 +126,8 @@ async def cancel_reservation(user:int,reservation_id:int):
 async def add_hotel(user:int,add_hotel :schema.Hotel):
     add_hotel = hotel_list.myHotel.add_hotel(user,add_hotel.name,add_hotel.country,add_hotel.city,add_hotel.maps)
     return add_hotel
+
+@app.post('/add_room')
+async def add_room(user:int,hotel_id:int,add_room:schema.Room):
+    add_room = hotel_list.myHotel.add_room(user,hotel_id,add_room.detail,add_room.price,add_room.guest)
+    return add_room
