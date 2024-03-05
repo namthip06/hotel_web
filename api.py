@@ -37,6 +37,7 @@ hotel_list.myHotel.add_payment(main.Payment(1,1000,"APA Hotel Ueno Ekimae","Brea
 # ---------------------------------------------
 # http://127.0.0.1:8000/search/?start=1-1-2023&end=10-1-2023
 # uvicorn api:app --reload
+# python -m uvicorn api:app --reload
 
 @app.get("/")
 async def index():
