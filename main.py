@@ -323,9 +323,9 @@ class HotelReservationSystem:
                     return "This Email has already been used"
             if len(user_password)<=7:
                 return "Password must have atleast 8 Character"
-            Data = User(user_name,user_password,phone_number,email)
             if len(phone_number)<10:
                 return "Invalid telephone number form"
+            Data = User(user_name,user_password,phone_number,email)
             self.user = Data
             return {"User Name": user_name,"Tel.":phone_number,"Status":"Sign up successfully"}
         
