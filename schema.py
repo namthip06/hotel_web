@@ -51,3 +51,7 @@ class UserInfoEditor(BaseModel):
     new_name : str
     new_password : str
     new_telephone : str
+
+class Login(BaseModel):
+    email : str
+    user_password : str
