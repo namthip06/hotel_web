@@ -301,17 +301,17 @@ myHotel.hotel[48].imgsrc.extend(["https://cdn0.bodas.net/tour3d/3768/3_2/960/jpg
 myHotel.hotel[49].imgsrc.extend(["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/75/68/f9/fachada.jpg?w=700&h=-1&s=1",
                            "https://cf.bstatic.com/xdata/images/hotel/max1024x768/68816013.jpg?k=1e6e478a5f03ba23a40b2d6dadae963c09da17c2365706ede91dbd2308837115&o=&hp=1",
                            "https://cf.bstatic.com/xdata/images/hotel/max1024x768/227872404.jpg?k=64b5c6ceff84c3dbd05f9af530fbdffc116755fe5015ee02a75bf0d8a817e58b&o=&hp=1",
-                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/81814915.jpg?k=203261f08aaf8eaab1a4d74698927b33cd0ed8655c7ee8c9b91ae121ae094996&o=&hp=1"])
+                           "https://cf.bstatic.com/xdata/images/hotel/max1024x768/81814915.jpg?k=203261f08aaf8eaab1a4d74698927b33cd0ed8655c7ee8c9b91ae121ae094996&o=&hp=1"]) 
 
 for hotel in myHotel.hotel:
-    for room in range(3):
+    for i in range(3):
         hotel.room = main.Room("Single Bed", 1000, 1)
-    for room in range(3):
-        hotel.room.append(main.Room("Double Bed", 1500, 2))
-    for room in range(2):
-        hotel.room.append(main.Room("Queen Size Bed", 2500, 3))
-    for room in range(2):
-        hotel.room.append(main.Room("King Size Bed", 4000, 4))
+    for j in range(3):
+        hotel.room = main.Room("Double Bed", 1500, 2)
+    for k in range(2):
+        hotel.room = main.Room("Queen Size Bed", 2500, 3)
+    for l in range(2):
+        hotel.room = main.Room("King Size Bed", 4000, 4)
 
 # myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
 # myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
@@ -325,7 +325,7 @@ myHotel.hotel[0].room[0].reservation = main.Reservation("namthip", datetime.date
 myHotel.hotel[0].room[0].reservation = main.Reservation("john", datetime.date(2023, 1, 6), datetime.date(2023, 1, 8))
 myHotel.hotel[3].room[0].reservation = main.Reservation("jack", datetime.date(2023, 1, 4), datetime.date(2023, 1, 7))
  
- 
+
 myHotel.user = main.User("user1", "1111", "0816228411", "one@gmail.com","customer")
 myHotel.user = main.User("user2", "2222", "0816228411", "two@gmail.com","customer")
 myHotel.user = main.User("user3", "3333", "0816228411", "tree@gmail.com","customer")
@@ -335,7 +335,7 @@ feedback1 = main.Feedback(myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
 feedback2 = main.Feedback(myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")
 feedback3 = main.Feedback(myHotel.user[2], "Nice service!", 5, "2024-07-02")
 
-myHotel.create_reservation(1, "Single Bed", 1, "1-10-2023", "5-10-2023")
+myHotel.create_reservation(1, "Single Bed", 1, "11-10-2023", "15-10-2023")
 myHotel.add_payment(1,4)
 myHotel.create_reservation(2, "Double Bed", 1, "1-12-2023", "9-12-2023")
 myHotel.add_payment(1,5)
