@@ -1,7 +1,11 @@
 import datetime 
+import uvicorn
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
+
+if __name__ == "__main__" :
+    uvicorn.run("api:app", host="127.0.0.1", port=8000, log_level="info")
 
 # ----------------------------
 import main
@@ -109,10 +113,15 @@ async def sign_up(sign_up: schema.Sign_up):
     sign_up = hotel_list.myHotel.sign_up(sign_up.user_name, sign_up.user_password, sign_up.phone_number, sign_up.email)
     return sign_up
  
-@app.get('/login')
-async def login(email: str, user_password: str):
-    login = hotel_list.myHotel.log_in(email,user_password)
+@app.post('/login')
+async def login(login: schema.Login):
+    login = hotel_list.myHotel.log_in(login.email, login.user_password)
     return login
+
+@app.get('/logout')
+async def logout():
+    logout = hotel_list.myHotel.log_out()
+    return logout
 
 @app.delete('/cancel')
 async def cancel_reservation(user: int, reservation_id: int):
