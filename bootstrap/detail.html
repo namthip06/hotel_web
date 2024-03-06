@@ -20,10 +20,33 @@
             <p class="text-white-50 mb-0">Landing Page Template</p>
         </div>
     </header> -->
-    <header class="bg-image-full d-flex d-column" style="width: 100vw; height: 100vh; background-image: url(https://picsum.photos/1400/700);">
-        <div class="text-center">
-            <h1 class="fw-light text-light" style="font-size: 80px;">Zand Morada Pattaya Hotel</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium iste ab autem quaerat aperiam, sit est perferendis voluptatem, quasi, velit officiis placeat beatae in? Error.</p>
+    <header class="bg-image-full d-flex flex-column" style="width: 100vw; height: 100vh; background-image: url(https://picsum.photos/1400/700);">
+        <div class="container d-flex align-items-center">
+            <!-- logo -->
+            <ul class="nav col-12 col-lg-auto me-lg-auto mt-3 mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-3 link-light">Deals</a></li>
+                <li><a href="#" class="nav-link px-3 link-light">Support</a></li>
+                <li><a href="#" class="nav-link px-3 link-light">Bookings</a></li>
+                <li><a href="#" class="nav-link px-3 link-light">About us</a></li>
+            </ul>
+            <div class="text-end align-self-end">
+                <button type="button" class="btn btn btn-outline-light me-2">login</button>
+                <button type="button" class="btn btn btn-light">sign up</button>
+            </div>
+        </div>
+        <div class="m-lg-auto my-auto mx-5">
+            <h5 class="text-uppercase text-light text-center">Thai / Pattaya</p>
+            <h1 class="fw-light text-wrap text-light" style="font-size: 80px; max-width: 80vw;">Zand Morada Pattaya Hotel</h1>
+        </div>
+        <div class="mouse_scroll m-0 mx-auto mb-5">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div>
+                <span class="m_scroll_arrows unu"></span>
+                <span class="m_scroll_arrows doi"></span>
+                <span class="m_scroll_arrows trei"></span>
+            </div>
         </div>
     </header>
     <main class="container mt-5">
@@ -42,7 +65,7 @@
                         <img src="https://picsum.photos/600/300" class="float-end" alt="">
                     </div>
                     <div class="col-2 text-center">
-                        <p class="fw-semibold text-capitalize">photo</p>
+                        <p class="fw-semibold text-capitalize m-lg-0 mt-3">photo</p>
                     </div>
                 </div>
             </div>
@@ -101,7 +124,7 @@
                     <div class="col-auto align-self-end text-end">
                         <p class="m-0 mb-1 text-body-secondary text-decoration-line-through">THB 1500.00</p>
                         <h4 class="mb-3 fw-bolder">THB 1200.31</h4>
-                        <button type="button" class="btn btn-dark fw-bold">Book Now</button>
+                        <button type="button" class="btn btn-dark fw-bold" style="width: 200px;">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -127,28 +150,47 @@
                     </div>
                 </div>
             </div>
-            <p class="mb-5 text-center fw-semibold">See Other Accommodations in Pattaya (2575)</p>
+            <div class="d-flex mb-5 text-center justify-content-center align-items-center">
+                <p class="fw-semibold m-0"><a href="#" class="a-black pb-1">See Other Accommodations in Pattaya (2575)</a></p>
+            </div>
         </div>
         <h2>Reviews</h2>
         <p class="text-body-secondary">Most Recent Photos by Guests</p>
-        <div class="d-flex mb-5 align-items-center">
+        <div class="d-flex pb-5 align-items-center border-bottom border-secondary-subtle">
             <h2 class="m-0"><span class="badge text-bg-dark">4.58</span></h2>
             <div class="my-0 mx-4">
                 <h5 class="m-0 fw-bold">Very good</h5>
                 <p class="m-0 text-body-secondary"><small>371 verified reviews</small></p>
             </div class="m-0">
         </div>
-        <div class="row row-cols-1">
-            <div class="col py-3 border-top border-secondary-subtle">
-                <div class="row">
-                    <p>username</p>
-                    <h5>icon rating</h5>
-                    <p>date</p>
-                    <p>comment</p>
+        <div class="row row-cols-1 mb-5">
+            <div class="col py-3 border-bottom border-secondary-subtle">
+                <div class="row mt-2">
+                    <div class="col-auto mx-3">
+                        <img src="https://picsum.photos/80/80" class="rounded-circle" alt="">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex mb-1">
+                                <p class="m-0 pe-3 me-3 border-end border-secondary-subtle fw-bold">5.0 Amazing</p>
+                                <p class="m-0 text-secondary text-capitalize">username</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis eaque impedit qui vero, perferendis quibusdam, saepe minima magnam molestias numquam, fuga deleniti natus voluptatem delectus.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-    <!-- footer -->
+    <footer class="py-4 bg-black">
+        <ul class="nav justify-content-center border-bottom border-dark pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light">About</a></li>
+        </ul>
+        <p class="text-center text-secondary">© 2024 Company, Inc</p>
+    </footer>
 </body>
 </html>
