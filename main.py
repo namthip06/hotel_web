@@ -1,4 +1,5 @@
 import datetime 
+import uvicorn
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
@@ -10,6 +11,7 @@ class HotelReservationSystem:
         self.__country = []
         self.__city = []
         self.__payment = []
+        self.__current_user = None
     
     @property
     def hotel(self):
@@ -50,6 +52,14 @@ class HotelReservationSystem:
     @payment.setter
     def payment(self, payment):
         self.__payment.append(payment)
+
+    @property
+    def current_user(self):
+        return self.__current_user
+    
+    @current_user.setter
+    def current_user(self, user):
+        self.__current_user = user
     
     # utility function
 
@@ -291,7 +301,7 @@ class HotelReservationSystem:
                                 start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
                                 end = end.split('-')
                                 end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
-                                if not(rooms.isavailable(start,end)):
+                                if  (rooms.isavailable(start,end)):
                                     data = Reservation(users.name, start, end)
                                     data.hotel_id = hotels.id
                                     data.room_detail = room_detail
@@ -310,10 +320,10 @@ class HotelReservationSystem:
                                         "Discount" : rooms.final_price,
                                         "Image": hotels.imgsrc
                                     }
-                                return "Room Not Available"
-                        return "Room Not Found"
-                return "Hotel ID Not Found"
-        return "User Error"
+                                raise HTTPException(status_code=404, detail="Room Not Available")
+                        raise HTTPException(status_code=404, detail="Room Not Found")
+                raise HTTPException(status_code=404, detail="Hotel ID Not Found")
+        raise HTTPException(status_code=404, detail="User Not Found")
     
         # Validate - Checked
 
@@ -325,21 +335,27 @@ class HotelReservationSystem:
                 raise HTTPException(status_code=400, detail="Password must have at least 8 characters")
             if len(phone_number) != 10:
                 raise HTTPException(status_code=400, detail="Invalid telephone number form")
-            data = User(user_name, user_password, phone_number, email)
+            data = User(user_name, user_password, phone_number, email, "customer")
             self.user = data
             return {"User Name": user_name,"Tel.": phone_number,"Status": "Sign up successfully"}
 
-    def log_in(self,email,user_password):
+    def log_in(self, email, user_password):
+        if self.__current_user == None:
             for user in self.__user:
                 if user.email == email:
                     if user.password == user_password:
-                        return "Log in Success"
+                        self.__current_user = user
+                        return user
                     elif user.password != user_password:
                         raise HTTPException(status_code=400, detail="Incorrect Password!")
             raise HTTPException(status_code=400, detail="This Email didn't sign up yet!")
-
+        raise HTTPException(status_code=400, detail="You are already logged in!")
+    
     def log_out(self):
-         pass
+         if self.__current_user != None:
+            self.__current_user = None
+            return "Logged out"
+         return "You are not logged in"
     
     def change_user_info(self, email, new_name:str, new_password:str, new_telephone:str):
         for user in self.__user:
@@ -357,20 +373,6 @@ class HotelReservationSystem:
                     "Telephone": user.telephone
                 }
         raise HTTPException(status_code=404, detail="User not found")
-    
-    # def get_reservation_details(self, user): #User ID Parameter
-    #     flag = 0
-    #     target = None
-    #     for users in self.__user:
-    #         if users.user_id == user:
-    #             target = users
-    #             flag = 1
-    #     if flag == 1:
-    #         reserve = {}
-    #         reserve["Reservation"] = target.reservation
-    #         if target.reservation == []:
-    #             return "No Reservation"
-    #         return reserve
       
     def change_reservation(self, user_id : int, reservation_id : int, new_date_in : str, new_date_out : str) -> dict:
         for user in self.__user:
@@ -436,33 +438,6 @@ class HotelReservationSystem:
                 raise HTTPException(status_code=400, detail="Invalid Reservation ID")
         raise HTTPException(status_code=404, detail="User not found")
         # Validate - Checked 
-        
-    # def add_payment(self, payment : object) -> dict:
-    #     for users in self.__user:
-    #         if payment.user_id == users.user_id: 
-    #             for hotels in self.__hotel:
-    #                 if payment.hotel == hotels.name:
-    #                     for rooms in hotels.room:
-    #                         if payment.room == rooms.detail:      
-    #                             if users.cart == None:
-    #                                 return "Payment Error"
-    #                             self.__payment.append(payment)
-    #                             rooms.reservation = users.cart
-    #                             users.reservation = users.cart
-    #                             reserveid = rooms.reservation[-1].id
-    #                             paydate = datetime.date.today()
-    #                             users.cart = None
-    #                             return {
-    #                                 "Name" : users.name,
-    #                                 "Reservation ID" : reserveid,
-    #                                 "Hotel" : payment.hotel,
-    #                                 "Room" : payment.room,
-    #                                 "Date" :  paydate,
-    #                                 "Total Price" : payment.amount
-    #                             }
-    #                     return "Invalid Room"
-    #             return "Invalid Hotel"
-    #     return "User Not Found"
 
     def add_feedback(self, user_name, hotel_name: str, comment: str, rating: int, time: str):
         time = time.split('-')
@@ -485,7 +460,7 @@ class HotelReservationSystem:
         
         raise HTTPException(status_code=400, detail="No completed reservations for feedback")   
 
-    def add_hotel(self, user_id, hotel_name: str  , location_country: str, location_city : str, location_map):
+    def add_hotel(self, user_id, hotel_name: str, location_country: str, location_city : str, location_map):
         for user in self.__user:
             if user.user_id == user_id:
                 if user.type != "admin":
@@ -708,7 +683,7 @@ class Room:
         for reservations in self.__reservation:
             reservestart = reservations.date_in
             reserveend = reservations.date_out
-            if not(HotelReservationSystem.is_overlap(HotelReservationSystem,start, end, reservestart,reserveend)):
+            if (HotelReservationSystem.is_overlap(HotelReservationSystem,start, end, reservestart,reserveend)):
                 return False
         return True
     
