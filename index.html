@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lokavinas : Find the best Hotel</title>
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-    <!--Bootstrap-->
-    <!--Font-->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet"> -->
-    <!--Font-->
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Index</title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="bootstrap/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
 
 <style>
     body {
@@ -23,7 +16,8 @@
     }
 </style>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: rgba(4,9,30,1);">
+    <script src="bootstrap/js/bootstrap.bundle.js"></script>
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: rgba(4,9,30,0.5);">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">
                 <img src="images/pog-logo.png" alt="Logo" width="75">
@@ -50,7 +44,7 @@
                     </style>
                     <a class="nav-link active mx-4" aria-current="page" href="#">Hotel</a>
                     <a class="nav-link active mx-4" aria-current="page" href="#">Reservation</a>
-                    <a class="nav-link active mx-4" aria-current="page" href="user.html">Account</a>
+                    <a class="nav-link active mx-4" aria-current="page" href="account.html">Account</a>
                 </div>
             </div>
         </div>
@@ -58,7 +52,8 @@
 
 
 <section class="header" style="min-height: 100vh; display: flex; background-image: linear-gradient(rgba(21, 26, 41, 0.5), rgba(21, 26, 41, 1)),
-url(images/epiccatbg.png); background-position: center; background-size: cover; align-items: center;">
+url(https://picsum.photos/1400/700); 
+background-position: center; background-size: cover; align-items: center;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-12 text-center text-white">
@@ -78,8 +73,8 @@ url(images/epiccatbg.png); background-position: center; background-size: cover; 
                 <h1>Lokavinas</h1>
                 <h2>Find yourself<br>the best Hotel</h2>
                 <div class="input-group mb-3 mt-4 mx-auto" style="max-width: 600px;">
-                    <input type="text" class="form-control" placeholder="Search Hotel Name / Places">
-                    <button class="btn btn-primary" type="button">Explore!</button>
+                    <input id="index-searchbar" type="text" class="form-control" placeholder="Search Hotel Name / Places">
+                    <button id="index-searchbutton" class="btn btn-primary" type="button">Explore!</button>
                 </div>
             </div>
         </div>
@@ -137,5 +132,6 @@ url(images/epiccatbg.png); background-position: center; background-size: cover; 
         <p class="lead">yours truly</p>
     </div>
 </footer>
+<script src = "backend/index.js"></script>
 </body>
 </html>

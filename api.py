@@ -1,6 +1,8 @@
 import datetime 
 import uvicorn
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from nltk import edit_distance
 
 app = FastAPI()
 
@@ -16,6 +18,18 @@ import schema
 # http://127.0.0.1:8000/search/?start=1-1-2023&end=10-1-2023
 # uvicorn api:app --reload
 # python -m uvicorn api:app --reload
+
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
 
 @app.get("/")
 async def index():
@@ -162,3 +176,8 @@ async def remove_room(user_id: int, hotel_name: str, room_detail: str):
 def change_user_info(email:str, change_user_info: schema.UserInfoEditor):
     change_user_info = hotel_list.myHotel.change_user_info(email, change_user_info.new_name, change_user_info.new_password, change_user_info.new_telephone)
     return change_user_info
+
+@app.get('/currentuser')
+async def get_current_user():
+    current_user = hotel_list.myHotel.current_user
+    return current_user
