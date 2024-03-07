@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <main class="d-flex flex-column align-items-center justify-content-center" style="width: 100vw; height: 100vh;">
+        <form style="width: 300px;">
+            <h2 class="mb-3" >Sign up</h2>
+            <div class="form-floating">
+                <input id = "signup-email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input id = "signup-phone" type="tel" class="form-control" id="floatingPassword" placeholder="Phone Number">
+                <label for="floatingPassword">Phone Number</label>
+            </div>
+            <div class="form-floating">
+                <input id = "signup-password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating">
+                <input id = "signup-confirm-password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Confirm Password</label>
+            </div>
+            <button id = "signup-button" class="btn btn-dark w-100 py-2 my-3" type="submit">Sign up</button>
+        </form>
+    </main>
+    <script src = "backend/signup.js"></script>
+</body>
+</html>
