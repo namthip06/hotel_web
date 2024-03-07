@@ -116,7 +116,7 @@ async def get_hotel_details(name: str):
 
 @app.get('/change/')
 async def change_reservation(change_reservation: schema.ChangeReservation):
-    change_reservation = hotel_list.myHotel.change_reservation(change_reservation.user, change_reservation.reservation_id, change_reservation.date_in, change_reservation.date_out)
+    change_reservation = hotel_list.myHotel.change_reservation( change_reservation.reservation_id, change_reservation.date_in, change_reservation.date_out)
     return change_reservation
 
 @app.post('/feedback/')
