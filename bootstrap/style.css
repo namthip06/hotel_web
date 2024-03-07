@@ -26,12 +26,17 @@ h3 {
 }
 
 a {
+  color: black;
+  text-decoration: none;
+}
+
+.a-link {
     color: white;
     position: relative;
     text-decoration: none;
 }
   
-a::before {
+.a-link::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -45,7 +50,7 @@ a::before {
     transition: transform .3s ease-in-out;
 }
 
-a:hover::before {
+.a-link:hover::before {
     transform-origin: left;
     transform: scaleX(1);
 }
@@ -237,4 +242,62 @@ a:hover::before {
   0%   { opacity: 0; }
   50%  { opacity: .5; }
   100% { opacity: 1; }
+}
+
+/* play btn in index */
+@import "compass/css3";
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.stroke-dotted {
+  opacity: 0;
+  stroke-dasharray: 4,5;
+  stroke-width: 1px;
+  transform-origin: 50% 50%;
+  animation: spin 4s infinite linear;
+  transition: opacity 1s ease, 
+              stroke-width 1s ease;
+}
+.stroke-solid {
+  stroke-dashoffset: 0;
+  stroke-dashArray: 300;
+  stroke-width: 1px;
+  transition: stroke-dashoffset 1s ease, 
+              opacity 1s ease;
+}
+
+.icon {
+  transform-origin: 50% 50%;
+  transition: transform 200ms ease-out;
+}
+
+#play:hover {
+  .stroke-dotted {
+    stroke-width: 1px;
+    opacity: 1;
+  }
+  .stroke-solid {
+    opacity: 0;
+    stroke-dashoffset: 300;
+  }
+  .icon {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* index video */
+
+#background-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
 }

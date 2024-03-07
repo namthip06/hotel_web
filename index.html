@@ -1,137 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Index</title>
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" href="bootstrap/style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    </head>
-
-<style>
-    body {
-        /* font-family: 'Kode Mono', monospace; */
-        font-family: 'Messina Sans Book';
-    }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
 <body>
     <script src="bootstrap/js/bootstrap.bundle.js"></script>
-    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: rgba(4,9,30,0.5);">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <img src="images/pog-logo.png" alt="Logo" width="75">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
-                aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarID">
-                <div class="navbar-nav">
-                    <style>
-                        .navbar-nav a::after{
-                            content: '';
-                            width: 0%;
-                            height: 2px;    
-                            background: #d0ff00;
-                            display: block;
-                            margin: auto;
-                            transition: 0.25s; /*popup wind up time when hovering*/
-                        }
-                        .navbar-nav a:hover::after{ /*wtf happens after you hover on the button*/
-                            width: 100%
-                        }
-                    </style>
-                    <a class="nav-link active mx-4" aria-current="page" href="#">Hotel</a>
-                    <a class="nav-link active mx-4" aria-current="page" href="#">Reservation</a>
-                    <a class="nav-link active mx-4" aria-current="page" href="account.html">Account</a>
-                </div>
+    <video id="background-video" autoplay loop muted poster="/images/airplane2.png">
+        <source src="/images/airplane.mp4" type="video/mp4">
+    </video>  
+    <header class="bg-image-full d-flex flex-column" style="width: 100vw; height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.2)); background-position: center;">
+        <div class="container d-flex align-items-center">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mt-3 mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-3 link-light a-link">Deals</a></li>
+                <li><a href="#" class="nav-link px-3 link-light a-link">Support</a></li>
+                <li><a href="#" class="nav-link px-3 link-light a-link">Bookings</a></li>
+                <li><a href="#" class="nav-link px-3 link-light a-link">About us</a></li>
+            </ul>
+            <div class="text-end align-self-end">
+                <a href="#"><button type="button" class="btn btn btn-outline-light me-2">login</button></a>
+                <a href="#"><button type="button" class="btn btn btn-light">sign up</button></a>
             </div>
         </div>
-    </nav>
-
-
-<section class="header" style="min-height: 100vh; display: flex; background-image: linear-gradient(rgba(21, 26, 41, 0.5), rgba(21, 26, 41, 1)),
-url(https://picsum.photos/1400/700); 
-background-position: center; background-size: cover; align-items: center;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-12 text-center text-white">
-                <style>
-                    .header h1{
-                        font-size: 6rem; /* Adjust the font size as needed */
-                        font-weight: bold; /* Make the text bold */
-                        transition: 0.5s;
-                    }
-                    @media (max-width: 768px) {
-                        /* Adjust font size for smaller screens */
-                        .header h1 {
-                            font-size: 4rem;
-                        }
-                    }
-                </style>
-                <h1>Lokavinas</h1>
-                <h2>Find yourself<br>the best Hotel</h2>
-                <div class="input-group mb-3 mt-4 mx-auto" style="max-width: 600px;">
-                    <input id="index-searchbar" type="text" class="form-control" placeholder="Search Hotel Name / Places">
-                    <button id="index-searchbutton" class="btn btn-primary" type="button">Explore!</button>
-                </div>
-            </div>
+        <div class="d-flex flex-column m-lg-auto my-auto mx-5 align-items-center">
+            <h5 class="m-0 text-uppercase text-light text-center text-opacity-75">Special offers to suit your plan</p>
+            <h1 class="m-0 fw-light text-wrap text-light text-center" style="font-size: 100px; max-width: 80vw;">Your journey starts here</h1>
+            <svg class="mt-5" version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="150px" width="150px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                <path class="stroke-solid" fill="none" stroke="white"  d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7C97.3,23.7,75.7,2.3,49.9,2.5"/>
+                <path class="stroke-dotted" fill="none" stroke="white"  d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7C97.3,23.7,75.7,2.3,49.9,2.5"/>
+                <path class="icon" fill="white" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z"/>
+            </svg>
         </div>
-    </div>
-</section>
-
-<section class="menu text-white py-5" style="background-color: rgba(21, 26, 41, 1)">
-    <div class="container">
-        <h1 class="text-center mb-4">What we cookin'</h1>
-        <h4 class="text-center mb-5">Venti white mocha, quad shot, 2 shots on bottom,<br>
-            2 on top. Almond milk, extra hot,<br>
-            caramel drizzle inside the cup, and extra whip cream</p>
-        </h4>
-        <style>
-            .card-body{
-                transition: 0.25s;
-            }
-            .card-body:hover{ /*highlist with shadow when hovered*/
-                box-shadow: 0 0 20px 0 #d0ff0070;
-            }
-        </style>
-        <div class="row text-dark">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">Mocha</h3>
-                        <p class="card-text">Tuna salad sandwich on a toasted until burnt blueberry bagel with honey mustard.</p>
+    </header>
+    <main class="bg-body pt-1">
+        <div class="container mt-5 pb-5">
+            <!-- search bar -->
+            <div class="d-flex mx-5 mb-5 p-3 shadow-sm rounded-4">
+                <div class="input-group pe-3 me-3 border-end border-secondary-subtle">
+                    <div class="input-group-text bg-body border border-white">
+                        <h4 class="m-0"><i class="bi bi-geo-alt"></i></h4>
                     </div>
+                    <select class="form-select border border-white" aria-label="location">
+                        <option selected>default location</option>
+                        <option value="locatoin">some location</option>
+                    </select>
+                </div>
+                <div class="input-group pe-3 me-3 border-end border-secondary-subtle">
+                    <div class="input-group-text bg-body border border-white">
+                        <h4 class="m-0"><i class="bi bi-calendar"></i></h4>
+                    </div>
+                    <select class="form-select border border-white" aria-label="location">
+                        <option selected>default location</option>
+                        <option value="locatoin">some location</option>
+                    </select>
+                </div>
+                <div class="input-group me-3">
+                    <div class="input-group-text bg-body border border-white">
+                        <h4 class="m-0"><i class="bi bi-person"></i></h4>
+                    </div>
+                    <select class="form-select border border-white" aria-label="guests">
+                        <option value="1" selected>1 person</option>
+                        <option value="2">2 people</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-dark" style="width: 300px;"><i class="bi bi-search"></i></button>
+            </div>
+            <div style="height: 80px;"></div>
+            <!-- link for search by county -->
+            <h2>Rediscover yourself in Asia and beyond</h2>
+            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-3 mt-4 mb-5">
+                <div class="col">
+                    <a href="#">
+                        <div class="mx-1 p-4 rounded-4" style="height: 200px ;background-image: linear-gradient(rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)) ,url(https://picsum.photos/400/200);">
+                            <h4 class="m-0 text-light fw-bold">Thailand</h4>
+                            <p class="m-0 text-light">25 accommodations</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <div class="mx-1 p-4 rounded-4" style="height: 200px ;background-image: linear-gradient(rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)) ,url(https://picsum.photos/400/200);">
+                            <h4 class="m-0 text-light fw-bold">Thailand</h4>
+                            <p class="m-0 text-light">25 accommodations</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <div class="mx-1 p-4 rounded-4" style="height: 200px ;background-image: linear-gradient(rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)) ,url(https://picsum.photos/400/200);">
+                            <h4 class="m-0 text-light fw-bold">Thailand</h4>
+                            <p class="m-0 text-light">25 accommodations</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <div class="mx-1 p-4 rounded-4" style="height: 200px ;background-image: linear-gradient(rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)) ,url(https://picsum.photos/400/200);">
+                            <h4 class="m-0 text-light fw-bold">Thailand</h4>
+                            <p class="m-0 text-light">25 accommodations</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <div class="mx-1 p-4 rounded-4" style="height: 200px ;background-image: linear-gradient(rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)) ,url(https://picsum.photos/400/200);">
+                            <h4 class="m-0 text-light fw-bold">Thailand</h4>
+                            <p class="m-0 text-light">25 accommodations</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <div class="mx-1 p-4 rounded-4" style="height: 200px ;background-image: linear-gradient(rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)) ,url(https://picsum.photos/400/200);">
+                            <h4 class="m-0 text-light fw-bold">Thailand</h4>
+                            <p class="m-0 text-light">25 accommodations</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">Capuccino</h3>
-                        <p class="card-text">All lettuce burrito. No salsa, no guac, nothing but the warm tortilla and shredded lettuce.</p>
-                    </div>
+            <div class="d-flex mb-5 text-center justify-content-center align-items-center">
+                <p class="fw-semibold m-0"><a href="#" class="a-black pb-1">Search more hotels</a></p>
+            </div>
+            <br>
+            <!-- search hotel by city -->
+            <h2>Stay cozy in these most-loved cities</h2>
+            <div class="mt-4 mb-5 justify-content-start">
+                <div class="d-flex mb-4">
+                    <!-- default btn *must have naja* -->
+                    <input type="radio" class="btn-check" name="options-cities" id="option1" autocomplete="off" checked>
+                    <label class="btn me-3 rounded-5" for="option1">Checked</label>
+                    <!-- normal btn -->
+                    <input type="radio" class="btn-check" name="options-cities" id="option2" autocomplete="off">
+                    <label class="btn me-3 rounded-5" for="option2">Radio</label>
+                    <input type="radio" class="btn-check" name="options-cities" id="option3" autocomplete="off">
+                    <label class="btn me-3 rounded-5" for="option3">Radio</label>
+                </div>
+                <div class="d-flex">
+                    <!-- for each hotel -->
+                    <a href="#">
+                        <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;">
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-title text-capitalize mb-1 fw-bold">hilton hattaya</p>
+                                <div class="d-flex mb-1">
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB 1500.00</small></p>
+                                <p class="fw-semibold"><small>THB 1238.23</small></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="d-flex mb-5 text-center justify-content-center align-items-center">
+                    <p class="fw-semibold m-0"><a href="#" class="a-black pb-1">See All Hotels</a></p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">Americano</h3>
-                        <p class="card-text">10 piece nugget sandwich, topped with cheese, mayo, big Mac sauce and pickles.</p>
-                    </div>
+            <br>
+            <!-- search hotel by county -->
+            <h2>International escapes</h2>
+            <div class="mt-4 mb-5 justify-content-start">
+                <div class="d-flex mb-4">
+                    <!-- default btn *must have naja* -->
+                    <input type="radio" class="btn-check" name="options-international" id="option4" autocomplete="off" checked>
+                    <label class="btn me-3 rounded-5" for="option4">Checked</label>
+                    <!-- normal btn -->
+                    <input type="radio" class="btn-check" name="options-international" id="option5" autocomplete="off">
+                    <label class="btn me-3 rounded-5" for="option5">Radio</label>
+                    <input type="radio" class="btn-check" name="options-international" id="option6" autocomplete="off">
+                    <label class="btn me-3 rounded-5" for="option6">Radio</label>
+                </div>
+                <div class="d-flex">
+                    <!-- for each hotel -->
+                    <a href="#">
+                        <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;">
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-title text-capitalize mb-1 fw-bold">hilton hattaya</p>
+                                <div class="d-flex mb-1">
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB 1500.00</small></p>
+                                <p class="fw-semibold"><small>THB 1238.23</small></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="d-flex mb-5 text-center justify-content-center align-items-center">
+                    <p class="fw-semibold m-0"><a href="#" class="a-black pb-1">See All Hotels</a></p>
                 </div>
             </div>
+            <br>
+            <!-- index for all location -->
+            <h2>What interests you?</h2>
+            <h5 class="mt-3 pb-3 text-secondary border-bottom border-secondary-subtle">Popular Landmarks</h5>
+            <div class="row">
+                <div class="col">
+                    <ul>
+                        <li><a href="#">location</a></li>
+                    </ul>
+                </div>
+            </div>
+            <br>
         </div>
-    </div>
-</section>
-
-<footer class="footer py-5 text-white" style="background-color: black;">
-    <div class="container-fluid px-5">
-        <h1 class="display-3 mb-4 fw-bold">Lokavinas</h1>
-        <h2 class="mb-4">made by</h2>
-        <p class="lead">yours truly</p>
-    </div>
-</footer>
-<script src = "backend/index.js"></script>
+    </main>
+    <footer class="py-4 bg-black">
+        <ul class="nav justify-content-center border-bottom border-dark pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">About</a></li>
+        </ul>
+        <p class="text-center text-secondary">© 2024 Company, Inc</p>
+    </footer>
 </body>
 </html>
