@@ -331,13 +331,11 @@ myHotel.user = main.User("user2", "2222", "0816228411", "two@gmail.com","custome
 myHotel.user = main.User("user3", "3333", "0816228411", "tree@gmail.com","customer")
 myHotel.user = main.User("Admin1","1234admin","000000000","admin@gmail.com","admin")
 
-myHotel.current_user = myHotel.user[1]
-
 feedback1 = main.Feedback(myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
 feedback2 = main.Feedback(myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")
 feedback3 = main.Feedback(myHotel.user[2], "Nice service!", 5, "2024-07-02")
 
-myHotel.create_reservation(1, "Single Bed", 1, "11-10-2023", "15-10-2023")
+myHotel.create_reservation(1, "Single Bed", "11-10-2023", "15-10-2023")
 myHotel.add_payment(1,4)
-myHotel.create_reservation(2, "Double Bed", 1, "1-12-2023", "9-12-2023")
+myHotel.create_reservation(2, "Double Bed", "1-12-2023", "9-12-2023")
 myHotel.add_payment(1,5)
