@@ -288,42 +288,41 @@ class HotelReservationSystem:
 
         raise HTTPException(status_code=404, detail="Hotel not found")
 
-    def create_reservation(self, hotel_id : int, room_detail : str, user : int, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
+    def create_reservation(self, hotel_id : int, room_detail : str, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
+        if self.current_user == None:
+            return None
         if start == end or start > end:
             raise HTTPException(status_code=400, detail="Invalid Date")
-        for users in self.__user:
-            if users.user_id == user:
-                for hotels in self.__hotel:
-                    if hotel_id == hotels.id: 
-                        for rooms in hotels.room:
-                            if room_detail == rooms.detail:      
-                                start = start.split('-')
-                                start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
-                                end = end.split('-')
-                                end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
-                                if  (rooms.isavailable(start,end)):
-                                    data = Reservation(users.name, start, end)
-                                    data.hotel_id = hotels.id
-                                    data.room_detail = room_detail
-                                    users.cart = data
-                                    return {
-                                        "ID" : data.id,
-                                        "Hotel" : hotels.name,
-                                        "User" : user,
-                                        "Start date" : data.date_in,
-                                        "End date" : data.date_out,
-                                        "Price" : rooms.price,
-                                        "Detail" : rooms.detail,
-                                        "Guests" : rooms.guests,
-                                        "Hotel Rating" : hotels.average_rating(),
-                                        "Location":hotels.location,
-                                        "Discount" : rooms.final_price,
-                                        "Image": hotels.imgsrc
-                                    }
-                                raise HTTPException(status_code=404, detail="Room Not Available")
-                        raise HTTPException(status_code=404, detail="Room Not Found")
-                raise HTTPException(status_code=404, detail="Hotel ID Not Found")
-        raise HTTPException(status_code=404, detail="User Not Found")
+        for hotels in self.__hotel:
+            if hotel_id == hotels.id: 
+                for rooms in hotels.room:
+                    if room_detail == rooms.detail:      
+                        start = start.split('-')
+                        start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
+                        end = end.split('-')
+                        end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
+                        if  (rooms.isavailable(start,end)):
+                            data = Reservation(self.current_user.name, start, end)
+                            data.hotel_id = hotels.id
+                            data.room_detail = room_detail
+                            self.current_user.cart = data
+                            return {
+                                "ID" : data.id,
+                                "Hotel" : hotels.name,
+                                "User" : self.current_user.name,
+                                "Start date" : data.date_in,
+                                "End date" : data.date_out,
+                                "Price" : rooms.price,
+                                "Detail" : rooms.detail,
+                                "Guests" : rooms.guests,
+                                "Hotel Rating" : hotels.average_rating(),
+                                "Location":hotels.location,
+                                "Discount" : rooms.final_price,
+                                "Image": hotels.imgsrc
+                            }
+                        raise HTTPException(status_code=404, detail="Room Not Available")
+                raise HTTPException(status_code=404, detail="Room Not Found")
+        raise HTTPException(status_code=404, detail="Hotel ID Not Found")
     
         # Validate - Checked
 
@@ -374,10 +373,9 @@ class HotelReservationSystem:
                 }
         raise HTTPException(status_code=404, detail="User not found")
       
-    def change_reservation(self, user_id : int, reservation_id : int, new_date_in : str, new_date_out : str) -> dict:
-        for user in self.__user:
-            if user.user_id == user_id:
-                for reservation in user.reservation:
+    def change_reservation(self, reservation_id : int, new_date_in : str, new_date_out : str) -> dict:
+        if self.current_user != None:
+                for reservation in self.current_user.reservation:
                     if reservation.id == reservation_id:
                         new_date_in = new_date_in.split('-')
                         new_date_in = datetime.date(int(new_date_in[2]), int(new_date_in[1]), int(new_date_in[0]))

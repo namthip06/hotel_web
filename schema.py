@@ -42,7 +42,6 @@ class RoomEditor(BaseModel):
     new_guests : int
 
 class ChangeReservation(BaseModel):
-    user : int
     reservation_id : int
     date_in : str
     date_out : str
