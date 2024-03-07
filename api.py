@@ -70,8 +70,10 @@ async def user(id:int):
 # -------------------RESERVATION--------------------------
 # http://127.0.0.1:8000/reservation/?name=hotel%20one&detail=Breakfast%20not%20included&user=01&start=1-1-2023&end=10-1-2023
 @app.get("/reservation/")
-async def create_reservation(hotel_id:int, detail:str, user:int, start:str, end:str):
-    user_reservation = hotel_list.myHotel.create_reservation(hotel_id, detail, user, start, end)
+async def create_reservation(hotel_id:int, detail:str, start:str, end:str):
+    user_reservation = hotel_list.myHotel.create_reservation(hotel_id, detail, start, end)
+    if user_reservation == None:
+        return "User Not Login"
     return user_reservation
 # @app.post('/reservation/')
 # async def user_input_info(information:main.User_information):
