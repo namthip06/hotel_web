@@ -124,7 +124,7 @@ async def add_feedback(review: schema.Review):
     add_feedback = hotel_list.myHotel.add_feedback(review.user_name, review.hotel_name, review.comment, review.rating, review.time, review.images)
     return add_feedback
 
-@app.post('/sign up')
+@app.post('/sign_up')
 async def sign_up(sign_up: schema.Sign_up):
     sign_up = hotel_list.myHotel.sign_up(sign_up.user_name, sign_up.user_password, sign_up.phone_number, sign_up.email)
     return sign_up
