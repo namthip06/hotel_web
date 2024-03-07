@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User</title>
+    <title>Document</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -12,15 +12,21 @@
     <script src="bootstrap/js/bootstrap.bundle.js"></script>
     <header class="bg-image-full d-flex flex-column mb-5" style="width: 100vw; height: 80vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.35)) ,url(https://picsum.photos/1400/700);">
         <div class="container d-flex align-items-center">
+            <!-- logo -->
             <ul class="nav col-12 col-lg-auto me-lg-auto mt-3 mb-2 justify-content-center mb-md-0">
-                <li><a href="/index.html" class="nav-link px-3 link-light a-link">Home</a></li>
-                <li><a href="/deals.html" class="nav-link px-3 link-light a-link">Deals</a></li>
-                <li><a href="/account.html" class="nav-link px-3 link-light a-link">Bookings</a></li>
-                <li><a href="/about.html" class="nav-link px-3 link-light a-link">About us</a></li>
+                <li><a href="#" class="nav-link px-3 link-light a-link">Deals</a></li>
+                <li><a href="#" class="nav-link px-3 link-light a-link">Support</a></li>
+                <li><a href="#" class="nav-link px-3 link-light a-link">Bookings</a></li>
+                <li><a href="#" class="nav-link px-3 link-light a-link">About us</a></li>
             </ul>
             <div class="text-end align-self-end">
-                <a href="/login.html"><button type="button" class="btn btn btn-outline-light me-2">login</button></a>
-                <a href="login.html"><button type="button" class="btn btn btn-light">sign up</button></a>
+                <style>
+                    #nav-login, #nav-signup {
+                    margin-right: 5px; /* Adjust margin between buttons */
+                    }
+                </style>
+                <button id = "nav-login" type="button" class="btn btn btn-outline-light me-2">login</button>
+                <button id = "nav-signup" type="button" class="btn btn btn-light" href="index.html">sign up</button>
             </div>
         </div>
         <div class="container my-auto">
@@ -32,97 +38,45 @@
         <div class="my-4 py-4 border-top border-bottom border-secondary-subtle">
             <div class="d-flex mb-3 justify-content-between">
                 <div>
-                    <p class="m-0 text-secondary">Name</p>
-                    <h4 class="m-0" id="name">name</h4>
+                    <p class="m-0">Name</p>
+                    <h5 class="m-0" id="name"></h5>
                 </div>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#nameBackdrop">
-                    change
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="nameBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <label for="change_name" class="form-label"><h4>New name</h4></label>
-                                <input type="text" class="form-control" id="change_name" placeholder="name">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn btn-outline-dark" style="width: 100px;">change</button>
             </div>
             <div class="d-flex mb-3 justify-content-between">
                 <div>
-                    <p class="m-0 text-secondary">Email</p>
-                    <h4 class="m-0" id="email">email</h4>
+                    <p class="m-0">Email</p>
+                    <h5 class="m-0" id="email"></h5>
                 </div>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#emailBackdrop">
-                    change
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="emailBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <label for="change_email" class="form-label"><h4>New email</h4></label>
-                                <input type="email" class="form-control" id="change_email" placeholder="name@example.com">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn btn-outline-dark" style="width: 100px;">change</button>
             </div>
+            <button id = "logout-button" type="button" class="btn btn-dark">Log Out</button>
         </div>
         <h2>Booking</h2>
         <div>
             <div class="row row-cols-1 my-4 py-4 border-top border-bottom border-secondary-subtle">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-lg-flex align-items-center">
-                        <img src="https://picsum.photos/180/120" alt="hotel_picture">
-                        <div class="mx-lg-5 mt-lg-0 mt-4">
-                            <p class="m-0">check in</p>
-                            <h5 class="m-0" id="checkin"></h5>
-                        </div>
-                        <div class="pe-5 me-5 mt-lg-0 mt-4 border-end border-secondary-subtle">
-                            <p class="m-0">check out</p>
-                            <h5 class="m-0" id="checkout"></h5>
-                        </div>
-                        <div class="mt-lg-0 mt-4">
-                            <p class="m-0">on time</p>
-                            <p class="m-0" id="hotel"></p>
-                            <p class="m-0" id="room"></p>
-                        </div>
-                    </div>
-                    <div>
-                        <!-- change modal -->
-                        <button type="button" class="btn btn-outline-dark me-3" data-bs-toggle="modal" data-bs-target="#reservationBackdrop">
-                            <i class="bi bi-wrench-adjustable me-2"></i>Change
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="reservationBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <label for="change_reservation" class="form-label"><h4>New reservation date</h4></label>
-                                        <input type="date" class="form-control" id="change_reservation">
-                                        <p class="mt-1 ms-1 text-secondary">old reservation date</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>
+                <div class="col" id="account-booking-list">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-lg-flex align-items-center">
+                            <img src="https://picsum.photos/180/120" alt="hotel_picture">
+                            <div class="mx-lg-5 mt-lg-0 mt-4">
+                                <p class="m-0">check in</p>
+                                <h5 class="m-0" id="checkin"></h5>
+                            </div>
+                            <div class="pe-5 me-5 mt-lg-0 mt-4 border-end border-secondary-subtle">
+                                <p class="m-0">check out</p>
+                                <h5 class="m-0" id="checkout"></h5>
+                            </div>
+                            <div class="mt-lg-0 mt-4">
+                                <p class="m-0">on time</p>
+                                <p class="m-0" id="hotel"></p>
+                                <p class="m-0" id="room"></p>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-dark"><i class="bi bi-x-lg me-2"></i>Cancel</button>
+                        <div>
+                            <button type="button" class="btn btn-outline-dark me-3"><i class="bi bi-wrench-adjustable me-2"></i>Change</button>
+                            <button type="button" class="btn btn-dark"><i class="bi bi-x-lg me-2"></i>Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,10 +84,11 @@
     </div>
     <footer class="py-4 bg-black">
         <ul class="nav justify-content-center border-bottom border-dark pb-3 mb-3">
-            <li><a href="/index.html" class="nav-link px-3 link-light a-link">Home</a></li>
-            <li><a href="/deals.html" class="nav-link px-3 link-light a-link">Deals</a></li>
-            <li><a href="/account.html" class="nav-link px-3 link-light a-link">Bookings</a></li>
-            <li><a href="/about.html" class="nav-link px-3 link-light a-link">About us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-light a-link">About</a></li>
         </ul>
         <p class="text-center text-secondary">© 2024 Company, Inc</p>
     </footer>
