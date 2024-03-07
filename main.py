@@ -373,10 +373,9 @@ class HotelReservationSystem:
                 }
         raise HTTPException(status_code=404, detail="User not found")
       
-    def change_reservation(self, user_id : int, reservation_id : int, new_date_in : str, new_date_out : str) -> dict:
-        for user in self.__user:
-            if user.user_id == user_id:
-                for reservation in user.reservation:
+    def change_reservation(self, reservation_id : int, new_date_in : str, new_date_out : str) -> dict:
+        if self.current_user != None:
+                for reservation in self.current_user.reservation:
                     if reservation.id == reservation_id:
                         new_date_in = new_date_in.split('-')
                         new_date_in = datetime.date(int(new_date_in[2]), int(new_date_in[1]), int(new_date_in[0]))
