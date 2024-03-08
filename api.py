@@ -43,25 +43,10 @@ async def index():
 async def search(start:str, end:str, guest:int = 1, country:str = "", city:str = "", price = "0-40000", rating = "0-1-2-3-4-5"):
     return hotel_list.myHotel.search_hotel(start, end, guest, country, city, price, rating)
 
-@app.get("/single-bed-rooms/")
-async def get_single_bed_rooms(hotel_name: str):
-    single_bed_rooms = hotel_list.myHotel.get_single_bed_rooms(hotel_name)
-    return {"single_bed_rooms": single_bed_rooms}
-
-@app.get("/double-bed-rooms/")
-async def get_double_bed_rooms(hotel_name: str):
-    double_bed_rooms = hotel_list.myHotel.get_double_bed_rooms(hotel_name)
-    return {"double_bed_rooms": double_bed_rooms}
-
-@app.get("/queen-size-bed-rooms/")
-async def get_queen_size_bed_rooms(hotel_name: str):
-    queen_size_bed_rooms = hotel_list.myHotel.get_queen_size_bed_rooms(hotel_name)
-    return {"queen_size_bed_rooms": queen_size_bed_rooms}
-
-@app.get("/king-size-bed-rooms/")
-async def get_king_size_bed_rooms(hotel_name: str):
-    king_size_bed_rooms = hotel_list.myHotel.get_king_size_bed_rooms(hotel_name)
-    return {"king_size_bed_rooms": king_size_bed_rooms}
+@app.get("/rooms/")
+async def get_rooms_by_detail(hotel_name: str, room_detail: str):
+    get_rooms_by_detail = hotel_list.myHotel.get_rooms_by_detail(hotel_name, room_detail)
+    return get_rooms_by_detail
 
 @app.get("/user/")
 async def user(id:int):
@@ -88,7 +73,7 @@ async def create_reservation(hotel_id:int, detail:str, start:str, end:str):
 #     return payment
 @app.post("/payment/")
 async def pay(payment_data: schema.Payment):
-    payment = hotel_list.myHotel.add_payment(payment_data.user_id , payment_data.reservation_id)
+    payment = hotel_list.myHotel.add_payment( payment_data.reservation_id)
     return payment
 # --------------------------------------------------------
 
@@ -140,38 +125,38 @@ async def logout():
     return logout
 
 @app.delete('/cancel')
-async def cancel_reservation(user: int, reservation_id: int):
-    cancel_reservation = hotel_list.myHotel.cancel_reservation(user, reservation_id)
+async def cancel_reservation( reservation_id: int):
+    cancel_reservation = hotel_list.myHotel.cancel_reservation( reservation_id)
     return cancel_reservation
 
 @app.post('/add_hotel')
-async def add_hotel(user:int, add_hotel: schema.Hotel):
-    add_hotel = hotel_list.myHotel.add_hotel(user, add_hotel.name, add_hotel.country, add_hotel.city, add_hotel.maps)
+async def add_hotel( add_hotel: schema.Hotel):
+    add_hotel = hotel_list.myHotel.add_hotel(add_hotel.name, add_hotel.country, add_hotel.city, add_hotel.maps)
     return add_hotel
 
 @app.post('/add_room')
-async def add_room(user: int, hotel_id: int, add_room: schema.Room):
-    add_room = hotel_list.myHotel.add_room(user, hotel_id, add_room.detail, add_room.price, add_room.guest)
+async def add_room(hotel_id: int, add_room: schema.Room):
+    add_room = hotel_list.myHotel.add_room(hotel_id, add_room.detail, add_room.price, add_room.guest)
     return add_room
 
 @app.put("/admin/edit-room/")
-def edit_room(user_id: int, edit_room: schema.RoomEditor):
-    edit_room = hotel_list.myHotel.edit_room(user_id, edit_room.hotel_name, edit_room.room_detail, edit_room.new_price, edit_room.new_guests)
+def edit_room( edit_room: schema.RoomEditor):
+    edit_room = hotel_list.myHotel.edit_room(edit_room.hotel_name, edit_room.room_detail, edit_room.new_price, edit_room.new_guests)
     return edit_room
 
 @app.put('/admin/edit-hotel/')
-def edit_hotel(user_id: int, edit_hotel: schema.HotelEditor):
-    edit_hotel = hotel_list.myHotel.edit_hotel(user_id, edit_hotel.hotel_name, edit_hotel.country, edit_hotel.city, edit_hotel.maps, edit_hotel.imgsrc)
+def edit_hotel(edit_hotel: schema.HotelEditor):
+    edit_hotel = hotel_list.myHotel.edit_hotel( edit_hotel.hotel_name, edit_hotel.country, edit_hotel.city, edit_hotel.maps, edit_hotel.imgsrc)
     return edit_hotel
 
 @app.delete('/admin/remove-hotel/')
-async def remove_hotel(user_id: int, hotel_name: str):
-    remove_hotel = hotel_list.myHotel.remove_hotel(user_id, hotel_name)
+async def remove_hotel( hotel_name: str):
+    remove_hotel = hotel_list.myHotel.remove_hotel(hotel_name)
     return remove_hotel
 
 @app.delete('/admin/remove-room/') 
-async def remove_room(user_id: int, hotel_name: str, room_detail: str):
-    remove_room = hotel_list.myHotel.remove_room(user_id, hotel_name, room_detail)
+async def remove_room(hotel_name: str, room_detail: str):
+    remove_room = hotel_list.myHotel.remove_room( hotel_name, room_detail)
     return remove_room  
 
 @app.put('/user/change-info/')

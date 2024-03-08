@@ -313,6 +313,18 @@ for hotel in myHotel.hotel:
     for l in range(2):
         hotel.room = main.Room("King Size Bed", 4000, 4)
 
+
+for i in range(10):
+    myHotel.hotel[i].feedback = main.Feedback("namthip","Best Hotel",5,datetime.date(2021,2,7))
+for j in range(10,20,1):
+    myHotel.hotel[j].feedback = main.Feedback("john","Decent Hotel",4,datetime.date(2020,12,7))
+for k in range(20,30,1):
+    myHotel.hotel[k].feedback = main.Feedback("Boggac","Ok Hotel",3,datetime.date(2021,5,17))
+for l in range(30,40,1):
+    myHotel.hotel[l].feedback = main.Feedback("namthip","Not Good",2,datetime.date(2019,4,24))
+for m in range(40,50,1):
+    myHotel.hotel[m].feedback = main.Feedback("Loventa","Worst Hotel",1,datetime.date(2023,5,19))
+
 # myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
 # myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
 # myHotel.hotel[2].room = main.Room("Don't smoke", 1200, 3)
@@ -335,7 +347,9 @@ feedback1 = main.Feedback(myHotel.user[0], "Great Hotel!", 4, "2024-02-21")
 feedback2 = main.Feedback(myHotel.user[1], "Worst Hotel I've ever stayed", 1, "2023-11-09")
 feedback3 = main.Feedback(myHotel.user[2], "Nice service!", 5, "2024-07-02")
 
+myHotel.current_user = myHotel.user[0]
 myHotel.create_reservation(1, "Single Bed", "11-10-2023", "15-10-2023")
-myHotel.add_payment(1,4)
+myHotel.add_payment(4)
 myHotel.create_reservation(2, "Double Bed", "1-12-2023", "9-12-2023")
-myHotel.add_payment(1,5)
+myHotel.add_payment(5)
+myHotel.current_user = None
