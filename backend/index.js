@@ -14,21 +14,19 @@ function radioCity(city) {
     let text = "";
     Object.keys(data).forEach(function(key) {
       text += `
-        <a href="#">
-            <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-title text-capitalize mb-1 fw-bold">${key}</p>
-                    <div class="d-flex mb-1">
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                    </div>
-                    <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB ${data[key]['Price']}</small></p>
-                    <p class="fw-semibold"><small>THB ${data[key]['Price']}</small></p>
+        <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;" onclick="submitHotel('${key}')">
+            <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-title text-capitalize mb-1 fw-bold">${key}</p>
+                <div class="d-flex mb-1">
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
                 </div>
+                <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB ${data[key]['Price']}</small></p>
+                <p class="fw-semibold"><small>THB ${data[key]['Price']}</small></p>
             </div>
-        </a>
+        </div>
       `
     });
     result.innerHTML = text
@@ -37,30 +35,37 @@ function radioCity(city) {
 
 function radioInter(country) {
   let result = document.getElementById("result_inter");
-  let data = search_backend("1-1-2000", "2-1-2000", "1", country, "", "0-100000", "0-1-2-3-4-5")
+  let data = search_backend("1-1-2000", "2-1-2000", "1", country, "", "0-100000", "0-1-2-3-4-5");
   data.then(function(data) {
     let text = "";
     Object.keys(data).forEach(function(key) {
+      let rating = "";
+      for (let i = 0; i < data[key]['Rating']; i++) {
+        rating += `
+          <i class="bi bi-star"></i>
+        `
+      }
       text += `
-        <a href="#">
-            <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-title text-capitalize mb-1 fw-bold">${key}</p>
-                    <div class="d-flex mb-1">
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                    </div>
-                    <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB ${data[key]['Price']}</small></p>
-                    <p class="fw-semibold"><small>THB ${data[key]['Price']}</small></p>
+        <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;" onclick="submitHotel('${key}')">
+            <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-title text-capitalize mb-1 fw-bold">${key}</p>
+                <div class="d-flex mb-1">
+                    ${rating}
                 </div>
+                <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB ${data[key]['Price']}</small></p>
+                <p class="fw-semibold"><small>THB ${data[key]['Price']}</small></p>
             </div>
-        </a>
-      `
+        </div>
+      `;
     });
-    result.innerHTML = text
+    result.innerHTML = text;
   });
+}
+
+function submitHotel(hotel_name) {
+  localStorage.setItem('lode_hotel_name', JSON.stringify(hotel_name));
+  document.location.href = "detail.html";
 }
 
 document.querySelectorAll('.cities').forEach(function(button) {
@@ -100,5 +105,5 @@ document.getElementById("search_btn").addEventListener("click", function() {
 });
 
 // start
-radioCity("Bangkok")
+radioCity("California")
 radioInter("Japan")

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <script src="bootstrap/js/bootstrap.bundle.js"></script>
     <header class="bg-image-full d-flex flex-column" style="width: 100vw; height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)) ,url(https://picsum.photos/1400/700);">
         <div class="container d-flex align-items-center">
             <ul class="nav col-12 col-lg-auto me-lg-auto mt-3 mb-2 justify-content-center mb-md-0">
@@ -24,8 +23,8 @@
             </div>
         </div>
         <div class="m-lg-auto my-auto mx-5">
-            <h5 class="text-uppercase text-light text-center">Thai / Pattaya</p>
-            <h1 class="fw-light text-wrap text-light" style="font-size: 80px; max-width: 80vw;">Zand Morada Pattaya Hotel</h1>
+            <h5 id="head_location" class="text-uppercase text-light text-center">Thai / Pattaya</p>
+            <h1 id="head_name" class="fw-light text-wrap text-light text-center" style="font-size: 80px; max-width: 80vw;">Zand Morada Pattaya Hotel</h1>
         </div>
         <div class="mouse_scroll m-0 mx-auto mb-5">
             <div class="mouse">
@@ -70,30 +69,20 @@
             </div>
         </div>
         <h2>Available Room</h2>
-        <div class="row row-cols-1 mb-5 border-bottom border-secondary-subtle">
-            <!-- for each hotel -->
+        <div id="result_available_room" class="row row-cols-1 mb-5 border-bottom border-secondary-subtle">
+            <!-- for each room -->
             <div class="col py-5 border-bottom border-secondary-subtle">
                 <div class="row gx-lg-5">
                     <div class="col-auto">
-                        <!-- picture -->
                         <div class="bg-image-full" style="width: 300px; height: 200px; background-image: url(https://picsum.photos/300/200);"></div>
                     </div>
                     <div class="col-auto me-auto mt-lg-0 mt-4">
-                        <!-- hotel name -->
                         <h4 class="hotel_name mb-3 text-uppercase">Centre Point Prime Hotel Pattaya</h4>
-                        <!-- hotel rating -->
                         <div class="d-flex align-items-center mb-2">
-                            <h5 class="m-0 me-1"><i class="bi bi-star"></i></h5>
-                            <h5 class="m-0 me-1"><i class="bi bi-star"></i></h5>
-                            <h5 class="m-0 me-1"><i class="bi bi-star"></i></h5>
-                        </div>
-                        <!-- hotel location -->
-                        <div class="d-flex align-items-center mb-2">
-                            <h5 class="m-0 me-3"><i class="bi bi-geo-alt"></i></h5>
+                            <h5 class="m-0 me-3"><i class="bi bi-person-fill"></i></h5>
                             <p class="m-0 text-capitalize text-body-secondary">thailand, pattaya</p>
                         </div>
                     </div>
-                    <!-- hotel price -->
                     <div class="col-auto align-self-end text-end">
                         <p class="m-0 mb-1 text-body-secondary text-decoration-line-through">THB 1500.00</p>
                         <h4 class="mb-3 fw-bolder">THB 1200.31</h4>
@@ -104,30 +93,28 @@
         </div>
         <h4 class="fw-bold">Other Accommodations You Might Like</h4>
         <div class="mt-4 mb-5 border-bottom border-secondary-subtle justify-content-start">
-            <div class="d-flex">
+            <div id="result_other_accommodation" class="d-flex">
                 <!-- for each hotel -->
-                <a href="#">
-                    <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;">
-                        <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-capitalize mb-1 fw-bold">hilton hattaya</h5>
-                            <div class="d-flex mb-1">
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                            <div class="d-flex">
-                                <p class="m-0 me-1"><i class="bi bi-geo-alt"></i></p>
-                                <p class="text-body-secondary">thailand, pattaya</p>
-                            </div>
-                            <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB 1500.00</small></p>
-                            <p class="fw-semibold">THB 1238.23</p>
+                <div class="card mb-4 me-lg-5 me-1 shadow-sm" style="width: 15rem;">
+                    <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-capitalize mb-1 fw-bold">hilton hattaya</h5>
+                        <div class="d-flex mb-1">
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
                         </div>
+                        <div class="d-flex">
+                            <p class="m-0 me-1"><i class="bi bi-geo-alt"></i></p>
+                            <p class="text-body-secondary">thailand, pattaya</p>
+                        </div>
+                        <p class="m-0 text-body-secondary text-decoration-line-through"><small>THB 1500.00</small></p>
+                        <p class="fw-semibold">THB 1238.23</p>
                     </div>
-                </a>
+                </div>
             </div>
             <div class="d-flex mb-5 text-center justify-content-center align-items-center">
-                <p class="fw-semibold m-0"><a href="#" class="a-black pb-1">See Other Accommodations in Pattaya (2575)</a></p>
+                <p id="other_link" class="fw-semibold m-0"><a href="#" class="a-black pb-1">See Other Accommodations in Pattaya (2575)</a></p>
             </div>
         </div>
         <h2>Reviews</h2>
@@ -136,10 +123,10 @@
             <h2 class="m-0"><span class="badge text-bg-dark">4.58</span></h2>
             <div class="my-0 mx-4">
                 <h5 class="m-0 fw-bold">Very good</h5>
-                <p class="m-0 text-body-secondary"><small>371 verified reviews</small></p>
+                <p id="review_count" class="m-0 text-body-secondary"><small>371 verified reviews</small></p>
             </div class="m-0">
         </div>
-        <div class="row row-cols-1 mb-5">
+        <div id="result_review" class="row row-cols-1 mb-5">
             <div class="col py-3 border-bottom border-secondary-subtle">
                 <div class="row mt-2">
                     <div class="col-auto mx-3">
@@ -147,10 +134,11 @@
                     </div>
                     <div class="col">
                         <div class="d-flex flex-column">
-                            <div class="d-flex mb-1">
+                            <div class="d-flex">
                                 <p class="m-0 pe-3 me-3 border-end border-secondary-subtle fw-bold">5.0 Amazing</p>
                                 <p class="m-0 text-secondary text-capitalize">username</p>
                             </div>
+                            <p class="m-0 mb-1 text-secondary">time</p>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis eaque impedit qui vero, perferendis quibusdam, saepe minima magnam molestias numquam, fuga deleniti natus voluptatem delectus.</p>
                         </div>
                     </div>
@@ -167,5 +155,7 @@
         </ul>
         <p class="text-center text-secondary">© 2024 Company, Inc</p>
     </footer>
+    <script src="bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="backend/detail.js"></script>
 </body>
 </html>
