@@ -88,7 +88,7 @@ async def create_reservation(hotel_id:int, detail:str, start:str, end:str):
 #     return payment
 @app.post("/payment/")
 async def pay(payment_data: schema.Payment):
-    payment = hotel_list.myHotel.add_payment(payment_data.user_id , payment_data.reservation_id)
+    payment = hotel_list.myHotel.add_payment( payment_data.reservation_id)
     return payment
 # --------------------------------------------------------
 
