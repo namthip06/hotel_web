@@ -180,8 +180,10 @@ class HotelReservationSystem:
                             "Guests": room.guests,
                         }
                         selected_rooms.append(room_info)
-
-        return selected_rooms
+                if not selected_rooms:
+                    raise HTTPException(status_code=404, detail="Room not found")
+                return selected_rooms
+        raise HTTPException(status_code=404, detail="Hotel not found")
 
     def get_hotel_details(self, name: str):
         selected_hotel = None
