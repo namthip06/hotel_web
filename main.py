@@ -161,73 +161,22 @@ class HotelReservationSystem:
             }
         return result
 
-    def get_single_bed_rooms(self, hotel_name: str) -> list:
-        single_bed_rooms = []
+    def get_rooms_by_detail(self, hotel_name: str, room_detail: str) -> list:
+        selected_rooms = []
 
         for hotel in self.__hotel:
             if hotel.name == hotel_name:
                 for room in hotel.room:
-                    if room.detail == "Single Bed":
+                    if room.detail == room_detail:
                         room_info = {
                             "Hotel": hotel.name,
                             "Room Detail": room.detail,
                             "Price": room.price,
                             "Guests": room.guests,
                         }
-                        single_bed_rooms.append(room_info)
+                        selected_rooms.append(room_info)
 
-        return single_bed_rooms
-    
-    def get_double_bed_rooms(self, hotel_name: str) -> list:
-        double_bed_rooms = []
-
-        for hotel in self.__hotel:
-            if hotel.name == hotel_name:
-                for room in hotel.room:
-                    if room.detail == "Double Bed":
-                        room_info = {
-                            "Hotel": hotel.name,
-                            "Room Detail": room.detail,
-                            "Price": room.price,
-                            "Guests": room.guests,
-                        }
-                        double_bed_rooms.append(room_info)
-
-        return double_bed_rooms
-    
-    def get_queen_size_bed_rooms(self, hotel_name: str) -> list:
-        queen_size_bed_rooms = []
-
-        for hotel in self.__hotel:
-            if hotel.name == hotel_name:
-                for room in hotel.room:
-                    if room.detail == "Queen Size Bed":
-                        room_info = {
-                            "Hotel": hotel.name,
-                            "Room Detail": room.detail,
-                            "Price": room.price,
-                            "Guests": room.guests,
-                        }
-                        queen_size_bed_rooms.append(room_info)
-
-        return queen_size_bed_rooms
-    
-    def get_king_size_bed_rooms(self, hotel_name: str) -> list:
-        king_size_bed_rooms = []
-
-        for hotel in self.__hotel:
-            if hotel.name == hotel_name:
-                for room in hotel.room:
-                    if room.detail == "King Size Bed":
-                        room_info = {
-                            "Hotel": hotel.name,
-                            "Room Detail": room.detail,
-                            "Price": room.price,
-                            "Guests": room.guests,
-                        }
-                        king_size_bed_rooms.append(room_info)
-
-        return king_size_bed_rooms
+        return selected_rooms
 
     def get_hotel_details(self, name: str):
         selected_hotel = None
