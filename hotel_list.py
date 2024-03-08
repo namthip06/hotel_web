@@ -312,7 +312,18 @@ for hotel in myHotel.hotel:
         hotel.room = main.Room("Queen Size Bed", 2500, 3)
     for l in range(2):
         hotel.room = main.Room("King Size Bed", 4000, 4)
-
+        
+for hotel in myHotel.hotel: #add_feedback
+    for i in range(10):
+        hotel.feedback[i] = main.Feedback("namthip","Best Hotel",5,datetime.date(2021,2,7))
+    for j in range(10,20,1):
+        hotel.feedback[j] = main.Feedback("john","Decent Hotel",4,datetime.date(2020,12,7))
+    for k in range(20,30,1):
+        hotel.feedback[k] = main.Feedback("Boggac","Ok Hotel",3,datetime.date(2021,5,17))
+    for l in range(30,40,1):
+        hotel.feedback[l] = main.Feedback("namthip","Not Good",2,datetime.date(2019,4,24))
+    for m in range(40,50,1):
+        hotel.feedback[m] = main.Feedback("Loventa","Worst Hotel",1,datetime.date(2023,5,19))
 # myHotel.hotel[0].room = main.Room("Breakfast not included", 500, 1)
 # myHotel.hotel[1].room = main.Room("Breakfast included", 1000, 2)
 # myHotel.hotel[2].room = main.Room("Don't smoke", 1200, 3)
