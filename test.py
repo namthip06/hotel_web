@@ -1,4 +1,4 @@
-result = {}
-result["thai"] = {"japan" : "123"}
-result.clear()
-print(result)
+if "" == None:
+    print('yes')
+else:
+    print('no')

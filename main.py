@@ -113,20 +113,24 @@ class HotelReservationSystem:
             dict_country[country] = self.search_hotel('1-1-2000', '2-1-2000', 1, country)
         result["country"] = dict_country
         for city in self.__city:
-            dict_city[city] = self.search_hotel('1-1-2000', '2-1-2000', 1, None, city)
+            dict_city[city] = self.search_hotel('1-1-2000', '2-1-2000', 1, "", city)
         result["city"] = dict_city
         return result
     
-    def search_hotel(self, start:str, end:str, guest:int = 1, country:str = None, city:str = None, price:int = "0-40000", ratings:int = "0-1-2-3-4-5") -> dict:
+    def search_hotel(self, start:str, end:str, guest:int = 1, country:str = "", city:str = "", price:int = "0-40000", ratings:int = "0-1-2-3-4-5") -> dict:
+        if country != "":
+            country = country.capitalize()
+        if city != "":
+            city = city.capitalize()
         hotel_list = []
         start = self.str_to_datetime(start)
         end = self.str_to_datetime(end)
         price = [int(number) for number in price.split('-')]
         ratings = [int(number) for number in ratings.split('-')]
         for hotel in self.__hotel:
-            if country != hotel.location.country and country != None:
+            if country != hotel.location.country and country != "":
                 continue
-            if city != hotel.location.city and city != None:
+            if city != hotel.location.city and city != "":
                 continue
             if hotel.cheapest_room().price < price[0] or hotel.cheapest_room().price > price[1]:
                 continue
@@ -155,6 +159,7 @@ class HotelReservationSystem:
         result = {}
         for hotel in hotel_list:
             result[hotel.name] = {
+                "Id" : hotel.id,
                 "Rating" : hotel.average_rating(),
                 "Location" : hotel.location.country + ", " + hotel.location.city,
                 "Price" : hotel.cheapest_room().price

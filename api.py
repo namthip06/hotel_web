@@ -40,7 +40,7 @@ async def index():
     return result
 
 @app.get("/search/")
-async def search(start:str, end:str, guest:int = 1, country:str = None, city:str = None, price = "0-40000", rating = "1-2-3-4-5"):
+async def search(start:str, end:str, guest:int = 1, country:str = "", city:str = "", price = "0-40000", rating = "0-1-2-3-4-5"):
     return hotel_list.myHotel.search_hotel(start, end, guest, country, city, price, rating)
 
 @app.get("/single-bed-rooms/")

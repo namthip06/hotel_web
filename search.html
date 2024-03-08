@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <script src="bootstrap/js/bootstrap.bundle.js"></script>
     <video id="background-video" autoplay loop muted poster="/images/ice2.png">
         <source src="/images/ice.mp4" type="video/mp4">
     </video> 
@@ -41,35 +40,35 @@
                     <div class="input-group-text bg-body border border-white">
                         <h4 class="m-0"><i class="bi bi-chat-square-dots"></i></h4>
                     </div>
-                    <input type="text" aria-label="hotel_name" class="form-control border border-white" placeholder="Hotel Name">
+                    <input id="search_hotel_name" type="text" aria-label="hotel_name" class="form-control border border-white" placeholder="Hotel Name">
                 </div>
                 <!-- location -->
                 <div class="input-group pe-3 me-3 border-end border-secondary-subtle">
                     <div class="input-group-text bg-body border border-white">
                         <h4 class="m-0"><i class="bi bi-geo-alt"></i></h4>
                     </div>
-                    <select class="form-select border border-white" aria-label="location">
-                        <option selected>default location</option>
-                        <option value="locatoin">some location</option>
+                    <select id="search_location" class="form-select border border-white" aria-label="location">
+                        <option value="Thailand" selected>Thailand</option>
+                        <option value="Japan">Japan</option>
                     </select>
                 </div>
                 <!-- date -->
                 <div class="d-flex pe-3 me-3 border-end border-secondary-subtle">
-                    <input type="date" class="form-control border border-white me-3">
-                    <input type="date" class="form-control border border-white">
+                    <input id="search_date_in" type="date" class="form-control border border-white me-3">
+                    <input id="search_date_out" type="date" class="form-control border border-white">
                 </div>
                 <!-- guests -->
                 <div class="input-group me-3">
                     <div class="input-group-text bg-body border border-white">
                         <h4 class="m-0"><i class="bi bi-person"></i></h4>
                     </div>
-                    <input type="number" class="form-control border border-white" value="1" min="1" max="10">
+                    <input id="search_guests" type="number" class="form-control border border-white" value="1" min="1" max="10">
                 </div>
-                <button type="button" class="btn btn-dark" style="width: 300px;"><i class="bi bi-search"></i></button>
+                <button id="search_btn" type="button" class="btn btn-dark" style="width: 300px;"><i class="bi bi-search"></i></button>
             </div>
             <!-- option bar -->
             <div class="d-flex px-4 justify-content-between align-items-center border-bottom border-secondary-subtle" style="height: 70px;">
-                <p class="m-0 fw-bold">2575 RESULTS</p>
+                <p id="count_result" class="m-0 fw-bold">2575 RESULTS</p>
                 <div class="d-flex">
                     <div class="dropdown me-3">
                         <button class="btn btn-outline-light text-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,20 +76,20 @@
                         </button>
                         <div class="dropdown-menu p-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="1_star">
+                                <input class="form-check-input checkbox_star" type="checkbox" value="1">
                                 <label class="form-check-label" for="1_star">
                                     <i class="bi bi-star"></i>
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="2_star">
+                                <input class="form-check-input checkbox_star" type="checkbox" value="2">
                                 <label class="form-check-label" for="2_star">
                                     <i class="bi bi-star"></i>
                                     <i class="bi bi-star"></i>
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="3_star">
+                                <input class="form-check-input checkbox_star" type="checkbox" value="3">
                                 <label class="form-check-label" for="3_star">
                                     <i class="bi bi-star"></i>
                                     <i class="bi bi-star"></i>
@@ -98,7 +97,7 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="4_star">
+                                <input class="form-check-input checkbox_star" type="checkbox" value="4">
                                 <label class="form-check-label" for="4_star">
                                     <i class="bi bi-star"></i>
                                     <i class="bi bi-star"></i>
@@ -107,7 +106,7 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="5_star">
+                                <input class="form-check-input checkbox_star" type="checkbox" value="5">
                                 <label class="form-check-label" for="5_star">
                                     <i class="bi bi-star"></i>
                                     <i class="bi bi-star"></i>
@@ -134,12 +133,12 @@
                                     <p class="text-secondary">Per room, per night</p>
                                     <form>
                                         <div class="mb-3">
-                                            <label for="lowest_price" class="form-label">Lowest price</label>
-                                            <input class="form-control" id="lowest_price">
+                                            <label class="form-label">Lowest price</label>
+                                            <input class="form-control input_price">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="highest_price" class="form-label">Highest price</label>
-                                            <input class="form-control" id="highest_price">
+                                            <label class="form-label">Highest price</label>
+                                            <input class="form-control input_price">
                                         </div>
                                     </form>
                                 </div>
@@ -155,11 +154,9 @@
             <!-- result -->
             <div class="row row-cols-1">
                 <!-- for each hotel -->
-                <div class="col py-5 border-bottom border-secondary-subtle">
-                    <div class="row gx-lg-5">
-                        <div class="col-auto">
-                            <img src="https://picsum.photos/300/200" class="" alt="">
-                        </div>
+                <div id="result_search_hotel" class="col">
+                    <div class="row gx-lg-5 py-5 border-bottom border-secondary-subtle">
+                        <div class="col-auto mx-4" style="width: 300px; height: 200px; background-image: url(https://picsum.photos/300/200);" ></div>
                         <div class="col-auto me-auto mt-lg-0 mt-4">
                             <h4 class="hotel_name mb-3 text-uppercase">Centre Point Prime Hotel Pattaya</h4>
                             <div class="d-flex align-items-center mb-2">
@@ -175,7 +172,7 @@
                         <div class="col-auto align-self-end text-end">
                             <p class="m-0 mb-1 text-body-secondary text-decoration-line-through">THB 1500.00</p>
                             <h4 class="mb-3 fw-bolder">THB 1200.31</h4>
-                            <button type="button" class="btn btn-dark fw-bold">Book Now</button>
+                            <button type="button" class="btn btn-dark fw-bold book_btn">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -191,5 +188,7 @@
         </ul>
         <p class="text-center text-secondary">© 2024 Company, Inc</p>
     </footer>
+    <script src="bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="backend/search.js"></script>
 </body>
 </html>
