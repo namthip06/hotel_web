@@ -186,41 +186,40 @@ class HotelReservationSystem:
                 return selected_rooms
         raise HTTPException(status_code=404, detail="Hotel not found")
 
-    def get_hotel_details(self, name: str):
+    def get_hotel_details(self, name: str, start: str, end: str):
+        start = start.split('-')
+        start = datetime.date(int(start[2]), int(start[1]), int(start[0]))
+        end = end.split('-')
+        end = datetime.date(int(end[2]), int(end[1]), int(end[0]))
         selected_hotel = None
         for hotel in self.__hotel:
             if name == hotel.name:
                 selected_hotel = hotel
                 link = hotel.location.map
-                reccommend_hotel = []
+                recommended_hotel = []
 
                 for rec in self.__hotel:
                     if hotel.location.city == rec.location.city and rec != selected_hotel:
-                        recommended_price = rec.cheapest_room()
-                        discounted_price = "No available discount"
+                        available_rooms = [room for room in rec.room if room.isavailable(start, end)]
+                        if available_rooms:
+                            recommended_price = min([room.price for room in available_rooms])
+                            discounted_price = min([room.final_price for room in available_rooms if room.discount is not None])
 
-                        if any(room.discount for room in rec.room):
-                            recommended_price = min([room.price for room in rec.room]) if rec.room else 0
-                            discounted_price = min([room.final_price for room in rec.room if room.discount is not None]) if rec.room else "No available discount"
-
-                        recdict = {
-                            "Name": rec.name,
-                            "Location": rec.location.city,
-                            "Rating": rec.average_rating(),
-                            "Price": recommended_price,
-                            "Discounted price": discounted_price
-                        }
-
-                        reccommend_hotel.append(recdict)
-
+                            recdict = {
+                                "Name": rec.name,
+                                "Location": rec.location.city,
+                                "Rating": rec.average_rating(),
+                                "Price": recommended_price,
+                                "Discounted price": discounted_price
+                            }
+                            recommended_hotel.append(recdict)
                 available_rooms = []
                 for room in selected_hotel.room:
-                    if room.available:
+                    if room.isavailable(start, end):
                         if room.final_price == room.price:
                             final_price = "No available discount"
                         else:
                             final_price = room.final_price
-
                         room_info = {
                             'Detail': room.detail,
                             'Price': room.price,
@@ -228,7 +227,6 @@ class HotelReservationSystem:
                             'Guests': room.guests
                         }
                         available_rooms.append(room_info)
-
                 your_select = {
                     'Name': selected_hotel.name,
                     'Location': selected_hotel.location.city,
@@ -239,10 +237,8 @@ class HotelReservationSystem:
                                 'Rating': feedback.rating,
                                 'Time': feedback.time} for feedback in selected_hotel.feedback]
                 }
-
-                final_result = {'Hotel': your_select, 'Recommend nearby hotels': reccommend_hotel}
+                final_result = {'Hotel': your_select, 'Recommend nearby hotels': recommended_hotel}
                 return final_result
-
         raise HTTPException(status_code=404, detail="Hotel not found")
 
     def create_reservation(self, hotel_id : int, room_detail : str, start : str, end : str) -> dict:  #hotel id, room name, userid, in, out
