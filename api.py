@@ -95,8 +95,8 @@ async def pay(payment_data: schema.Payment):
 # --------Search Available Room by Hotel's Name----------------
 # http://127.0.0.1:8000/hotel?name=hotel%20one
 @app.get('/hotel')
-async def get_hotel_details(name: str):
-    get_available_room = hotel_list.myHotel.get_hotel_details(name)
+async def get_hotel_details(name: str, start: str, end: str):
+    get_available_room = hotel_list.myHotel.get_hotel_details(name, start, end)
     return get_available_room
 
 @app.get('/change/')
