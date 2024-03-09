@@ -28,6 +28,11 @@ class Room(BaseModel):
     price : int
     guest : int 
 
+class Discount(BaseModel):
+    discount_code : str
+    discount_amount: float
+    discount_expiration: str
+
 class HotelEditor(BaseModel):
     hotel_name : str
     country : str
