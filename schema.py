@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 class Payment(BaseModel):
     reservation_id : int
+    discount_code : str
 
 class Sign_up(BaseModel):
     user_name : str
