@@ -888,7 +888,6 @@ class Feedback:
         self.__comment = comment
         self.__rating = rating
         self.__time = time
-        self.__images = []
     
     @property
     def user(self):
@@ -905,14 +904,6 @@ class Feedback:
     @property
     def time(self):
         return self.__time
-
-    @property
-    def images(self):
-        return self.__images
-
-    @images.setter
-    def images(self, images):
-        self.__images = images
 
 class Payment:
     __code = 0
