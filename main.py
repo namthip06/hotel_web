@@ -454,6 +454,20 @@ class HotelReservationSystem:
                 return "Success",{"Your Hotel":hotel}
         raise HTTPException(status_code=404, detail="Hotel not found")
 
+    def add_discount(self, hotel_id: int, detail: str, discount_code: str, discount_amount: float, discount_expiration: str):
+        if self.current_user == None:
+            raise HTTPException(status_code=403, detail="Please Login")
+        if self.current_user.type != "admin":
+            raise HTTPException(status_code=403, detail="No Permission")
+        for hotel in self.__hotel:
+            if hotel.id == hotel_id:
+                for room in hotel.room:
+                    if room.detail == detail:
+                        discount = Discount(discount_code, discount_amount, discount_expiration)
+                        room.add_discount(discount)
+                        return "Success",{"Your Hotel":hotel}
+        raise HTTPException(status_code=404, detail="Hotel not found")
+
     def edit_room(self, hotel_name: str, room_detail: str, new_price: int, new_guests: int):
         if self.current_user == None:
             raise HTTPException(status_code=403, detail="Please Login")
