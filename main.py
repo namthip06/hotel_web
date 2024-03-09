@@ -1,5 +1,6 @@
 import datetime 
 import uvicorn
+from typing import Optional
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
@@ -199,15 +200,15 @@ class HotelReservationSystem:
                         discounted_price = "No available discount"
 
                         if any(room.discount for room in rec.room):
-                            discounted_price = min([room.final_price for room in rec.room if room.discount is not None])
-                            recommended_price = min(recommended_price, discounted_price)
+                            recommended_price = min([room.price for room in rec.room]) if rec.room else 0
+                            discounted_price = min([room.final_price for room in rec.room if room.discount is not None]) if rec.room else "No available discount"
 
                         recdict = {
-                            "name": rec.name,
-                            "location": rec.location.city,
-                            "rating": rec.average_rating(),
-                            "price": recommended_price.price,
-                            "discounted price": discounted_price
+                            "Name": rec.name,
+                            "Location": rec.location.city,
+                            "Rating": rec.average_rating(),
+                            "Price": recommended_price,
+                            "Discounted price": discounted_price
                         }
 
                         reccommend_hotel.append(recdict)
@@ -221,22 +222,22 @@ class HotelReservationSystem:
                             final_price = room.final_price
 
                         room_info = {
-                            'detail': room.detail,
-                            'price': room.price,
-                            'discounted price': final_price,
-                            'guests': room.guests
+                            'Detail': room.detail,
+                            'Price': room.price,
+                            'Discounted Price': final_price,
+                            'Guests': room.guests
                         }
                         available_rooms.append(room_info)
 
                 your_select = {
-                    'name': selected_hotel.name,
-                    'location': selected_hotel.location.city,
-                    'map': link,
-                    'available room': available_rooms,
-                    'feedback': [{'user': feedback.user,
-                                'comment': feedback.comment,
-                                'rating': feedback.rating,
-                                'time': feedback.time} for feedback in selected_hotel.feedback]
+                    'Name': selected_hotel.name,
+                    'Location': selected_hotel.location.city,
+                    'Map': link,
+                    'Available Room': available_rooms,
+                    'Feedback': [{'User': feedback.user,
+                                'Comment': feedback.comment,
+                                'Rating': feedback.rating,
+                                'Time': feedback.time} for feedback in selected_hotel.feedback]
                 }
 
                 final_result = {'Hotel': your_select, 'Recommend nearby hotels': reccommend_hotel}
@@ -273,7 +274,7 @@ class HotelReservationSystem:
                                 "Guests" : rooms.guests,
                                 "Hotel Rating" : hotels.average_rating(),
                                 "Location":hotels.location,
-                                "Discount" : rooms.final_price,
+                                "Discounted Price" : rooms.final_price,
                                 "Image": hotels.imgsrc
                             }
                         raise HTTPException(status_code=404, detail="Room Not Available")
@@ -379,9 +380,7 @@ class HotelReservationSystem:
                                             return "Cancelled Reservation"
         raise HTTPException(status_code=404, detail="Not Your Reservation ID")
     
-
-    
-    def add_payment(self,reservation_id : int) -> dict:
+    def add_payment(self,reservation_id : int, discount_code: Optional[str] = None) -> dict:
         if self.current_user == None:
             return "User Not login"
         user = self.current_user
@@ -391,7 +390,13 @@ class HotelReservationSystem:
             hotel = self.search_hotel_by_id(user.cart.hotel_id)
             if hotel != None:
                 room = hotel.search_room_by_name(user.cart.room_detail)
-                price = room.final_price
+                price = room.price
+                if discount_code:
+                    if not room.discount or room.discount.code != discount_code:
+                        raise HTTPException(status_code=400, detail="Invalid discount code")
+
+                    discounted_amount = room.price * room.discount.amount
+                    price -= discounted_amount
                 self.__payment.append(Payment(user.user_id, price, hotel.name, room.detail))
                 room.reservation = user.cart
                 user.reservation = user.cart
@@ -430,7 +435,6 @@ class HotelReservationSystem:
                                     "Rating": rating,
                                     "Time": time
                                 }
-        
         raise HTTPException(status_code=400, detail="No completed reservations for feedback")   
 
     def add_hotel(self,hotel_name: str, location_country: str, location_city : str, location_map):
@@ -441,8 +445,7 @@ class HotelReservationSystem:
         hotel = Hotel(hotel_name,Location(location_country,location_city,location_map))
         self.hotel = hotel
         return "Success",{"Your Hotel ID" : self.__hotel[-1].id}
-
-                
+         
     def add_room(self, hotel_id: int, detail: str, price: int, guests: int):
         if self.current_user == None:
             raise HTTPException(status_code=403, detail="Please Login")
@@ -454,7 +457,6 @@ class HotelReservationSystem:
                 hotel.room = room
                 return "Success",{"Your Hotel":hotel}
         raise HTTPException(status_code=404, detail="Hotel not found")
-    
 
     def edit_room(self, hotel_name: str, room_detail: str, new_price: int, new_guests: int):
         if self.current_user == None:
@@ -489,7 +491,6 @@ class HotelReservationSystem:
         else:
             raise HTTPException(status_code=404, detail="Hotel not found")
   
-    
     def remove_hotel(self, hotel_name: str):
         if self.current_user == None:
             raise HTTPException(status_code=403, detail="Please Login")
@@ -517,7 +518,6 @@ class HotelReservationSystem:
                 raise HTTPException(status_code=404, detail="Room not found")
         else:
             raise HTTPException(status_code=404, detail="Hotel not found")
-
 
 class Hotel:
     __code = 0
@@ -619,6 +619,29 @@ class Location:
     def map(self, map):
         self.__map = map
 
+class Discount: 
+    def __init__(self, code, amount, expiration):
+        self.__code = code
+        self.__amount = amount
+        self.__expiration = expiration
+    
+    @property
+    def code(self):
+        return self.__code
+    
+    @property
+    def amount(self):
+        return self.__amount
+    
+    @property
+    def expiration(self):
+        return self.__expiration
+    
+    @amount.setter
+    def amount(self,amount):
+        if(amount.isnumeric() and amount <= 1):
+            self.__amount = amount
+
 class Room:
     def __init__(self, detail:str, price:int, guests:int):
         self.__detail = detail
@@ -677,16 +700,16 @@ class Room:
     
     @property
     def final_price(self):
-        if self.__discount != None:
-            self.__price = self.__price*self.__discount
+        if self.__discount is not None:
+            discounted_price = self.__price * (1 - self.__discount.amount)
+            return discounted_price
         return self.__price
 
     @reservation.setter
-    def reservation(self, reservation:object):
+    def reservation(self, reservation: object):
         self.__reservation.append(reservation)
-
-    @discount.setter
-    def discount(self, discount):
+        
+    def add_discount(self, discount: Discount):
         self.__discount = discount
 
 class Reservation:
@@ -906,29 +929,6 @@ class Payment:
     @property
     def room(self):
         return self.__hotel_room
-
-class Discount: 
-    def __init__(self, code, amount, expiration):
-        self.__code = code
-        self.__amount = amount
-        self.__expiration = expiration
-    
-    @property
-    def code(self):
-        return self.__code
-    
-    @property
-    def amount(self):
-        return self.__amount
-    
-    @property
-    def expiration(self):
-        return self.__expiration
-    
-    @amount.setter
-    def amount(self,amount):
-        if(amount.isnumeric() and amount <= 1):
-            self.__amount = amount
 
 class Receipt:
     def __init__(self,payment,checkin,checkout):
