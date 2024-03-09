@@ -129,15 +129,20 @@ async def cancel_reservation( reservation_id: int):
     cancel_reservation = hotel_list.myHotel.cancel_reservation( reservation_id)
     return cancel_reservation
 
-@app.post('/add_hotel')
+@app.post('/admin/add_hotel')
 async def add_hotel( add_hotel: schema.Hotel):
     add_hotel = hotel_list.myHotel.add_hotel(add_hotel.name, add_hotel.country, add_hotel.city, add_hotel.maps)
     return add_hotel
 
-@app.post('/add_room')
+@app.post('/admin/add_room')
 async def add_room(hotel_id: int, add_room: schema.Room):
     add_room = hotel_list.myHotel.add_room(hotel_id, add_room.detail, add_room.price, add_room.guest)
     return add_room
+
+@app.post('/admin/add_discount')
+async def add_discount(hotel_id:int, detail:str, add_discount: schema.Discount):
+    add_discount = hotel_list.myHotel.add_discount(hotel_id, detail, add_discount.discount_code, add_discount.discount_amount, add_discount.discount_expiration)
+    return add_discount
 
 @app.put("/admin/edit-room/")
 def edit_room( edit_room: schema.RoomEditor):
